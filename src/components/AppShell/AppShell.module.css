@@ -1,0 +1,66 @@
+.shell {
+  display: grid;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ── Variant: sidebar-only ─────────────────────────────────────────────── */
+
+.sidebarOnly {
+  grid-template-columns: auto 1fr;
+}
+
+.sidebarOnly .mainArea {
+  grid-column: 2;
+}
+
+/* ── Variant: navbar-only ──────────────────────────────────────────────── */
+
+.navbarOnly {
+  grid-template-rows: auto 1fr;
+}
+
+.navbarOnly .navbarSlot {
+  grid-row: 1;
+}
+
+.navbarOnly .mainArea {
+  grid-row: 2;
+}
+
+/* ── Variant: both ─────────────────────────────────────────────────────── */
+
+.both {
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+.both .sidebarSlot {
+  grid-row: 1 / -1;
+}
+
+.both .navbarSlot {
+  grid-column: 2;
+}
+
+.both .mainArea {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* ── Slots ─────────────────────────────────────────────────────────────── */
+
+.sidebarSlot {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* ── Main content area ─────────────────────────────────────────────────── */
+
+.mainArea {
+  overflow-y: auto;
+  background: var(--ds-color-bg-page);
+  min-height: 0;
+  min-width: 0;
+}

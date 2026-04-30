@@ -1,0 +1,57 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Europe/Madrid
+    open-pull-requests-limit: 10
+    groups:
+      storybook:
+        patterns:
+          - "storybook"
+          - "@storybook/*"
+          - "@chromatic-com/*"
+      testing:
+        patterns:
+          - "@testing-library/*"
+          - "@vitest/*"
+          - "jest-axe"
+          - "@types/jest-axe"
+          - "vitest"
+          - "playwright"
+          - "jsdom"
+      typescript:
+        patterns:
+          - "typescript"
+          - "typescript-eslint"
+          - "@types/*"
+      eslint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "globals"
+      vite:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "typed-css-modules"
+    ignore:
+      # Peer dependencies — kept in sync with the supported React range
+      - dependency-name: react
+      - dependency-name: react-dom
+      - dependency-name: "@types/react"
+      - dependency-name: "@types/react-dom"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Europe/Madrid
+    open-pull-requests-limit: 5

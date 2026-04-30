@@ -1,0 +1,130 @@
+/* ── Root ─────────────────────────────────────────────────────────────────── */
+
+.root {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-4) var(--ds-space-5);
+  border-radius: var(--ds-radius-lg);
+  border: var(--ds-border-width-sm) solid;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Variants ─────────────────────────────────────────────────────────────── */
+
+.info {
+  background-color: var(--ds-color-bg-info);
+  border-color:     var(--ds-color-border-info);
+  color:            var(--ds-color-text-info);
+}
+
+.success {
+  background-color: var(--ds-color-bg-success);
+  border-color:     var(--ds-color-border-success);
+  color:            var(--ds-color-text-success);
+}
+
+.warning {
+  background-color: var(--ds-color-bg-warning);
+  border-color:     var(--ds-color-border-warning);
+  color:            var(--ds-color-text-warning);
+}
+
+.error {
+  background-color: var(--ds-color-bg-error);
+  border-color:     var(--ds-color-border-error);
+  color:            var(--ds-color-text-error);
+}
+
+.promotional {
+  background-color: var(--ds-color-action-accent-subtle);
+  border-color:     var(--ds-color-action-accent);
+  color:            var(--ds-color-action-accent);
+}
+
+/* ── Stacked layout ───────────────────────────────────────────────────────── */
+
+.stacked {
+  flex-direction: column;
+}
+
+.stacked .icon {
+  padding-top: 0;
+}
+
+/* ── Icon ─────────────────────────────────────────────────────────────────── */
+
+.icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 2px; /* optical alignment with headline */
+  color: inherit;
+}
+
+/* ── Content ──────────────────────────────────────────────────────────────── */
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-semibold);
+  line-height: var(--ds-line-height-normal);
+  color: inherit;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-sm);
+  line-height: var(--ds-line-height-normal);
+  color: inherit;
+}
+
+/* ── Actions ──────────────────────────────────────────────────────────────── */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  flex-shrink: 0;
+}
+
+.stacked .actions {
+  margin-top: var(--ds-space-2);
+}
+
+/* ── Dismiss button ───────────────────────────────────────────────────────── */
+
+.dismiss {
+  flex-shrink: 0;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ds-space-1);
+  margin: calc(-1 * var(--ds-space-1));
+  background: none;
+  border: none;
+  border-radius: var(--ds-radius-sm);
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  transition: opacity var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.dismiss:hover  { opacity: 1; }
+
+.dismiss:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}

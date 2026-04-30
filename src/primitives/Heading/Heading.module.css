@@ -1,0 +1,30 @@
+.heading {
+  font-family: var(--ds-font-family-base);
+  font-weight: var(--ds-font-weight-semibold);
+  line-height: var(--ds-line-height-tight);
+  color: var(--ds-color-text-default);
+  /* Reset browser margins — consumers control spacing via layout */
+  margin: 0;
+}
+
+/* ---- Sizes ---- */
+
+/* xl  → --ds-font-size-4xl  (2.25rem / 36px) */
+.xl  { font-size: var(--ds-font-size-4xl); }
+
+/* lg  → --ds-font-size-3xl  (1.875rem / 30px) — default for h1 */
+.lg  { font-size: var(--ds-font-size-3xl); }
+
+/* md  → --ds-font-size-2xl  (1.5rem / 24px)  — default for h2 */
+.md  { font-size: var(--ds-font-size-2xl); }
+
+/* sm  → --ds-font-size-xl   (1.25rem / 20px) — default for h3 */
+.sm  { font-size: var(--ds-font-size-xl); }
+
+/* xs  → --ds-font-size-lg   (1.125rem / 18px) — default for h4–h6 */
+.xs  { font-size: var(--ds-font-size-lg); }
+
+/* ---- Colors ---- */
+
+.muted   { color: var(--ds-color-text-muted); }
+.inherit { color: inherit; }

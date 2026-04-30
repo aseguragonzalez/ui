@@ -1,0 +1,51 @@
+.nav {
+  /* landmark — no decoration needed */
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+/* Separator via CSS — pseudo-elements are skipped by screen readers */
+.item:not(:last-child)::after {
+  content: '/';
+  color: var(--ds-color-text-muted);
+  margin-inline: var(--ds-space-2);
+  font-size: var(--ds-font-size-sm);
+  user-select: none;
+  pointer-events: none;
+}
+
+.link {
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-color-action-primary);
+  text-decoration: none;
+  border-radius: var(--ds-radius-sm);
+  transition: color var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.link:hover {
+  color: var(--ds-color-action-primary-hover);
+  text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}
+
+.current {
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-color-text-default);
+}

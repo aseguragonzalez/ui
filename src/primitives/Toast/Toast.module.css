@@ -1,0 +1,105 @@
+.region {
+  position: fixed;
+  bottom: var(--ds-space-5);
+  right: var(--ds-space-5);
+  z-index: var(--ds-z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+  width: 360px;
+  max-width: calc(100vw - var(--ds-space-10));
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-3) var(--ds-space-4);
+  border-radius: var(--ds-radius-md);
+  border: var(--ds-border-width-sm) solid var(--ds-color-border-default);
+  border-left: 3px solid transparent;
+  box-shadow: var(--ds-shadow-md);
+  background: var(--ds-color-bg-elevated);
+  pointer-events: auto;
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-color-text-default);
+}
+
+.info {
+  border-left-color: var(--ds-color-border-info);
+  color: var(--ds-color-text-default);
+}
+
+.info .icon {
+  color: var(--ds-color-border-info);
+}
+
+.success {
+  border-left-color: var(--ds-color-border-success);
+}
+
+.success .icon {
+  color: var(--ds-color-border-success);
+}
+
+.error {
+  border-left-color: var(--ds-color-border-error);
+}
+
+.error .icon {
+  color: var(--ds-color-border-error);
+}
+
+.warning {
+  border-left-color: var(--ds-color-border-warning);
+}
+
+.warning .icon {
+  color: var(--ds-color-border-warning);
+}
+
+.icon {
+  display: flex;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.message {
+  flex: 1;
+  line-height: var(--ds-line-height-normal);
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  margin: -0.625rem -0.625rem -0.625rem 0;
+  border: none;
+  border-radius: var(--ds-radius-sm);
+  background: transparent;
+  color: var(--ds-color-text-muted);
+  cursor: pointer;
+  margin-top: 0;
+  transition: background-color var(--ds-duration-fast) ease;
+}
+
+.closeButton:hover {
+  background-color: var(--ds-color-bg-subtle);
+  color: var(--ds-color-text-default);
+}
+
+.closeButton:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}

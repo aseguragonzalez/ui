@@ -1,0 +1,59 @@
+/* Visually hidden — live region content for screen readers */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ---- Base ---- */
+
+.spinner {
+  display: inline-block;
+  flex-shrink: 0;
+  border-style: solid;
+  border-radius: var(--ds-radius-full);
+  /* track: faint version of the current color — adapts to any background */
+  border-color: color-mix(in srgb, currentColor 15%, transparent);
+  border-top-color: currentColor;
+  color: var(--ds-color-action-primary);
+  animation: ds-spin 0.7s linear infinite;
+}
+
+/* ---- Sizes ---- */
+
+.sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.125rem;
+}
+
+.md {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-width: 0.1875rem;
+}
+
+.lg {
+  width: 2rem;
+  height: 2rem;
+  border-width: 0.25rem;
+}
+
+/* ---- Keyframes ---- */
+
+@keyframes ds-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Slowed down, not stopped — still communicates loading state without continuous rotation */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 1.5s;
+  }
+}

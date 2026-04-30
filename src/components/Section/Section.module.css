@@ -1,0 +1,24 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--ds-radius-lg);
+}
+
+/* ── Variants ──────────────────────────────────────────────────────────── */
+
+.surface {
+  background: var(--ds-color-bg-surface);
+  border: 1px solid var(--ds-color-border-subtle);
+  box-shadow: var(--ds-elevation-1);
+}
+
+.flat {
+  background: var(--ds-color-bg-subtle);
+}
+
+/* ── Padding ───────────────────────────────────────────────────────────── */
+
+.paddingNone { padding: 0; }
+.paddingSm   { padding: var(--ds-space-4); }
+.paddingMd   { padding: var(--ds-space-6); }
+.paddingLg   { padding: var(--ds-space-8); }

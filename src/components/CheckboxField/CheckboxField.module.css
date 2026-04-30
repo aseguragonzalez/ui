@@ -1,0 +1,26 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+}
+
+/* Checkbox + label en la misma fila */
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-2);
+}
+
+/* El label en CheckboxField tiene fuente regular (no medium),
+   ya que no actúa como cabecera de campo sino como texto inline */
+.label {
+  font-weight: var(--ds-font-weight-regular);
+  cursor: pointer;
+  line-height: 1.4;
+  padding-top: 1px; /* alinear visualmente con el checkbox */
+}
+
+.label.disabled {
+  cursor: not-allowed;
+  color: var(--ds-color-text-disabled);
+}

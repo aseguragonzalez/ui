@@ -1,0 +1,111 @@
+.radio {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+
+  background-color: var(--ds-color-input-bg);
+  border: var(--ds-border-width-md) solid var(--ds-color-input-border);
+  border-radius: var(--ds-radius-full);
+
+  cursor: pointer;
+  position: relative;
+
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: var(--ds-duration-fast);
+  transition-timing-function: var(--ds-easing-default);
+
+  outline: none;
+}
+
+/* Inner dot */
+.radio::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+  border-radius: var(--ds-radius-full);
+  transition: background-color var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+/* ---- Hover ---- */
+
+.radio:hover:not(:disabled):not(:checked) {
+  border-color: var(--ds-color-input-border-hover);
+}
+
+/* ---- Focus ---- */
+
+.radio:focus-visible {
+  border-color: var(--ds-color-input-border-focus);
+  box-shadow: 0 0 0 var(--ds-focus-ring-width)
+    color-mix(in srgb, var(--ds-color-action-focus-ring) 30%, transparent);
+}
+
+/* ---- Checked ---- */
+
+.radio:checked {
+  background-color: var(--ds-color-action-primary);
+  border-color: var(--ds-color-action-primary);
+}
+
+.radio:checked::after {
+  background-color: var(--ds-color-text-on-action);
+}
+
+.radio:hover:not(:disabled):checked {
+  background-color: var(--ds-color-action-primary-hover);
+  border-color: var(--ds-color-action-primary-hover);
+}
+
+/* ---- Error ---- */
+
+.error {
+  border-color: var(--ds-color-input-border-error);
+}
+
+.error:focus-visible {
+  box-shadow: 0 0 0 var(--ds-focus-ring-width)
+    color-mix(in srgb, var(--ds-color-border-error) 30%, transparent);
+}
+
+/* ---- Disabled ---- */
+
+.radio:disabled {
+  background-color: var(--ds-color-input-bg-disabled);
+  border-color: var(--ds-color-border-disabled);
+  cursor: not-allowed;
+}
+
+.radio:disabled:checked {
+  background-color: var(--ds-color-border-disabled);
+}
+
+/* ---- Sizes ---- */
+
+.sm {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.sm::after {
+  width: 4px;
+  height: 4px;
+}
+
+.lg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.lg::after {
+  width: 8px;
+  height: 8px;
+}

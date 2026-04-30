@@ -1,0 +1,73 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- TabList ---- */
+
+.tabList {
+  display: flex;
+  border-bottom: var(--ds-border-width-sm) solid var(--ds-color-border-default);
+}
+
+/* ---- Tab ---- */
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+
+  padding: var(--ds-space-2) var(--ds-space-4);
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-medium);
+  line-height: var(--ds-line-height-tight);
+  color: var(--ds-color-text-muted);
+  white-space: nowrap;
+
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  /* Overlap the tabList's border-bottom so the active indicator sits flush */
+  margin-bottom: -1px;
+  cursor: pointer;
+
+  transition-property: color, border-color;
+  transition-duration: var(--ds-duration-fast);
+  transition-timing-function: var(--ds-easing-default);
+
+  outline: none;
+}
+
+.tab:hover:not(:disabled) {
+  color: var(--ds-color-text-default);
+}
+
+.tab[aria-selected='true'] {
+  color: var(--ds-color-action-primary);
+  border-bottom-color: var(--ds-color-action-primary);
+}
+
+.tab:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+  border-radius: var(--ds-radius-sm);
+}
+
+.tab:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* ---- TabPanel ---- */
+
+.tabPanel {
+  padding-top: var(--ds-space-4);
+  outline: none;
+}
+
+.tabPanel:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+  border-radius: var(--ds-radius-sm);
+}

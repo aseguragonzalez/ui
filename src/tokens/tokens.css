@@ -1,0 +1,413 @@
+/* =============================================================
+   DESIGN SYSTEM — CSS CUSTOM PROPERTIES
+   Consumers override semantic tokens only, never primitive scale.
+   ============================================================= */
+
+:root {
+  /* ----------------------------------------------------------
+     PRIMITIVE SCALE
+     These are never used directly in components.
+     They feed semantic tokens below.
+  ---------------------------------------------------------- */
+
+  /* Color — neutral */
+  --ds-palette-neutral-0:   #ffffff;
+  --ds-palette-neutral-50:  #f9fafb;
+  --ds-palette-neutral-100: #f3f4f6;
+  --ds-palette-neutral-200: #e5e7eb;
+  --ds-palette-neutral-300: #d1d5db;
+  --ds-palette-neutral-400: #9ca3af;
+  --ds-palette-neutral-500: #6b7280;
+  --ds-palette-neutral-600: #4b5563;
+  --ds-palette-neutral-700: #374151;
+  --ds-palette-neutral-800: #1f2937;
+  --ds-palette-neutral-900: #111827;
+  --ds-palette-neutral-950: #030712;
+
+  /* Color — brand (Navy blue) */
+  --ds-palette-brand-50:  #eff4ff;
+  --ds-palette-brand-100: #dce8ff;
+  --ds-palette-brand-200: #b9d0ff;
+  --ds-palette-brand-300: #8ab0ff;
+  --ds-palette-brand-400: #5585f6;
+  --ds-palette-brand-500: #3563e9;
+  --ds-palette-brand-600: #2449cc;
+  --ds-palette-brand-700: #1c38a6;
+  --ds-palette-brand-800: #162e88;
+  --ds-palette-brand-900: #0f2068;
+
+  /* Color — accent (Teal) */
+  --ds-palette-accent-50:  #effdf8;
+  --ds-palette-accent-100: #d7f8ed;
+  --ds-palette-accent-200: #aff0d9;
+  --ds-palette-accent-300: #78e4bc;
+  --ds-palette-accent-400: #3ecf9b;
+  --ds-palette-accent-500: #19b47f;
+  --ds-palette-accent-600: #0e9367;
+  --ds-palette-accent-700: #0c7555;
+  --ds-palette-accent-800: #0a5c43;
+  --ds-palette-accent-900: #074a36;
+
+  /* Color — semantic status */
+  --ds-palette-success-100: #dcfce7;
+  --ds-palette-success-500: #22c55e;
+  --ds-palette-success-700: #15803d;
+  --ds-palette-warning-100: #fef9c3;
+  --ds-palette-warning-500: #eab308;
+  --ds-palette-warning-700: #a16207;
+  --ds-palette-error-100:   #fee2e2;
+  --ds-palette-error-500:   #ef4444;
+  --ds-palette-error-600:   #dc2626;
+  --ds-palette-error-700:   #b91c1c;
+  --ds-palette-info-100:    #e0f2fe;
+  --ds-palette-info-500:    #0ea5e9;
+  --ds-palette-info-700:    #0369a1;
+
+  /* Spacing scale (base 4px) */
+  --ds-space-1:  0.25rem;   /*  4px */
+  --ds-space-2:  0.5rem;    /*  8px */
+  --ds-space-3:  0.75rem;   /* 12px */
+  --ds-space-4:  1rem;      /* 16px */
+  --ds-space-5:  1.25rem;   /* 20px */
+  --ds-space-6:  1.5rem;    /* 24px */
+  --ds-space-8:  2rem;      /* 32px */
+  --ds-space-10: 2.5rem;    /* 40px */
+  --ds-space-12: 3rem;      /* 48px */
+  --ds-space-16: 4rem;      /* 64px */
+
+  /* Typography */
+  --ds-font-family-base: system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ds-font-family-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro',
+    Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+
+  --ds-font-size-xs:   0.75rem;    /* 12px */
+  --ds-font-size-sm:   0.875rem;   /* 14px */
+  --ds-font-size-md:   1rem;       /* 16px */
+  --ds-font-size-lg:   1.125rem;   /* 18px */
+  --ds-font-size-xl:   1.25rem;    /* 20px */
+  --ds-font-size-2xl:  1.5rem;     /* 24px */
+  --ds-font-size-3xl:  1.875rem;   /* 30px */
+  --ds-font-size-4xl:  2.25rem;    /* 36px */
+
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium:  500;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold:    700;
+
+  --ds-line-height-tight:  1.25;
+  --ds-line-height-normal: 1.5;
+  --ds-line-height-relaxed: 1.75;
+
+  /* Border radius */
+  --ds-radius-none: 0;
+  --ds-radius-sm:   0.25rem;
+  --ds-radius-md:   0.375rem;
+  --ds-radius-lg:   0.5rem;
+  --ds-radius-xl:   0.75rem;
+  --ds-radius-full: 9999px;
+
+  /* Border width */
+  --ds-border-width-sm: 1px;
+  --ds-border-width-md: 2px;
+
+  /* Shadows */
+  --ds-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --ds-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --ds-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --ds-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Elevation — shadow token per level */
+  --ds-elevation-1: var(--ds-shadow-xs);
+  --ds-elevation-2: var(--ds-shadow-sm);
+  --ds-elevation-3: var(--ds-shadow-md);
+
+  /* Transition */
+  --ds-duration-fast:   100ms;
+  --ds-duration-normal: 200ms;
+  --ds-duration-slow:   300ms;
+  --ds-easing-default:  cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Focus ring — shared by all interactive elements */
+  --ds-focus-ring-width:  3px;
+  --ds-focus-ring-offset: 2px;
+  --ds-focus-ring-color:  var(--ds-color-action-focus-ring);
+
+  /* Z-index scale */
+  --ds-z-navbar:   50;
+  --ds-z-dropdown: 100;
+  --ds-z-overlay:  200;
+  --ds-z-modal:    300;
+  --ds-z-toast:    400;
+  --ds-z-tooltip:  500;
+
+  /* Breakpoints — reference only (not usable as CSS custom properties in @media queries)
+     sm: 480px  │  md: 768px  │  lg: 1024px  │  xl: 1280px              */
+
+  /* Layout structural tokens */
+  --ds-layout-navbar-height:           3.5rem;   /*  56px */
+  --ds-layout-sidebar-width:           15rem;    /* 240px */
+  --ds-layout-sidebar-width-collapsed: 3.5rem;   /*  56px — icon only */
+
+  /* Charts — series palette + structural */
+  --ds-chart-1: var(--ds-palette-brand-500);
+  --ds-chart-2: var(--ds-palette-accent-500);
+  --ds-chart-3: #f59e0b;   /* amber-500  */
+  --ds-chart-4: #8b5cf6;   /* violet-500 */
+  --ds-chart-5: #ef4444;   /* red-500    */
+  --ds-chart-6: #06b6d4;   /* cyan-500   */
+  --ds-chart-axis:  var(--ds-color-border-default);
+  --ds-chart-grid:  var(--ds-color-bg-muted);
+  --ds-chart-label: var(--ds-color-text-muted);
+
+  /* ----------------------------------------------------------
+     SEMANTIC TOKENS — LIGHT THEME (default)
+     These are what components reference.
+     Consumers may override these to customise the theme.
+  ---------------------------------------------------------- */
+
+  /* Surfaces */
+  --ds-color-bg-page:     var(--ds-palette-neutral-50);
+  --ds-color-bg-surface:  var(--ds-palette-neutral-0);
+  --ds-color-bg-subtle:   var(--ds-palette-neutral-100);
+  --ds-color-bg-muted:    var(--ds-palette-neutral-200);
+  --ds-color-bg-elevated: var(--ds-palette-neutral-0);
+  --ds-color-bg-overlay:  var(--ds-palette-neutral-0);
+  --ds-color-backdrop:    rgba(0, 0, 0, 0.5);
+  /* Tooltip — inverts in dark mode for contrast */
+  --ds-color-bg-tooltip:   var(--ds-palette-neutral-900);
+  --ds-color-text-tooltip: var(--ds-palette-neutral-50);
+  /* Toggle thumb — always white for contrast on both track colors */
+  --ds-color-toggle-thumb: var(--ds-palette-neutral-0);
+
+  /* Text */
+  --ds-color-text-default:    var(--ds-palette-neutral-900);
+  --ds-color-text-muted:      var(--ds-palette-neutral-500);
+  --ds-color-text-disabled:   var(--ds-palette-neutral-500);
+  --ds-color-text-on-action:  var(--ds-palette-neutral-0);
+  --ds-color-text-on-accent:  var(--ds-palette-neutral-0);
+  --ds-color-text-inverse:    var(--ds-palette-neutral-0);
+  --ds-color-text-error:      var(--ds-palette-error-700);
+  --ds-color-text-success:    var(--ds-palette-success-700);
+  --ds-color-text-warning:    var(--ds-palette-warning-700);
+  --ds-color-text-info:       var(--ds-palette-info-700);
+  --ds-color-text-accent:     var(--ds-palette-accent-700);
+
+  /* Borders */
+  --ds-color-border-default:  var(--ds-palette-neutral-300);
+  --ds-color-border-strong:   var(--ds-palette-neutral-500);
+  --ds-color-border-error:    var(--ds-palette-error-500);
+  --ds-color-border-success:  var(--ds-palette-success-500);
+  --ds-color-border-warning:  var(--ds-palette-warning-500);
+  --ds-color-border-info:     var(--ds-palette-info-500);
+  --ds-color-border-accent:   var(--ds-palette-accent-400);
+  --ds-color-border-focus:    var(--ds-palette-brand-500);
+  --ds-color-border-disabled: var(--ds-palette-neutral-200);
+
+  /* Action — brand (primary interactive: buttons, links, checkboxes…) */
+  --ds-color-action-primary:          var(--ds-palette-brand-600);
+  --ds-color-action-primary-hover:    var(--ds-palette-brand-700);
+  --ds-color-action-primary-active:   var(--ds-palette-brand-800);
+  --ds-color-action-primary-subtle:   var(--ds-palette-brand-50);
+  --ds-color-action-focus-ring:       var(--ds-palette-brand-500);
+
+  /* Action — accent (teal secondary actions, highlights)
+     accent-700 on white = 5.79:1 — WCAG AA ✓ */
+  --ds-color-action-accent:           var(--ds-palette-accent-700);
+  --ds-color-action-accent-hover:     var(--ds-palette-accent-800);
+  --ds-color-action-accent-active:    var(--ds-palette-accent-900);
+  --ds-color-action-accent-subtle:    var(--ds-palette-accent-50);
+
+  /* Action — danger (destructive actions) */
+  --ds-color-action-danger:           var(--ds-palette-error-600);
+  --ds-color-action-danger-hover:     var(--ds-palette-error-700);
+  --ds-color-action-danger-active:    var(--ds-palette-error-700);
+
+  /* Form inputs */
+  --ds-color-input-bg:             var(--ds-palette-neutral-0);
+  --ds-color-input-bg-disabled:    var(--ds-palette-neutral-100);
+  --ds-color-input-border:         var(--ds-palette-neutral-300);
+  --ds-color-input-border-hover:   var(--ds-palette-neutral-400);
+  --ds-color-input-border-focus:   var(--ds-palette-brand-500);
+  --ds-color-input-border-error:   var(--ds-palette-error-500);
+  --ds-color-input-text:           var(--ds-palette-neutral-900);
+  --ds-color-input-placeholder:    var(--ds-palette-neutral-400);
+
+  /* Status backgrounds */
+  --ds-color-bg-error:   var(--ds-palette-error-100);
+  --ds-color-bg-success: var(--ds-palette-success-100);
+  --ds-color-bg-warning: var(--ds-palette-warning-100);
+  --ds-color-bg-info:    var(--ds-palette-info-100);
+  --ds-color-bg-accent:  var(--ds-palette-accent-50);
+}
+
+/* ----------------------------------------------------------
+   DARK THEME — via OS preference (automatic)
+---------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ds-color-bg-page:     #0f1117;
+    --ds-color-bg-surface:  #161b27;
+    --ds-color-bg-subtle:   #1e2438;
+    --ds-color-bg-muted:    #252d40;
+    --ds-color-bg-elevated: #2a3249;
+    --ds-color-bg-overlay:  #20293c;
+    --ds-color-backdrop:    rgba(0, 0, 0, 0.65);
+    --ds-color-bg-tooltip:   var(--ds-palette-neutral-100);
+    --ds-color-text-tooltip: var(--ds-palette-neutral-900);
+    --ds-color-toggle-thumb: var(--ds-palette-neutral-0);
+
+    --ds-chart-1: var(--ds-palette-brand-400);
+
+    --ds-color-text-default:    var(--ds-palette-neutral-50);
+    --ds-color-text-muted:      var(--ds-palette-neutral-400);
+    --ds-color-text-disabled:   var(--ds-palette-neutral-400);
+    --ds-color-text-on-action:  var(--ds-palette-neutral-0);
+    --ds-color-text-on-accent:  var(--ds-palette-neutral-0);
+    --ds-color-text-inverse:    var(--ds-palette-neutral-900);
+    --ds-color-text-error:      var(--ds-palette-error-500);
+    --ds-color-text-success:    var(--ds-palette-success-500);
+    --ds-color-text-warning:    var(--ds-palette-warning-500);
+    --ds-color-text-info:       var(--ds-palette-info-500);
+    --ds-color-text-accent:     var(--ds-palette-accent-300);
+
+    --ds-color-border-default:  #2a3249;
+    --ds-color-border-strong:   var(--ds-palette-neutral-500);
+    --ds-color-border-accent:   var(--ds-palette-accent-500);
+    --ds-color-border-disabled: #1e2438;
+
+    --ds-color-action-primary:        var(--ds-palette-brand-400);
+    --ds-color-action-primary-hover:  var(--ds-palette-brand-300);
+    --ds-color-action-primary-active: var(--ds-palette-brand-200);
+    --ds-color-action-primary-subtle: var(--ds-palette-brand-900);
+    --ds-color-action-focus-ring:     var(--ds-palette-brand-400);
+
+    /* accent-400 on dark bg = 7.56:1 ✓; neutral-900 on accent-400 = 8.88:1 ✓ */
+    --ds-color-action-accent:          var(--ds-palette-accent-400);
+    --ds-color-action-accent-hover:    var(--ds-palette-accent-300);
+    --ds-color-action-accent-active:   var(--ds-palette-accent-200);
+    --ds-color-action-accent-subtle:   var(--ds-palette-accent-900);
+    --ds-color-text-on-accent:         var(--ds-palette-neutral-900);
+
+    --ds-color-action-danger:          var(--ds-palette-error-500);
+    --ds-color-action-danger-hover:    var(--ds-palette-error-600);
+    --ds-color-action-danger-active:   var(--ds-palette-error-700);
+
+    --ds-color-input-bg:              #1e2438;
+    --ds-color-input-bg-disabled:     #161b27;
+    --ds-color-input-border:          #2a3249;
+    --ds-color-input-border-hover:    var(--ds-palette-neutral-500);
+    --ds-color-input-border-focus:    var(--ds-palette-brand-400);
+    --ds-color-input-border-error:    var(--ds-palette-error-500);
+    --ds-color-input-text:            var(--ds-palette-neutral-50);
+    --ds-color-input-placeholder:     var(--ds-palette-neutral-500);
+
+    --ds-color-bg-error:   #2d1a1a;
+    --ds-color-bg-success: #162b1f;
+    --ds-color-bg-warning: #2b2008;
+    --ds-color-bg-info:    #152435;
+    --ds-color-bg-accent:  var(--ds-palette-accent-900);
+  }
+}
+
+/* ----------------------------------------------------------
+   DARK THEME — override explícito [data-theme="dark"]
+   Toma precedencia sobre prefers-color-scheme
+---------------------------------------------------------- */
+[data-theme="dark"] {
+  --ds-color-bg-page:     #0f1117;
+  --ds-color-bg-surface:  #161b27;
+  --ds-color-bg-subtle:   #1e2438;
+  --ds-color-bg-muted:    #252d40;
+  --ds-color-bg-elevated: #2a3249;
+  --ds-color-bg-overlay:  #20293c;
+  --ds-color-backdrop:    rgba(0, 0, 0, 0.65);
+  --ds-color-bg-tooltip:   var(--ds-palette-neutral-100);
+  --ds-color-text-tooltip: var(--ds-palette-neutral-900);
+  --ds-color-toggle-thumb: var(--ds-palette-neutral-0);
+
+  --ds-chart-1: var(--ds-palette-brand-400);
+
+  --ds-color-text-default:    var(--ds-palette-neutral-50);
+  --ds-color-text-muted:      var(--ds-palette-neutral-400);
+  --ds-color-text-disabled:   var(--ds-palette-neutral-400);
+  --ds-color-text-on-action:  var(--ds-palette-neutral-0);
+  --ds-color-text-on-accent:  var(--ds-palette-neutral-0);
+  --ds-color-text-inverse:    var(--ds-palette-neutral-900);
+  --ds-color-text-error:      var(--ds-palette-error-500);
+  --ds-color-text-success:    var(--ds-palette-success-500);
+  --ds-color-text-warning:    var(--ds-palette-warning-500);
+  --ds-color-text-info:       var(--ds-palette-info-500);
+  --ds-color-text-accent:     var(--ds-palette-accent-300);
+
+  --ds-color-border-default:  #2a3249;
+  --ds-color-border-strong:   var(--ds-palette-neutral-500);
+  --ds-color-border-accent:   var(--ds-palette-accent-500);
+  --ds-color-border-disabled: #1e2438;
+
+  --ds-color-action-primary:        var(--ds-palette-brand-400);
+  --ds-color-action-primary-hover:  var(--ds-palette-brand-300);
+  --ds-color-action-primary-active: var(--ds-palette-brand-200);
+  --ds-color-action-primary-subtle: var(--ds-palette-brand-900);
+  --ds-color-action-focus-ring:     var(--ds-palette-brand-400);
+
+  --ds-color-action-accent:          var(--ds-palette-accent-400);
+  --ds-color-action-accent-hover:    var(--ds-palette-accent-300);
+  --ds-color-action-accent-active:   var(--ds-palette-accent-200);
+  --ds-color-action-accent-subtle:   var(--ds-palette-accent-900);
+  --ds-color-text-on-accent:         var(--ds-palette-neutral-900);
+
+  --ds-color-action-danger:          var(--ds-palette-error-500);
+  --ds-color-action-danger-hover:    var(--ds-palette-error-600);
+  --ds-color-action-danger-active:   var(--ds-palette-error-700);
+
+  --ds-color-input-bg:             #1e2438;
+  --ds-color-input-bg-disabled:    #161b27;
+  --ds-color-input-border:         #2a3249;
+  --ds-color-input-border-hover:   var(--ds-palette-neutral-500);
+  --ds-color-input-border-focus:   var(--ds-palette-brand-400);
+  --ds-color-input-border-error:   var(--ds-palette-error-500);
+  --ds-color-input-text:           var(--ds-palette-neutral-50);
+  --ds-color-input-placeholder:    var(--ds-palette-neutral-500);
+
+  --ds-color-bg-error:   #2d1a1a;
+  --ds-color-bg-success: #162b1f;
+  --ds-color-bg-warning: #2b2008;
+  --ds-color-bg-info:    #152435;
+  --ds-color-bg-accent:  var(--ds-palette-accent-900);
+}
+
+/* ----------------------------------------------------------
+   BASE STYLES — typography reset
+   Applies the design system font to the document so every
+   element inherits it without per-component declarations.
+---------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ----------------------------------------------------------
+   REDUCED MOTION — global override
+   Eliminates all transitions and animations for users who
+   prefer reduced motion. Single rule covers every component.
+---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

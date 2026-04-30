@@ -1,0 +1,61 @@
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0; /* prevent fieldset from overflowing flex containers */
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+}
+
+/* The legend acts as the group label */
+.legend {
+  display: flex;
+  align-items: baseline;
+  gap: var(--ds-space-1);
+  margin-bottom: var(--ds-space-1);
+
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-medium);
+  line-height: var(--ds-line-height-normal);
+  color: var(--ds-color-text-default);
+  padding: 0;
+}
+
+.legend.disabled {
+  color: var(--ds-color-text-disabled);
+}
+
+.required {
+  color: var(--ds-color-text-error);
+}
+
+/* Each radio option row */
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-2);
+}
+
+.optionLabel {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-md);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: 1.4;
+  color: var(--ds-color-text-default);
+  cursor: pointer;
+  padding-top: 1px; /* visual alignment with the radio button */
+}
+
+.optionLabel.disabled {
+  color: var(--ds-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+  margin-top: var(--ds-space-1);
+}

@@ -1,0 +1,71 @@
+.layout {
+  display: grid;
+  min-height: 100svh;
+  grid-template-columns: 1fr;
+}
+
+/* ---- Branding panel ---- */
+
+.brandPanel {
+  display: none;
+  background-color: var(--ds-color-action-primary);
+  color: var(--ds-color-text-on-action);
+}
+
+.brandContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--ds-space-12) var(--ds-space-10);
+  height: 100%;
+}
+
+.brandLogo {
+  margin-bottom: var(--ds-space-6);
+}
+
+.brandTagline {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-2xl);
+  font-weight: var(--ds-font-weight-semibold);
+  line-height: var(--ds-line-height-tight);
+  color: var(--ds-color-text-on-action);
+  margin: 0;
+}
+
+/* ---- Form panel ---- */
+
+.formPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ds-color-bg-surface);
+  padding: var(--ds-space-8) var(--ds-space-6);
+}
+
+.formContent {
+  width: 100%;
+  max-width: 26rem;
+}
+
+/* ---- Mobile logo (replaces branding panel on small screens) ---- */
+
+.mobileLogo {
+  margin-bottom: var(--ds-space-6);
+}
+
+/* ---- Desktop: two-column layout ---- */
+
+@media (min-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .brandPanel {
+    display: flex;
+  }
+
+  .mobileLogo {
+    display: none;
+  }
+}

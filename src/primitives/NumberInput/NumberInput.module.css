@@ -1,0 +1,4 @@
+/* Firefox: suppress native spin buttons */
+.numberInput {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,49 @@
+name: Publish Canary
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'dist-tag de npm (ej: pr-42). Por defecto usa el nombre de la rama.'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  canary:
+    name: Publish Canary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - run: npm test
+
+      - name: Resolve dist-tag
+        id: tag
+        run: |
+          INPUT_TAG="${{ inputs.tag }}"
+          BRANCH_TAG="${GITHUB_REF_NAME//\//-}"
+          echo "value=${INPUT_TAG:-$BRANCH_TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Set canary version
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          npm version "${CURRENT}-${{ steps.tag.outputs.value }}.${{ github.run_number }}" --no-git-tag-version
+
+      - name: Publish
+        run: npm publish --tag "${{ steps.tag.outputs.value }}" --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

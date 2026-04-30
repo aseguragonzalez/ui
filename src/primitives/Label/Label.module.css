@@ -1,0 +1,25 @@
+.label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--ds-space-1);
+
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-medium);
+  line-height: var(--ds-line-height-normal);
+  color: var(--ds-color-text-default);
+
+  cursor: default;
+}
+
+.label.disabled {
+  color: var(--ds-color-text-disabled);
+}
+
+.required {
+  color: var(--ds-color-text-error);
+  font-weight: var(--ds-font-weight-medium);
+  /* Screen readers announce the asterisk — hidden visually via aria, but
+     we keep it visible for sighted users as industry-standard convention */
+  aria-hidden: true;
+}

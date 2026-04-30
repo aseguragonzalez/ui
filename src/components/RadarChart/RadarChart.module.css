@@ -1,0 +1,69 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ring {
+  fill: none;
+  stroke: var(--ds-chart-grid);
+  stroke-width: 1;
+}
+
+.axisLine {
+  stroke: var(--ds-chart-grid);
+  stroke-width: 1;
+}
+
+.axisLabel {
+  font-size: 11px;
+  fill: var(--ds-chart-label);
+  font-family: var(--ds-font-family-base);
+}
+
+.seriesPolygon {
+  transition: opacity var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.seriesPolygon:hover {
+  opacity: 0.7;
+}
+
+.legend {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2) var(--ds-space-5);
+  justify-content: center;
+  padding-block-start: var(--ds-space-3);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  font-size: var(--ds-font-size-xs);
+  color: var(--ds-color-text-muted);
+  font-family: var(--ds-font-family-base);
+}
+
+.legendSwatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.empty {
+  padding: var(--ds-space-8);
+  text-align: center;
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-font-size-sm);
+}
