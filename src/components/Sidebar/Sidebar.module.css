@@ -1,0 +1,323 @@
+/* ─── Desktop layout ─────────────────────────────────────── */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: var(--ds-layout-sidebar-width);
+  height: 100%;
+  flex-shrink: 0;
+  transition: width var(--ds-duration-normal) var(--ds-easing-default);
+  overflow: hidden;
+}
+
+.collapsed {
+  width: var(--ds-layout-sidebar-width-collapsed);
+}
+
+/* The panel contains all visible sidebar content */
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--ds-color-bg-surface);
+  border-inline-end: var(--ds-border-width-sm) solid var(--ds-color-border-default);
+  overflow: hidden;
+}
+
+.panel:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: calc(-1 * var(--ds-focus-ring-offset));
+}
+
+/* Backdrop: handled via portal, always fixed */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--ds-color-backdrop);
+  z-index: calc(var(--ds-z-overlay) - 1);
+}
+
+/* ─── Panel header (logo + text + mobile close) ──────────── */
+
+.panelTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ds-space-3) var(--ds-space-4);
+  flex-shrink: 0;
+  min-height: var(--ds-layout-navbar-height);
+  border-bottom: var(--ds-border-width-sm) solid var(--ds-color-border-default);
+  gap: var(--ds-space-2);
+}
+
+.collapsed .panelTop {
+  padding-inline: var(--ds-space-2);
+  justify-content: center;
+}
+
+/* Row that holds logo + headerContent side by side */
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.collapsed .logoRow {
+  justify-content: center;
+}
+
+/* Logo: always visible, even when collapsed */
+.logoSlot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Header text: fades out when sidebar is collapsed */
+.headerContent {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 1;
+  max-width: 200px;
+  transition:
+    opacity var(--ds-duration-normal) var(--ds-easing-default),
+    max-width var(--ds-duration-normal) var(--ds-easing-default);
+}
+
+.collapsed .headerContent {
+  opacity: 0;
+  max-width: 0;
+}
+
+/* Mobile close button row — shown when there's no logo/header */
+.mobileCloseRow {
+  display: none;
+  justify-content: flex-end;
+  padding: var(--ds-space-2) var(--ds-space-4);
+  flex-shrink: 0;
+}
+
+/* Mobile close button — hidden on desktop */
+.mobileCloseButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--ds-radius-md);
+  color: var(--ds-color-text-muted);
+  cursor: pointer;
+  transition: background-color var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.mobileCloseButton:hover {
+  background-color: var(--ds-color-bg-subtle);
+}
+
+.mobileCloseButton:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}
+
+/* ─── Navigation ─────────────────────────────────────────── */
+
+.nav {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.navList {
+  flex: 1;
+  list-style: none;
+  margin: 0;
+  padding: var(--ds-space-2);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+}
+
+.navItem {
+  flex-shrink: 0;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-2) var(--ds-space-3);
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-color-text-muted);
+  text-decoration: none;
+  border-radius: var(--ds-radius-md);
+  white-space: nowrap;
+  overflow: hidden;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-easing-default),
+    color var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.navLink:hover {
+  background-color: var(--ds-color-bg-subtle);
+  color: var(--ds-color-text-default);
+}
+
+.navLink:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}
+
+.navLinkActive {
+  background-color: var(--ds-color-action-primary-subtle);
+  color: var(--ds-color-action-primary);
+}
+
+.navLinkIcon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Label fades out when collapsed */
+.navLinkLabel {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 1;
+  max-width: 100%;
+  transition:
+    opacity var(--ds-duration-normal) var(--ds-easing-default),
+    max-width var(--ds-duration-normal) var(--ds-easing-default);
+}
+
+.collapsed .navLinkLabel {
+  opacity: 0;
+  max-width: 0;
+}
+
+/* ─── Collapse toggle — desktop only ─────────────────────── */
+
+.collapseButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--ds-space-2);
+  padding: var(--ds-space-2);
+  background: transparent;
+  border: var(--ds-border-width-sm) solid var(--ds-color-border-default);
+  border-radius: var(--ds-radius-md);
+  color: var(--ds-color-text-muted);
+  cursor: pointer;
+  align-self: flex-end;
+  flex-shrink: 0;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-easing-default),
+    color var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.collapseButton:hover {
+  background-color: var(--ds-color-bg-subtle);
+  color: var(--ds-color-text-default);
+}
+
+.collapseButton:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}
+
+.collapsed .collapseButton {
+  align-self: center;
+}
+
+/* ─── Footer ─────────────────────────────────────────────── */
+
+.footer {
+  flex-shrink: 0;
+  padding: var(--ds-space-4);
+  border-top: var(--ds-border-width-sm) solid var(--ds-color-border-default);
+  overflow: hidden;
+}
+
+/* ─── Mobile responsive ──────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .sidebar {
+    width: 0;
+    overflow: visible;
+  }
+
+  .collapsed {
+    width: 0;
+  }
+
+  .panel {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: var(--ds-layout-sidebar-width);
+    max-width: 85vw;
+    z-index: var(--ds-z-overlay);
+    box-shadow: var(--ds-shadow-lg);
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition:
+      transform var(--ds-duration-normal) var(--ds-easing-default),
+      visibility 0s var(--ds-easing-default) var(--ds-duration-normal);
+  }
+
+  .mobileOpen .panel {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform var(--ds-duration-normal) var(--ds-easing-default);
+  }
+
+  /* Show close button in header */
+  .mobileCloseButton {
+    display: flex;
+  }
+
+  /* Show standalone close row when no header */
+  .mobileCloseRow {
+    display: flex;
+  }
+
+  /* Hide desktop collapse button */
+  .collapseButton {
+    display: none;
+  }
+
+  /* Label always visible on mobile (ignore collapsed) */
+  .collapsed .navLinkLabel {
+    opacity: 1;
+    max-width: 100%;
+  }
+
+  /* headerContent always visible on mobile */
+  .collapsed .headerContent {
+    opacity: 1;
+    max-width: 200px;
+  }
+
+  /* Reset panelTop padding on mobile */
+  .collapsed .panelTop {
+    padding-inline: var(--ds-space-4);
+    justify-content: space-between;
+  }
+}

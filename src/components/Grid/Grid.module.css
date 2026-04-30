@@ -1,0 +1,27 @@
+.grid {
+  display: grid;
+}
+
+/* ── Responsive columns (applied when cols is an object) ──────────────── */
+
+.responsive {
+  grid-template-columns: repeat(var(--grid-cols-mobile, 1), minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .responsive {
+    grid-template-columns: repeat(
+      var(--grid-cols-tablet, var(--grid-cols-mobile, 1)),
+      minmax(0, 1fr)
+    );
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive {
+    grid-template-columns: repeat(
+      var(--grid-cols-desktop, var(--grid-cols-tablet, var(--grid-cols-mobile, 1))),
+      minmax(0, 1fr)
+    );
+  }
+}

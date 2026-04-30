@@ -1,0 +1,143 @@
+/* ---- Root ---- */
+
+.root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  /* Size tokens — md is default */
+  --_track-width: 2.5rem;
+  --_track-height: 1.375rem;
+  --_thumb-size: 1.125rem;
+  --_thumb-inset: 0.125rem;
+}
+
+/* ---- Native input — invisible, covers the widget for pointer events ---- */
+
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+  border-radius: var(--ds-radius-full);
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+/* ---- Visual track ---- */
+
+.track {
+  position: relative;
+  width: var(--_track-width);
+  height: var(--_track-height);
+  box-sizing: border-box;
+  border-radius: var(--ds-radius-full);
+  /* Always allocate 1px border to avoid layout shift when error state adds one */
+  border: var(--ds-border-width-sm) solid transparent;
+
+  background-color: var(--ds-color-input-border);
+
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: var(--ds-duration-normal);
+  transition-timing-function: var(--ds-easing-default);
+
+  pointer-events: none;
+}
+
+/* ---- Thumb ---- */
+
+.thumb {
+  position: absolute;
+  top: var(--_thumb-inset);
+  left: var(--_thumb-inset);
+  width: var(--_thumb-size);
+  height: var(--_thumb-size);
+  border-radius: var(--ds-radius-full);
+  background-color: var(--ds-color-toggle-thumb);
+  box-shadow: var(--ds-shadow-xs);
+
+  transition: transform var(--ds-duration-normal) var(--ds-easing-default);
+}
+
+/* ---- Hover ---- */
+
+.input:hover:not(:disabled) + .track {
+  background-color: var(--ds-color-input-border-hover);
+}
+
+/* ---- Focus ---- */
+
+.input:focus-visible + .track {
+  box-shadow: 0 0 0 var(--ds-focus-ring-width)
+    color-mix(in srgb, var(--ds-color-action-focus-ring) 30%, transparent);
+}
+
+/* ---- Checked ---- */
+
+.input:checked + .track {
+  background-color: var(--ds-color-action-primary);
+}
+
+.input:checked + .track .thumb {
+  /*
+   * Slide distance = track-width - 2×border - thumb-size - 2×inset
+   * Computed per size via --_* custom props.
+   */
+  transform: translateX(
+    calc(var(--_track-width) - 2 * var(--ds-border-width-sm) - var(--_thumb-size) - 2 * var(--_thumb-inset))
+  );
+}
+
+.input:hover:not(:disabled):checked + .track {
+  background-color: var(--ds-color-action-primary-hover);
+}
+
+/* ---- Error ---- */
+
+.input[aria-invalid='true'] + .track {
+  border-color: var(--ds-color-input-border-error);
+}
+
+.input[aria-invalid='true']:focus-visible + .track {
+  box-shadow: 0 0 0 var(--ds-focus-ring-width)
+    color-mix(in srgb, var(--ds-color-border-error) 30%, transparent);
+}
+
+/* ---- Disabled ---- */
+
+.input:disabled + .track {
+  background-color: var(--ds-color-input-bg-disabled);
+  border-color: var(--ds-color-border-disabled);
+}
+
+.input:disabled + .track .thumb {
+  background-color: var(--ds-color-text-disabled);
+  box-shadow: none;
+}
+
+/* ---- Sizes ---- */
+
+.md {
+  /* default — tokens are set on .root */
+}
+
+.sm {
+  --_track-width: 2rem;
+  --_track-height: 1.125rem;
+  --_thumb-size: 0.875rem;
+  --_thumb-inset: 0.125rem;
+}
+
+.lg {
+  --_track-width: 3rem;
+  --_track-height: 1.625rem;
+  --_thumb-size: 1.375rem;
+  --_thumb-inset: 0.125rem;
+}

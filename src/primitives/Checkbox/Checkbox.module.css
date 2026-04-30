@@ -1,0 +1,140 @@
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+
+  background-color: var(--ds-color-input-bg);
+  border: var(--ds-border-width-md) solid var(--ds-color-input-border);
+  border-radius: var(--ds-radius-sm);
+
+  cursor: pointer;
+  position: relative;
+
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: var(--ds-duration-fast);
+  transition-timing-function: var(--ds-easing-default);
+
+  outline: none;
+}
+
+/* Checkmark — CSS border trick, no image dependency */
+.checkbox::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 5px;
+  height: 9px;
+  border: 2px solid transparent;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translate(0px, -1px);
+  opacity: 0;
+  transition: opacity var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+/* Indeterminate mark */
+.checkbox::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 2px;
+  background-color: transparent;
+  transform: translate(-50%, -50%);
+  transition: background-color var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+/* ---- Hover ---- */
+
+.checkbox:hover:not(:disabled):not(:checked) {
+  border-color: var(--ds-color-input-border-hover);
+}
+
+/* ---- Focus ---- */
+
+.checkbox:focus-visible {
+  box-shadow: 0 0 0 var(--ds-focus-ring-width)
+    color-mix(in srgb, var(--ds-color-action-focus-ring) 30%, transparent);
+  border-color: var(--ds-color-input-border-focus);
+}
+
+/* ---- Checked ---- */
+
+.checkbox:checked {
+  background-color: var(--ds-color-action-primary);
+  border-color: var(--ds-color-action-primary);
+}
+
+.checkbox:checked::after {
+  border-color: var(--ds-color-text-on-action);
+  opacity: 1;
+}
+
+.checkbox:hover:not(:disabled):checked {
+  background-color: var(--ds-color-action-primary-hover);
+  border-color: var(--ds-color-action-primary-hover);
+}
+
+/* ---- Indeterminate ---- */
+
+.checkbox:indeterminate {
+  background-color: var(--ds-color-action-primary);
+  border-color: var(--ds-color-action-primary);
+}
+
+.checkbox:indeterminate::before {
+  background-color: var(--ds-color-text-on-action);
+}
+
+/* ---- Error ---- */
+
+.error {
+  border-color: var(--ds-color-input-border-error);
+}
+
+.error:focus-visible {
+  box-shadow: 0 0 0 var(--ds-focus-ring-width)
+    color-mix(in srgb, var(--ds-color-border-error) 30%, transparent);
+}
+
+/* ---- Disabled ---- */
+
+.checkbox:disabled {
+  background-color: var(--ds-color-input-bg-disabled);
+  border-color: var(--ds-color-border-disabled);
+  cursor: not-allowed;
+}
+
+.checkbox:disabled:checked {
+  background-color: var(--ds-color-border-disabled);
+}
+
+/* ---- Sizes ---- */
+
+.sm {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.sm::after {
+  width: 4px;
+  height: 7px;
+}
+
+.lg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.lg::after {
+  width: 6px;
+  height: 11px;
+}

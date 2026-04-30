@@ -1,0 +1,58 @@
+/* ---- Track (outer container) ---- */
+
+.track {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: var(--ds-radius-full);
+  background-color: var(--ds-color-bg-subtle);
+}
+
+/* ---- Sizes (track height) ---- */
+
+.sm { height: 0.25rem; }
+.md { height: 0.5rem; }
+.lg { height: 0.75rem; }
+
+/* ---- Fill (inner bar) ---- */
+
+.fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width var(--ds-duration-normal) var(--ds-easing-default);
+}
+
+/* ---- Variants (fill color) ---- */
+
+.default .fill { background-color: var(--ds-color-action-primary); }
+.accent  .fill { background-color: var(--ds-color-action-accent); }
+.success .fill { background-color: var(--ds-color-border-success); }
+.error   .fill { background-color: var(--ds-color-border-error); }
+.warning .fill { background-color: var(--ds-color-border-warning); }
+
+/* ---- Indeterminate animation ---- */
+
+.indeterminate {
+  position: absolute;
+  width: 40%;
+  animation: ds-progress-slide 1.4s ease-in-out infinite;
+}
+
+@keyframes ds-progress-slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(275%); }
+}
+
+/* Replace slide with opacity pulse — less motion, still communicates activity */
+@media (prefers-reduced-motion: reduce) {
+  .indeterminate {
+    width: 100%;
+    animation: ds-progress-pulse 1.5s ease-in-out infinite;
+    transform: none;
+  }
+
+  @keyframes ds-progress-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+}

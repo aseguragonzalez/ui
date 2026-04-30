@@ -1,0 +1,104 @@
+/* ── Root ─────────────────────────────────────────────────────────────────── */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+}
+
+/* ── Visually-hidden live region ──────────────────────────────────────────── */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Viewport ─────────────────────────────────────────────────────────────── */
+
+.viewport {
+  overflow: hidden;
+  border-radius: var(--ds-radius-lg);
+}
+
+/* ── Track ────────────────────────────────────────────────────────────────── */
+
+.track {
+  display: flex;
+  transition: transform var(--ds-duration-slow) var(--ds-easing-default);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transition: none;
+  }
+}
+
+/* ── Slide ────────────────────────────────────────────────────────────────── */
+
+.slide {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+/* ── Controls row ─────────────────────────────────────────────────────────── */
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-3);
+}
+
+.navBtn {
+  flex-shrink: 0;
+}
+
+/* ── Dot indicators ───────────────────────────────────────────────────────── */
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dots li {
+  display: flex;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-border-default);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background var(--ds-duration-fast) var(--ds-easing-default),
+    transform  var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.dot:hover {
+  background: var(--ds-color-border-strong);
+}
+
+.dotActive {
+  background: var(--ds-color-action-primary);
+  transform: scale(1.375);
+}
+
+.dot:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}

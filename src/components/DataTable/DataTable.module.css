@@ -1,0 +1,142 @@
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: var(--ds-border-width-sm) solid var(--ds-color-border-default);
+  border-radius: var(--ds-radius-lg);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--ds-font-size-sm);
+  white-space: nowrap;
+}
+
+.caption {
+  /* Visually hidden — exposed as aria-label on the region wrapper */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+
+.thead {
+  background-color: var(--ds-color-bg-subtle);
+  border-bottom: var(--ds-border-width-md) solid var(--ds-color-border-default);
+}
+
+.th {
+  padding: var(--ds-space-3) var(--ds-space-4);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-color-text-default);
+  text-align: left;
+}
+
+.thSortable {
+  padding: 0;
+}
+
+.thActive {
+  color: var(--ds-color-action-primary);
+}
+
+.sortButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  width: 100%;
+  padding: var(--ds-space-3) var(--ds-space-4);
+  background: transparent;
+  border: none;
+  font-size: inherit;
+  font-weight: var(--ds-font-weight-semibold);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.sortButton:hover {
+  color: var(--ds-color-text-default);
+}
+
+.sortButton:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: calc(-1 * var(--ds-focus-ring-offset));
+  border-radius: var(--ds-radius-sm);
+}
+
+.sortIcon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--ds-color-text-muted);
+}
+
+/* ─── Body ───────────────────────────────────────────────── */
+
+.tbody {
+  /* no extra styles */
+}
+
+.tr {
+  border-bottom: var(--ds-border-width-sm) solid var(--ds-color-border-default);
+  transition: background-color var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.tr:last-child {
+  border-bottom: none;
+}
+
+.tr:hover {
+  background-color: var(--ds-color-bg-subtle);
+}
+
+.td {
+  padding: var(--ds-space-3) var(--ds-space-4);
+  color: var(--ds-color-text-default);
+  vertical-align: middle;
+}
+
+/* ─── Empty state ────────────────────────────────────────── */
+
+.emptyState {
+  text-align: center;
+  color: var(--ds-color-text-muted);
+  padding: var(--ds-space-8);
+  white-space: normal;
+}
+
+/* ─── Alignment ──────────────────────────────────────────── */
+
+.alignLeft {
+  text-align: left;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}

@@ -1,0 +1,11 @@
+.error {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-1);
+
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-regular);
+  line-height: var(--ds-line-height-normal);
+  color: var(--ds-color-text-error);
+}

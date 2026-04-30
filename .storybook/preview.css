@@ -1,0 +1,18 @@
+/* Apply theme tokens to the Storybook canvas */
+html,
+body,
+#storybook-root {
+  background-color: var(--ds-color-bg-page);
+  color: var(--ds-color-text-default);
+}
+
+#storybook-root {
+  padding: 1.5rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Stories that need full-bleed layout (Navbar, Sidebar) can opt out */
+#storybook-root:has(.sb-full-bleed) {
+  padding: 0;
+}

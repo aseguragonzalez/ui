@@ -1,0 +1,75 @@
+/* ── Root ─────────────────────────────────────────────────────────────────── */
+
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-color-bg-surface);
+  border-radius: var(--ds-radius-lg);
+  overflow: hidden;
+}
+
+/* ── Variants ─────────────────────────────────────────────────────────────── */
+
+.outlined {
+  border: 1px solid var(--ds-color-border-default);
+}
+
+.elevated {
+  box-shadow: var(--ds-shadow-sm);
+}
+
+.flat {
+  background: var(--ds-color-bg-subtle);
+}
+
+/* ── Padding scale (sets the cascade variable) ────────────────────────────── */
+
+.paddingSm { --card-p: var(--ds-space-4); }
+.paddingMd { --card-p: var(--ds-space-6); }
+.paddingLg { --card-p: var(--ds-space-8); }
+
+/* ── Media (always full-bleed, clipped by root overflow:hidden) ───────────── */
+
+.media {
+  flex-shrink: 0;
+}
+
+.media img,
+.media video {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────────── */
+
+.header,
+.body,
+.footer {
+  padding-inline: var(--card-p, var(--ds-space-6));
+}
+
+.header {
+  padding-block-start: var(--card-p, var(--ds-space-6));
+  padding-block-end:   var(--ds-space-3);
+}
+
+.body {
+  flex: 1;
+  padding-block: var(--ds-space-3);
+}
+
+/* first/last adjustments when sections are absent */
+.header:last-child  { padding-block-end:   var(--card-p, var(--ds-space-6)); }
+.body:first-child   { padding-block-start: var(--card-p, var(--ds-space-6)); }
+.body:last-child    { padding-block-end:   var(--card-p, var(--ds-space-6)); }
+
+.footer {
+  padding-block-start: var(--ds-space-3);
+  padding-block-end:   var(--card-p, var(--ds-space-6));
+  border-top: 1px solid var(--ds-color-border-default);
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+}

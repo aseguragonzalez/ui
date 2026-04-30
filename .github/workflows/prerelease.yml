@@ -1,0 +1,76 @@
+name: Pre-release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prerelease:
+    name: Publish pre-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      - name: Detect PR
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER=$(gh pr list --head "${{ github.ref_name }}" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          if [ -n "$PR_NUMBER" ]; then
+            echo "number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "tag=pr-$PR_NUMBER" >> $GITHUB_OUTPUT
+          else
+            echo "number=" >> $GITHUB_OUTPUT
+            echo "tag=next" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Compute pre-release version
+        id: version
+        run: |
+          BASE=$(node -p "require('./package.json').version")
+          SHA=$(git rev-parse --short HEAD)
+          echo "value=${BASE}-${{ steps.pr.outputs.tag }}.${SHA}" >> $GITHUB_OUTPUT
+
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+      - name: Set version (no commit)
+        run: npm version ${{ steps.version.outputs.value }} --no-git-tag-version
+
+      - name: Publish
+        run: npm publish --tag ${{ steps.pr.outputs.tag }} --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Comment on PR
+        if: steps.pr.outputs.number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat > comment.md << 'EOF'
+          ### Pre-release published :package:
+
+          Install this PR's build:
+
+          ```sh
+          npm install @your-org/design-system@${{ steps.pr.outputs.tag }}
+          ```
+
+          **Version:** `${{ steps.version.outputs.value }}`
+          EOF
+          gh pr comment ${{ steps.pr.outputs.number }} --body-file comment.md --edit-last 2>/dev/null \
+            || gh pr comment ${{ steps.pr.outputs.number }} --body-file comment.md

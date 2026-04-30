@@ -1,0 +1,92 @@
+.input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  font-family: var(--ds-font-family-base);
+  color: var(--ds-color-input-text);
+
+  background-color: var(--ds-color-input-bg);
+  border: var(--ds-border-width-sm) solid var(--ds-color-input-border);
+  border-radius: var(--ds-radius-md);
+
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--ds-duration-fast);
+  transition-timing-function: var(--ds-easing-default);
+
+  outline: none;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: var(--ds-color-input-placeholder);
+}
+
+/* ---- Hover ---- */
+
+.input:hover:not(:disabled):not(:focus) {
+  border-color: var(--ds-color-input-border-hover);
+}
+
+/* ---- Focus ---- */
+
+.input:focus-visible {
+  border-color: var(--ds-color-input-border-focus);
+  box-shadow: 0 0 0 var(--ds-focus-ring-width) color-mix(in srgb, var(--ds-color-action-focus-ring) 30%, transparent);
+}
+
+/* ---- Error ---- */
+
+.error {
+  border-color: var(--ds-color-input-border-error);
+}
+
+.error:focus-visible {
+  border-color: var(--ds-color-input-border-error);
+  box-shadow: 0 0 0 var(--ds-focus-ring-width) color-mix(in srgb, var(--ds-color-border-error) 30%, transparent);
+}
+
+/* ---- Disabled ---- */
+
+.input:disabled {
+  background-color: var(--ds-color-input-bg-disabled);
+  border-color: var(--ds-color-border-disabled);
+  color: var(--ds-color-text-disabled);
+  cursor: not-allowed;
+}
+
+.input:disabled::placeholder {
+  color: var(--ds-color-text-disabled);
+}
+
+/* Suppress native clear button — only fires on input[type=search] */
+.input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* Suppress native spin buttons — only fires on input[type=number] */
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ---- Sizes ---- */
+
+.sm {
+  padding: var(--ds-space-1) var(--ds-space-2);
+  font-size: var(--ds-font-size-sm);
+  min-height: 2rem;
+}
+
+.md {
+  padding: var(--ds-space-2) var(--ds-space-3);
+  font-size: var(--ds-font-size-md);
+  min-height: 2.5rem;
+}
+
+.lg {
+  padding: var(--ds-space-3) var(--ds-space-4);
+  font-size: var(--ds-font-size-lg);
+  min-height: 3rem;
+}

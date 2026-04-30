@@ -1,0 +1,56 @@
+name: Feature request
+description: Propose a new component, prop, or behaviour
+title: "[Feature] "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature requests are evaluated against the design system's core principles: accessibility first, zero runtime dependencies, CSS Custom Properties theming, and strict TypeScript.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type of request
+      options:
+        - New primitive component
+        - New composite / field component
+        - New prop or variant on an existing component
+        - New design token
+        - Layout or chart component
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or motivation
+      description: What are you trying to build that the current library does not support?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How would you expect the API to look? Include a usage example if possible.
+      render: tsx
+
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility considerations
+      description: Which WAI-ARIA pattern or WCAG criterion applies? Has a native HTML element been considered first?
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What workarounds have you tried, and why do they fall short?
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Design mockups, links to the ARIA Authoring Practices Guide, or relevant prior art.

@@ -1,0 +1,30 @@
+.text {
+  font-family: var(--ds-font-family-base);
+  line-height: var(--ds-line-height-normal);
+  color: var(--ds-color-text-default);
+  /* Reset browser margins — consumers control spacing via layout */
+  margin: 0;
+}
+
+/* ---- Sizes ---- */
+
+.lg { font-size: var(--ds-font-size-lg); }
+.md { font-size: var(--ds-font-size-md); }
+.sm { font-size: var(--ds-font-size-sm); }
+.xs { font-size: var(--ds-font-size-xs); }
+
+/* ---- Weights ---- */
+
+.regular  { font-weight: var(--ds-font-weight-regular); }
+.medium   { font-weight: var(--ds-font-weight-medium); }
+.semibold { font-weight: var(--ds-font-weight-semibold); }
+.bold     { font-weight: var(--ds-font-weight-bold); }
+
+/* ---- Colors ---- */
+
+.muted    { color: var(--ds-color-text-muted); }
+.disabled { color: var(--ds-color-text-disabled); }
+.error    { color: var(--ds-color-text-error); }
+.success  { color: var(--ds-color-text-success); }
+.warning  { color: var(--ds-color-text-warning); }
+.inherit  { color: inherit; }
