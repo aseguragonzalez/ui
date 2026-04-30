@@ -15,14 +15,10 @@ export interface ThemeProviderProps {
   storageKey?: string;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const STORAGE_KEY_DEFAULT = 'ds-theme';
-
-function getSystemTheme(): ResolvedTheme {
-  if (typeof window === 'undefined') return 'light';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
 
 function applyTheme(theme: Theme, resolved: ResolvedTheme) {
   if (theme === 'system') {
@@ -40,37 +36,32 @@ export function ThemeProvider({
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window === 'undefined') return defaultTheme;
     const stored = (localStorage.getItem(storageKey) as Theme) ?? defaultTheme;
-    const resolved: ResolvedTheme = stored === 'system' ? getSystemTheme() : (stored as ResolvedTheme);
-    applyTheme(stored, resolved);
     return stored;
   });
 
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() =>
-    theme === 'system' ? getSystemTheme() : theme,
+  const [systemDark, setSystemDark] = useState<boolean>(
+    () => typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)').matches : false,
   );
 
+  const resolvedTheme: ResolvedTheme = theme === 'system' ? (systemDark ? 'dark' : 'light') : theme;
+
+  useEffect(() => {
+    applyTheme(theme, resolvedTheme);
+  }, [theme, resolvedTheme]);
+
+  // Listen for OS-level colour-scheme changes. handleSystemChange only calls
+  // setSystemDark — it does not close over `theme` or `resolvedTheme`, so an
+  // empty dependency array is correct here.
   useEffect(() => {
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
 
-    function resolve(t: Theme): ResolvedTheme {
-      return t === 'system' ? (mql.matches ? 'dark' : 'light') : t;
-    }
-
-    const resolved = resolve(theme);
-    setResolvedTheme(resolved);
-    applyTheme(theme, resolved);
-
     function handleSystemChange() {
-      if (theme === 'system') {
-        const next = mql.matches ? 'dark' : ('light' as ResolvedTheme);
-        setResolvedTheme(next);
-        applyTheme('system', next);
-      }
+      setSystemDark(mql.matches);
     }
 
     mql.addEventListener('change', handleSystemChange);
     return () => mql.removeEventListener('change', handleSystemChange);
-  }, [theme]);
+  }, []);
 
   function setTheme(next: Theme) {
     localStorage.setItem(storageKey, next);

@@ -90,13 +90,9 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
     const [internalMobileOpen, setInternalMobileOpen] = useState(defaultMobileOpen);
     const mobileOpen = controlledMobileOpen ?? internalMobileOpen;
 
-    const [mounted, setMounted] = useState(false);
+    const [mounted] = useState(() => typeof document !== 'undefined');
     const panelRef = useRef<HTMLDivElement>(null);
     const previousFocusRef = useRef<HTMLElement | null>(null);
-
-    useEffect(() => {
-      setMounted(true);
-    }, []);
 
     useEffect(() => {
       const onMobile = window.matchMedia?.('(max-width: 767px)')?.matches ?? false;

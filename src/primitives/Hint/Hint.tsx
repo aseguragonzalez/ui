@@ -1,6 +1,6 @@
 import styles from './Hint.module.css';
 
-export interface HintProps extends React.HTMLAttributes<HTMLSpanElement> {}
+export type HintProps = React.HTMLAttributes<HTMLSpanElement>;
 
 function Hint({ children, className, ...nativeProps }: HintProps) {
   return (

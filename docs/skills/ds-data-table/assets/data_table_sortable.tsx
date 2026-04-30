@@ -53,7 +53,6 @@ export function OrdersTable() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     fetchOrders({ sortKey, sortDirection })
       .then(setOrders)
       .finally(() => setLoading(false));
@@ -71,6 +70,7 @@ export function OrdersTable() {
       sortKey={sortKey}
       sortDirection={sortDirection}
       onSort={(key, direction) => {
+        setLoading(true);
         setSortKey(key);
         setSortDirection(direction);
       }}

@@ -87,28 +87,34 @@ export function Tooltip({
     };
   }, [visible, computeCoords]);
 
-  const child = cloneElement(children as React.ReactElement<React.HTMLAttributes<HTMLElement> & { ref?: React.Ref<HTMLElement> }>, {
-    ref: mergeRefs(triggerRef, (children as any).ref),
+  type ChildElement = React.ReactElement<React.HTMLAttributes<HTMLElement> & { ref?: React.Ref<HTMLElement> }>;
+  const typedChildren = children as ChildElement;
+  // cloneElement requires merging the child's existing ref with triggerRef so both receive the DOM node.
+  // In React 19, refs are props, so we access typedChildren.props.ref.
+  // eslint-disable-next-line react-hooks/refs -- mergeRefs creates a callback ref; it does not read .current during render
+  const child = cloneElement(typedChildren, {
+    // eslint-disable-next-line react-hooks/refs -- triggerRef is passed to mergeRefs which only sets .current via a callback, never reads it during render
+    ref: mergeRefs(triggerRef, typedChildren.props.ref),
     'aria-describedby': tooltipId,
     onMouseEnter: (e: React.MouseEvent) => {
       show();
-      (children.props as React.HTMLAttributes<HTMLElement>).onMouseEnter?.(e as React.MouseEvent<HTMLElement>);
+      typedChildren.props.onMouseEnter?.(e as React.MouseEvent<HTMLElement>);
     },
     onMouseLeave: (e: React.MouseEvent) => {
       hide();
-      (children.props as React.HTMLAttributes<HTMLElement>).onMouseLeave?.(e as React.MouseEvent<HTMLElement>);
+      typedChildren.props.onMouseLeave?.(e as React.MouseEvent<HTMLElement>);
     },
     onFocus: (e: React.FocusEvent) => {
       show();
-      (children.props as React.HTMLAttributes<HTMLElement>).onFocus?.(e as React.FocusEvent<HTMLElement>);
+      typedChildren.props.onFocus?.(e as React.FocusEvent<HTMLElement>);
     },
     onBlur: (e: React.FocusEvent) => {
       hide();
-      (children.props as React.HTMLAttributes<HTMLElement>).onBlur?.(e as React.FocusEvent<HTMLElement>);
+      typedChildren.props.onBlur?.(e as React.FocusEvent<HTMLElement>);
     },
     onKeyDown: (e: React.KeyboardEvent) => {
       if (e.key === 'Escape') hide();
-      (children.props as React.HTMLAttributes<HTMLElement>).onKeyDown?.(e as React.KeyboardEvent<HTMLElement>);
+      typedChildren.props.onKeyDown?.(e as React.KeyboardEvent<HTMLElement>);
     },
   });
 

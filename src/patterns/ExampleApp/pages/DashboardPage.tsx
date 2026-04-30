@@ -60,7 +60,7 @@ export function DashboardPage() {
           headline="Enterprise Analytics is now available."
           description="Unlock advanced dashboards, custom reports, and team-level insights. Upgrade your plan to get started."
           actions={
-            <Button size="sm" variant="outline">Upgrade now</Button>
+            <Button size="sm" variant="ghost">Upgrade now</Button>
           }
           onDismiss={() => setBannerDismissed(true)}
         />

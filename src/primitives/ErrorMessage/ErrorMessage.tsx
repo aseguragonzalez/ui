@@ -1,6 +1,6 @@
 import styles from './ErrorMessage.module.css';
 
-export interface ErrorMessageProps extends React.HTMLAttributes<HTMLSpanElement> {}
+export type ErrorMessageProps = React.HTMLAttributes<HTMLSpanElement>;
 
 /**
  * Renders a validation error for a form field.
