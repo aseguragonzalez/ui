@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/aseguragonzalez/ui/compare/v1.0.0...v1.0.1) (2026-07-10)
+
+
+### Bug Fixes
+
+* **ci:** authenticate release pipeline as the release bot to unblock protected-branch pushes ([#49](https://github.com/aseguragonzalez/ui/issues/49)) ([031d7ba](https://github.com/aseguragonzalez/ui/commit/031d7baf836d9c48fd520907b13f01e1d66f0cec))
+* Unblock Dependabot npm security updates by forcing transitive npm bundle with `ip-address` ≥ 10.1.1 ([#14](https://github.com/aseguragonzalez/ui/issues/14)) ([c8fe8e5](https://github.com/aseguragonzalez/ui/commit/c8fe8e577af709167f4602d670b081083c4c67b6))
+
 # 1.0.0 (2026-04-30)
 
 
