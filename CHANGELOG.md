@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/aseguragonzalez/ui/compare/v1.0.1...v1.0.2) (2026-07-24)
+
+
+### Bug Fixes
+
+* **deps:** resolve high-severity npm audit findings in transitive deps ([#62](https://github.com/aseguragonzalez/ui/issues/62)) ([32613fd](https://github.com/aseguragonzalez/ui/commit/32613fd35fe36470249c5424b24112a7f6f1d143)), closes [hi#severity](https://github.com/hi/issues/severity)
+
 ## [1.0.1](https://github.com/aseguragonzalez/ui/compare/v1.0.0...v1.0.1) (2026-07-10)
 
 
