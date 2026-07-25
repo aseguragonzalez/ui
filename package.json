@@ -103,6 +103,11 @@
   },
   "overrides": {
     "npm": "^11.14.0",
-    "brace-expansion": "5.0.8"
+    "eslint": {
+      "brace-expansion": "5.0.8"
+    },
+    "typed-css-modules": {
+      "brace-expansion": "5.0.8"
+    }
   }
 }

@@ -29,7 +29,7 @@ jobs:
         run: |
           {
             echo "output<<AUDIT_EOF"
-            npx audit-ci --high --allowlist GHSA-mh99-v99m-4gvg --show-not-found 2>&1 | tee /dev/stderr
+            npm run audit -- --show-not-found 2>&1 | tee /dev/stderr
             echo "AUDIT_EOF"
           } >> "$GITHUB_OUTPUT"
 
@@ -41,7 +41,7 @@ jobs:
           TITLE="brace-expansion override/audit-ci allowlist may no longer be needed"
           if ! gh issue list --search "in:title \"$TITLE\"" --state open --json number --jq '.[0].number' | grep -q .; then
             printf '%s\n' \
-              'The weekly [Dependency overrides watch](../actions/workflows/dependency-overrides-watch.yml) run detected that `GHSA-mh99-v99m-4gvg` (brace-expansion DoS) is no longer present in the dependency tree — likely because `@semantic-release/npm`'"'"'s bundled `npm` dependency finally shipped a patched `brace-expansion`.' \
+              'The weekly [Dependency overrides watch](https://github.com/aseguragonzalez/ui/actions/workflows/dependency-overrides-watch.yml) run detected that `GHSA-mh99-v99m-4gvg` (brace-expansion DoS) is no longer present in the dependency tree — likely because `@semantic-release/npm`'"'"'s bundled `npm` dependency finally shipped a patched `brace-expansion`.' \
               '' \
               'Please verify with `npm audit` / `npm run audit`, and if confirmed:' \
               '- remove `brace-expansion` from `overrides` in `package.json`' \
