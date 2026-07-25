@@ -1,0 +1,51 @@
+name: Dependency overrides watch
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    name: Check if temporary overrides/allowlist entries are still needed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run audit-ci and capture output
+        id: audit
+        continue-on-error: true
+        run: |
+          {
+            echo "output<<AUDIT_EOF"
+            npm run audit -- --show-not-found 2>&1 | tee /dev/stderr
+            echo "AUDIT_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open an issue if an allowlisted advisory is no longer present
+        if: contains(steps.audit.outputs.output, 'Consider not allowlisting advisory')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="brace-expansion override/audit-ci allowlist may no longer be needed"
+          if ! gh issue list --search "in:title \"$TITLE\"" --state open --json number --jq '.[0].number' | grep -q .; then
+            printf '%s\n' \
+              'The weekly [Dependency overrides watch](https://github.com/aseguragonzalez/ui/actions/workflows/dependency-overrides-watch.yml) run detected that `GHSA-mh99-v99m-4gvg` (brace-expansion DoS) is no longer present in the dependency tree — likely because `@semantic-release/npm`'"'"'s bundled `npm` dependency finally shipped a patched `brace-expansion`.' \
+              '' \
+              'Please verify with `npm audit` / `npm run audit`, and if confirmed:' \
+              '- remove `brace-expansion` from `overrides` in `package.json`' \
+              '- remove `--allowlist GHSA-mh99-v99m-4gvg` from the `audit` script' \
+              > /tmp/issue-body.md
+            gh issue create --title "$TITLE" --body-file /tmp/issue-body.md
+          fi
