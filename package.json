@@ -55,7 +55,7 @@
     "types:css": "tcm src",
     "types:css:watch": "tcm src --watch",
     "release": "semantic-release",
-    "audit": "audit-ci --high --allowlist GHSA-mh99-v99m-4gvg"
+    "audit": "audit-ci --config ./audit-ci.jsonc"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
