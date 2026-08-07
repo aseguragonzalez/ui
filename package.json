@@ -104,10 +104,14 @@
   "overrides": {
     "npm": "^11.14.0",
     "eslint": {
-      "brace-expansion": "5.0.8"
+      "brace-expansion": "^5.0.9"
     },
     "typed-css-modules": {
-      "brace-expansion": "5.0.8"
+      "brace-expansion": "^5.0.9"
+    },
+    "undici": "^7.29.0",
+    "@actions/http-client": {
+      "undici": "^6.28.0"
     }
   }
 }
