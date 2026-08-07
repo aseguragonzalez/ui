@@ -34,18 +34,28 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Open an issue if an allowlisted advisory is no longer present
-        if: contains(steps.audit.outputs.output, 'Consider not allowlisting advisory')
+        if: contains(steps.audit.outputs.output, 'Consider not allowlisting advisor')
         env:
           GH_TOKEN: ${{ github.token }}
+          AUDIT_OUTPUT: ${{ steps.audit.outputs.output }}
         run: |
-          TITLE="brace-expansion override/audit-ci allowlist may no longer be needed"
-          if ! gh issue list --search "in:title \"$TITLE\"" --state open --json number --jq '.[0].number' | grep -q .; then
-            printf '%s\n' \
-              'The weekly [Dependency overrides watch](https://github.com/aseguragonzalez/ui/actions/workflows/dependency-overrides-watch.yml) run detected that `GHSA-mh99-v99m-4gvg` (brace-expansion DoS) is no longer present in the dependency tree — likely because `@semantic-release/npm`'"'"'s bundled `npm` dependency finally shipped a patched `brace-expansion`.' \
-              '' \
-              'Please verify with `npm audit` / `npm run audit`, and if confirmed:' \
-              '- remove `brace-expansion` from `overrides` in `package.json`' \
-              '- remove `--allowlist GHSA-mh99-v99m-4gvg` from the `audit` script' \
-              > /tmp/issue-body.md
-            gh issue create --title "$TITLE" --body-file /tmp/issue-body.md
+          TITLE="audit-ci.jsonc allowlist entry may no longer be needed"
+          STALE=$(printf '%s\n' "$AUDIT_OUTPUT" \
+            | grep -oE 'Consider not allowlisting advisor(y|ies): [A-Za-z0-9,. -]+' \
+            | sed -E 's/Consider not allowlisting advisor(y|ies): //; s/\.$//' \
+            | tr ',' '\n' | sed 's/^ *//;s/ *$//' | sort -u)
+
+          {
+            echo "The weekly [Dependency overrides watch](../actions/workflows/dependency-overrides-watch.yml) run detected that one or more entries in \`audit-ci.jsonc\` are no longer matched by the current dependency tree:"
+            echo
+            printf '%s\n' "$STALE" | sed 's/^/- /'
+            echo
+            echo "Please verify with \`npm run audit\`, and if confirmed, remove the corresponding entry from \`audit-ci.jsonc\`."
+          } > /tmp/issue-body.md
+
+          EXISTING=$(gh issue list --search "$TITLE in:title" --state open --json number --jq '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            gh issue edit "$EXISTING" --body-file /tmp/issue-body.md
+          else
+            gh issue create --title "$TITLE" --body-file /tmp/issue-body.md --label dependencies
           fi
