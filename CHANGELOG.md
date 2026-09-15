@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/aseguragonzalez/ui/compare/v1.0.3...v1.0.4) (2026-09-15)
+
+
+### Bug Fixes
+
+* **a11y:** stop aria-describedby pointing at a suppressed hint ([#113](https://github.com/aseguragonzalez/ui/issues/113)) ([6262100](https://github.com/aseguragonzalez/ui/commit/62621006b7f5babffeb67d5bf0b7d255dd7291e5))
+
 ## [1.0.3](https://github.com/aseguragonzalez/ui/compare/v1.0.2...v1.0.3) (2026-09-15)
 
 
