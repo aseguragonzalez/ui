@@ -83,20 +83,24 @@ Composites live in `src/components/<ComponentName>/`. They use `useFieldIds` to 
 ```tsx
 import { useFieldIds } from '../shared/useFieldIds';
 
-export function MyField({ label, hint, errorMessage, required, ...inputProps }: MyFieldProps) {
-  const { fieldId, hintId, errorId } = useFieldIds();
+export function MyField({ label, hint, error, required, inputId, ...inputProps }: MyFieldProps) {
+  const { id, hintId, errorId, describedBy } = useFieldIds({ inputId, hint, error });
   return (
     <div>
-      <Label htmlFor={fieldId} required={required}>{label}</Label>
+      <Label htmlFor={id} required={required}>{label}</Label>
       <MyInput
-        id={fieldId}
-        aria-describedby={[hint && hintId, errorMessage && errorId].filter(Boolean).join(' ') || undefined}
-        aria-invalid={!!errorMessage}
+        id={id}
+        hasError={Boolean(error)}
+        required={required}
         aria-required={required}
+        aria-describedby={describedBy}
         {...inputProps}
       />
-      {hint && <Hint id={hintId}>{hint}</Hint>}
-      {errorMessage && <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>}
+      {error ? (
+        <ErrorMessage id={errorId}>{error}</ErrorMessage>
+      ) : hint ? (
+        <Hint id={hintId}>{hint}</Hint>
+      ) : null}
     </div>
   );
 }
@@ -141,8 +145,8 @@ dist/
   index.js      ESM bundle
   index.cjs     CommonJS bundle
   index.d.ts    TypeScript declarations
-  index.css     Tokens + all component styles
+  index.css     Tokens + base styles + all component styles
   tokens.css    CSS Custom Properties only
 ```
 
-Build with `npm run build`. The build runs `types:css` first (CSS Module declarations), then `tsc` (TypeScript), then Vite (bundling).
+Build with `npm run build`. The build runs `types:css` first (CSS Module declarations), then `tsc` (type check), then Vite (bundling), then a declaration-only `tsc` pass that emits `index.d.ts`, and finally copies `tokens.css` into `dist/`. The stages after Vite are what produce the published entry points, so a Vite-only build is not a complete package build.

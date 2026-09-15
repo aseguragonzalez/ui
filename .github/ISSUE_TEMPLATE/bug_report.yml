@@ -22,7 +22,7 @@ body:
       label: Steps to reproduce
       description: Minimal steps that reliably trigger the bug.
       placeholder: |
-        1. Render `<TextField label="Name" errorMessage="Required" />`
+        1. Render `<TextField label="Name" error="Required" />`
         2. Focus the input with Tab
         3. The error message is not announced by the screen reader
     validations:

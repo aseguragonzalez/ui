@@ -1,0 +1,28 @@
+{
+  /* Declaration-only build for the published package. tsconfig.app.json sets
+     noEmit, so nothing else in the build writes the dist/index.d.ts that
+     package.json advertises as "types".
+
+     This must run AFTER `vite build` in the build script: Vite empties dist/,
+     so emitting declarations first silently discards them and still exits 0.
+
+     declarationMap is deliberately off — the maps point at ../src, which the
+     "files": ["dist"] allowlist does not publish. */
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.types.tsbuildinfo"
+  },
+  "include": ["src"],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.ts",
+    "src/**/*.stories.tsx",
+    "src/test"
+  ]
+}

@@ -2,58 +2,10 @@
   // $schema provides code completion hints to IDEs.
   "$schema": "https://github.com/IBM/audit-ci/raw/main/docs/schema.json",
   "high": true,
-  "allowlist": [
-    {
-      // brace-expansion DoS via unbounded expansion length.
-      // The nested "brace-expansion": "5.0.8" overrides in package.json (under
-      // eslint and typed-css-modules) patch every resolvable copy in the tree;
-      // this allowlist entry only covers the copy bundled inside npm's own
-      // dependencies (pulled in transitively via @semantic-release/npm -> npm),
-      // which package.json overrides cannot reach. No safe upgrade path exists
-      // there (npm@12 would drop compatibility with @semantic-release/npm@13).
-      // Not reachable from published dist/ or from untrusted input in our
-      // build process.
-      // https://github.com/advisories/GHSA-mh99-v99m-4gvg
-      "GHSA-mh99-v99m-4gvg": {
-        "active": true,
-        "notes": "Covers only the copy bundled inside npm's own dependencies, unreachable via overrides. Re-check at next review.",
-        "expiry": "2026-10-25",
-      },
-    },
-    {
-      // ip-address SSRF/trust-boundary bypass (leading-zero octet decoding).
-      // Only reachable copy is bundled inside npm's own dependencies
-      // (npm -> make-fetch-happen -> @npmcli/agent -> socks-proxy-agent ->
-      // socks -> ip-address), pulled in transitively via
-      // @semantic-release/npm -> npm. npm bundles its dependencies, so
-      // package.json overrides cannot reach this copy. No safe upgrade path:
-      // @semantic-release/npm@13 pins "npm": "^11.6.2", and the fixed
-      // ip-address version only ships with npm's node-gyp/make-fetch-happen
-      // versions bundled starting at npm@12, which would break that pin.
-      // Not reachable from published dist/ or from untrusted input in our
-      // build process.
-      // https://github.com/advisories/GHSA-mwp4-54f8-5fhr
-      "GHSA-mwp4-54f8-5fhr": {
-        "active": true,
-        "notes": "Covers only the copy bundled inside npm's own dependencies, unreachable via overrides. Re-check at next review.",
-        "expiry": "2026-10-25",
-      },
-    },
-    {
-      // brace-expansion DoS via unbounded intermediate arrays (bypasses the
-      // GHSA-mh99-v99m-4gvg mitigation). Same unreachable path as that
-      // advisory: the copy bundled inside npm's own dependencies
-      // (npm -> minimatch -> brace-expansion), pulled in transitively via
-      // @semantic-release/npm -> npm. The nested "brace-expansion": "^5.0.9"
-      // overrides in package.json (under eslint and typed-css-modules) patch
-      // every resolvable copy in the tree except this one. Not reachable
-      // from published dist/ or from untrusted input in our build process.
-      // https://github.com/advisories/GHSA-rgw5-rvv9-x895
-      "GHSA-rgw5-rvv9-x895": {
-        "active": true,
-        "notes": "Covers only the copy bundled inside npm's own dependencies, unreachable via overrides. Re-check at next review.",
-        "expiry": "2026-10-25",
-      },
-    },
-  ],
+  // The allowlist is empty on purpose. Every entry it used to carry covered a
+  // copy bundled inside npm's own dependencies, which package.json overrides
+  // cannot reach; npm 11.19.1 ships fixed versions of all of them, so the
+  // entries stopped matching anything. Prefer moving the dependency over
+  // re-adding an entry here.
+  "allowlist": [],
 }

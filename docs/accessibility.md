@@ -21,7 +21,7 @@ The most impactful decision you can make is using **composite components** inste
 <EmailField
   label="Email"
   hint="We will never share your email."
-  errorMessage={error}
+  error={error}
 />
 ```
 
@@ -53,14 +53,14 @@ For icon-only buttons, use `aria-label`:
 
 ## Error messages
 
-Always pass the error message via the `errorMessage` prop rather than rendering it separately. The composite wires it with `aria-describedby` and sets `aria-invalid="true"` on the input, so screen readers announce the error when the field is focused.
+Always pass the error message via the `error` prop rather than rendering it separately. The composite wires it with `aria-describedby` and sets `aria-invalid="true"` on the input, so screen readers announce the error when the field is focused.
 
 ```tsx
 <TextField
   label="Username"
   value={username}
   onChange={e => setUsername(e.target.value)}
-  errorMessage={errors.username}   // announced automatically
+  error={errors.username}   // announced automatically
 />
 ```
 

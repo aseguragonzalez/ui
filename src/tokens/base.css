@@ -1,0 +1,39 @@
+/* =============================================================
+   BASE STYLES
+   Document-level rules that complement the tokens. Kept out of
+   tokens.css so the published ./tokens.css subpath stays what it
+   is documented to be — CSS Custom Properties only — while
+   index.css still bundles both.
+   ============================================================= */
+
+/* Typography reset — applies the design system font to the
+   document so every element inherits it. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ----------------------------------------------------------
+   REDUCED MOTION — global override
+   Eliminates all transitions and animations for users who
+   prefer reduced motion. Single rule covers every component.
+---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -195,6 +195,7 @@
 
   /* Borders */
   --ds-color-border-default:  var(--ds-palette-neutral-300);
+  --ds-color-border-subtle:   var(--ds-palette-neutral-200);
   --ds-color-border-strong:   var(--ds-palette-neutral-500);
   --ds-color-border-error:    var(--ds-palette-error-500);
   --ds-color-border-success:  var(--ds-palette-success-500);
@@ -272,6 +273,7 @@
     --ds-color-text-accent:     var(--ds-palette-accent-300);
 
     --ds-color-border-default:  #2a3249;
+    --ds-color-border-subtle:   #1e2438;
     --ds-color-border-strong:   var(--ds-palette-neutral-500);
     --ds-color-border-accent:   var(--ds-palette-accent-500);
     --ds-color-border-disabled: #1e2438;
@@ -341,6 +343,7 @@
   --ds-color-text-accent:     var(--ds-palette-accent-300);
 
   --ds-color-border-default:  #2a3249;
+  --ds-color-border-subtle:   #1e2438;
   --ds-color-border-strong:   var(--ds-palette-neutral-500);
   --ds-color-border-accent:   var(--ds-palette-accent-500);
   --ds-color-border-disabled: #1e2438;
@@ -375,39 +378,4 @@
   --ds-color-bg-warning: #2b2008;
   --ds-color-bg-info:    #152435;
   --ds-color-bg-accent:  var(--ds-palette-accent-900);
-}
-
-/* ----------------------------------------------------------
-   BASE STYLES — typography reset
-   Applies the design system font to the document so every
-   element inherits it without per-component declarations.
----------------------------------------------------------- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: var(--ds-font-family-base);
-  font-size: var(--ds-font-size-md);
-  line-height: var(--ds-line-height-normal);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ----------------------------------------------------------
-   REDUCED MOTION — global override
-   Eliminates all transitions and animations for users who
-   prefer reduced motion. Single rule covers every component.
----------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
 }

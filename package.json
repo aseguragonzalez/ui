@@ -43,7 +43,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "npm run types:css && tsc -b && vite build",
+    "build": "npm run types:css && tsc -b && vite build && tsc -p tsconfig.types.json && node scripts/strip-css-imports-from-types.mjs && cp src/tokens/tokens.css dist/tokens.css",
     "build:storybook": "storybook build",
     "preview": "vite preview",
     "lint": "eslint .",
