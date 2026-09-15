@@ -1,3 +1,11 @@
+## [1.0.3](https://github.com/aseguragonzalez/ui/compare/v1.0.2...v1.0.3) (2026-09-15)
+
+
+### Bug Fixes
+
+* **deps:** override brace-expansion + migrate audit gate to audit-ci ([#68](https://github.com/aseguragonzalez/ui/issues/68)) ([6238127](https://github.com/aseguragonzalez/ui/commit/623812740afeaa89237e692bee1507b974a89120))
+* ship design tokens and type declarations in the published package ([#109](https://github.com/aseguragonzalez/ui/issues/109)) ([02e1c4f](https://github.com/aseguragonzalez/ui/commit/02e1c4fcfa1f7da52ac536b7da93b53f036c1b17))
+
 ## [1.0.2](https://github.com/aseguragonzalez/ui/compare/v1.0.1...v1.0.2) (2026-07-24)
 
 
