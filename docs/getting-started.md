@@ -73,7 +73,7 @@ function RegistrationForm() {
         type="email"
         value={email}
         onChange={e => setEmail(e.target.value)}
-        errorMessage={error}
+        error={error}
         required
       />
       <SelectField

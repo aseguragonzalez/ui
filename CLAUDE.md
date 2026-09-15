@@ -45,12 +45,12 @@ One folder per component (`Button/Button.tsx`, `Button.module.css`, `Button.test
 Every field composite (`TextField`, `SelectField`, `RadioGroup`, etc.) uses `useFieldIds` from `src/components/shared/useFieldIds.ts`:
 
 ```ts
-const { id, hintId, errorId, describedBy } = useFieldIds({ inputId, hint, errorMessage });
+const { id, hintId, errorId, describedBy } = useFieldIds({ inputId, hint, error });
 ```
 
 This hook wraps React's `useId()` to auto-generate stable IDs and derives `aria-describedby` by joining `hintId` and `errorId`. The pattern ensures consistent ARIA wiring across all field composites without manual ID management.
 
-Fields show either `hint` or `errorMessage`, never both simultaneously. Error takes precedence.
+Fields show either `hint` or `error`, never both simultaneously. Error takes precedence.
 
 ### CSS token strategy
 

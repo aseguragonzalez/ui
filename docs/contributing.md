@@ -83,20 +83,24 @@ Composites live in `src/components/<ComponentName>/`. They use `useFieldIds` to 
 ```tsx
 import { useFieldIds } from '../shared/useFieldIds';
 
-export function MyField({ label, hint, errorMessage, required, ...inputProps }: MyFieldProps) {
-  const { fieldId, hintId, errorId } = useFieldIds();
+export function MyField({ label, hint, error, required, inputId, ...inputProps }: MyFieldProps) {
+  const { id, hintId, errorId, describedBy } = useFieldIds({ inputId, hint, error });
   return (
     <div>
-      <Label htmlFor={fieldId} required={required}>{label}</Label>
+      <Label htmlFor={id} required={required}>{label}</Label>
       <MyInput
-        id={fieldId}
-        aria-describedby={[hint && hintId, errorMessage && errorId].filter(Boolean).join(' ') || undefined}
-        aria-invalid={!!errorMessage}
+        id={id}
+        hasError={Boolean(error)}
+        required={required}
         aria-required={required}
+        aria-describedby={describedBy}
         {...inputProps}
       />
-      {hint && <Hint id={hintId}>{hint}</Hint>}
-      {errorMessage && <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>}
+      {error ? (
+        <ErrorMessage id={errorId}>{error}</ErrorMessage>
+      ) : hint ? (
+        <Hint id={hintId}>{hint}</Hint>
+      ) : null}
     </div>
   );
 }

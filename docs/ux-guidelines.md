@@ -28,7 +28,7 @@ Every field needs a visible label. Use the `hint` prop for instructional text th
 <PasswordField
   label="Password"
   hint="At least 8 characters, one uppercase, one number."
-  errorMessage={errors.password}
+  error={errors.password}
 />
 ```
 
@@ -52,7 +52,7 @@ function validate(v: string) {
   value={value}
   onChange={e => { setValue(e.target.value); if (error) validate(e.target.value); }}
   onBlur={e => validate(e.target.value)}
-  errorMessage={error}
+  error={error}
 />
 ```
 
@@ -131,7 +131,7 @@ Modals interrupt the user's flow. Use them only when:
 Do not use modals for:
 - Displaying information the user did not ask for (use `Alert` instead)
 - Long forms that can be placed on their own page
-- Error messages that result from user actions (use inline `errorMessage` props)
+- Error messages that result from user actions (use inline `error` props)
 
 ### Modal anatomy
 
