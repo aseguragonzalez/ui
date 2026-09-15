@@ -1,3 +1,9 @@
+// Every component rule references --ds-* custom properties, so the token
+// definitions have to be part of the bundled dist/index.css. Without this
+// import nothing outside Storybook — which loads tokens.css on its own — ever
+// defines them, and consumers get unstyled components.
+import './tokens/tokens.css';
+
 // ─── Primitives ────────────────────────────────────────────────────────────────
 
 export { Button } from './primitives/Button/Button';
