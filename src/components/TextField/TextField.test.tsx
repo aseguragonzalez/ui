@@ -74,6 +74,16 @@ describe('TextField', () => {
       expect(errorEl).toHaveTextContent('Error de validación');
     });
 
+    it('every aria-describedby id resolves to a rendered element when hint and error are both set', () => {
+      render(<TextField label="Nombre" hint="Ayuda" error="Obligatorio" />);
+      const input = screen.getByRole('textbox');
+      const ids = input.getAttribute('aria-describedby')!.split(' ');
+      for (const id of ids) {
+        expect(document.getElementById(id)).toBeInTheDocument();
+      }
+      expect(screen.queryByText('Ayuda')).not.toBeInTheDocument();
+    });
+
     it('has no aria-describedby when neither hint nor error is provided', () => {
       render(<TextField label="Nombre" name="name" />);
       expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-describedby');
