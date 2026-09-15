@@ -57,11 +57,11 @@ describe('useFieldIds', () => {
       expect(result.current.describedBy).toBe('f-error');
     });
 
-    it('contains both hintId and errorId (space-separated) when both are provided', () => {
+    it('contains only errorId when both are provided, since error suppresses the hint', () => {
       const { result } = renderHook(() =>
         useFieldIds({ inputId: 'f', hint: 'Ayuda', error: 'Error' }),
       );
-      expect(result.current.describedBy).toBe('f-hint f-error');
+      expect(result.current.describedBy).toBe('f-error');
     });
   });
 });

@@ -18,6 +18,10 @@ export function useFieldIds({ inputId, hint, error }: UseFieldIdsOptions): UseFi
   const id = inputId ?? generatedId;
   const hintId = hint ? `${id}-hint` : undefined;
   const errorId = error ? `${id}-error` : undefined;
-  const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
+  // Every composite renders the error or the hint, never both — error wins.
+  // aria-describedby must therefore name only the element actually in the DOM:
+  // naming a hint that the error suppressed leaves a dangling reference, which
+  // assistive technology resolves to nothing.
+  const describedBy = errorId ?? hintId;
   return { id, hintId, errorId, describedBy };
 }
