@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Checks that the tarball npm would actually publish contains every file
-// package.json promises, and that the stylesheet carries the design tokens.
-// Run after `npm run build`.
+// package.json promises, and that the stylesheet defines every design token
+// its own rules consume. Run after `npm run build`.
 //
 // Both failures this guards against shipped in 1.0.2 with a fully green
 // pipeline: `types` pointed at a dist/index.d.ts nothing emitted, and the
@@ -53,17 +53,41 @@ for (const file of [...declared].sort()) {
   }
 }
 
-// A stylesheet full of var(--ds-*) with no :root block defining them renders
-// every component unstyled. Storybook imports src/tokens/tokens.css directly,
-// so it never notices.
+// A rule reading var(--ds-x) where nothing defines --ds-x renders that
+// property as if it were never set. Storybook imports the token sources
+// directly, so it never sees the bundled stylesheet's own gaps.
 const stylesheet = 'dist/index.css';
 if (packed.has(stylesheet)) {
   const css = readFileSync(path.join(repoRoot, stylesheet), 'utf8');
-  const definitions = new Set(css.match(/--ds-[a-z0-9-]+\s*:/gi) ?? []).size;
-  if (definitions === 0) {
+
+  const defined = new Set([...css.matchAll(/(--ds-[a-z0-9-]+)\s*:/gi)].map((m) => m[1]));
+  // var(--ds-x) and var(--ds-x, fallback) alike; the fallback is ignored
+  // because a token that only ever resolves to its fallback is still a bug.
+  const referenced = new Set([...css.matchAll(/var\(\s*(--ds-[a-z0-9-]+)/gi)].map((m) => m[1]));
+  const missing = [...referenced].filter((token) => !defined.has(token)).sort();
+
+  if (defined.size === 0) {
     errors.push(`${stylesheet} uses design tokens but defines none — consumers would get unstyled components`);
+  } else if (missing.length > 0) {
+    errors.push(
+      `${stylesheet} references ${missing.length} undefined token(s): ${missing.slice(0, 10).join(', ')}` +
+        (missing.length > 10 ? `, and ${missing.length - 10} more` : ''),
+    );
   } else {
-    console.log(`${stylesheet}: ${definitions} token definitions`);
+    console.log(`${stylesheet}: ${defined.size} tokens defined, all ${referenced.size} referenced ones resolve.`);
+  }
+}
+
+// The declarations must not carry imports of files the package does not ship.
+const types = pkg.types?.replace(/^\.\//, '');
+if (types && packed.has(types)) {
+  const declaration = readFileSync(path.join(repoRoot, types), 'utf8');
+  const cssImport = declaration.match(/^\s*import\s+['"][^'"]+\.css['"]/m);
+  if (cssImport) {
+    errors.push(
+      `${types} imports a stylesheet (${cssImport[0].trim()}). Consumers compiling with ` +
+        'skipLibCheck disabled cannot resolve it — strip CSS imports from the emitted declarations.',
+    );
   }
 }
 

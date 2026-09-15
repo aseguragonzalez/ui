@@ -3,6 +3,7 @@
 // import nothing outside Storybook — which loads tokens.css on its own — ever
 // defines them, and consumers get unstyled components.
 import './tokens/tokens.css';
+import './tokens/base.css';
 
 // ─── Primitives ────────────────────────────────────────────────────────────────
 

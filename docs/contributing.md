@@ -145,8 +145,8 @@ dist/
   index.js      ESM bundle
   index.cjs     CommonJS bundle
   index.d.ts    TypeScript declarations
-  index.css     Tokens + all component styles
+  index.css     Tokens + base styles + all component styles
   tokens.css    CSS Custom Properties only
 ```
 
-Build with `npm run build`. The build runs `types:css` first (CSS Module declarations), then `tsc` (TypeScript), then Vite (bundling).
+Build with `npm run build`. The build runs `types:css` first (CSS Module declarations), then `tsc` (type check), then Vite (bundling), then a declaration-only `tsc` pass that emits `index.d.ts`, and finally copies `tokens.css` into `dist/`. The stages after Vite are what produce the published entry points, so a Vite-only build is not a complete package build.

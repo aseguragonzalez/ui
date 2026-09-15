@@ -11,7 +11,7 @@ npm run test:watch                            # Unit tests in watch mode
 npm run test:storybook                        # Storybook interaction tests (Playwright/Chromium)
 npm run test:all                              # All test projects
 npx vitest run src/primitives/Button          # Single component tests
-npm run build                                 # types:css → tsc → vite (outputs dist/)
+npm run build                                 # types:css → tsc → vite → d.ts emit → tokens.css copy (outputs dist/)
 npm run lint                                  # ESLint (flat config)
 npm run types:css                             # Regenerate CSS Module .d.ts files after editing .module.css
 ```
@@ -60,6 +60,8 @@ Two layers in `src/tokens/tokens.css`:
 2. **Semantic tokens** (`--ds-color-action-primary`, `--ds-color-input-border`, etc.) — map to primitives and are the only tokens components use.
 
 Consumers override semantic tokens in `:root` (after importing the stylesheet) to theme the entire library. Overriding primitive scale tokens has no effect on components.
+
+Document-level rules (box-sizing, body typography, the reduced-motion override) live in `src/tokens/base.css`, not `tokens.css`, so the published `./tokens.css` subpath stays custom properties only. Both are imported from `src/index.ts` and bundled into `dist/index.css`.
 
 ### CSS Modules
 
