@@ -80,8 +80,8 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
-    "@vitest/browser-playwright": "^4.1.5",
-    "@vitest/coverage-v8": "^4.1.5",
+    "@vitest/browser-playwright": "^5.0.1",
+    "@vitest/coverage-v8": "^5.0.1",
     "audit-ci": "^7.1.0",
     "eslint": "^10.2.1",
     "eslint-plugin-react-hooks": "^7.1.1",
@@ -99,7 +99,7 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
     "vite": "^8.0.10",
-    "vitest": "^4.1.5"
+    "vitest": "^5.0.1"
   },
   "overrides": {
     "npm": "^11.14.0",
