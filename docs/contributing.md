@@ -7,7 +7,7 @@ Development happens inside the devcontainer — see [Development environment](..
 ```bash
 git clone https://github.com/aseguragonzalez/ui.git
 cd ui
-devcontainer up --workspace-folder .                 # installs dependencies on first run
+devcontainer up --workspace-folder .
 devcontainer exec --workspace-folder . npm run dev   # Storybook → http://localhost:6006
 ```
 

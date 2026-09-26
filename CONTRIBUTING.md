@@ -17,7 +17,7 @@ The repository ships a [devcontainer](https://containers.dev) (`.devcontainer/de
 
   ```bash
   devcontainer up --workspace-folder .
-  devcontainer exec --workspace-folder . npm run dev   # Storybook → http://localhost:6006
+  devcontainer exec --workspace-folder . npm run dev
   ```
 
 Dependencies are installed automatically when the container is created. Run every `npm` command in this guide inside the container.

@@ -1,11 +1,7 @@
 {
   "name": "ui",
-  // Node 22 matches the `node-version` used by every CI workflow.
   "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
   "remoteUser": "node",
-  // appPort publishes the port on the host, so Storybook is reachable both from
-  // VS Code and when the container is driven with the `devcontainer` CLI (which
-  // does not implement forwardPorts).
   "appPort": [6006],
   "portsAttributes": {
     "6006": {
@@ -13,8 +9,6 @@
       "onAutoForward": "openBrowser"
     }
   },
-  // Chromium (plus its system libraries) is required by the `storybook` Vitest
-  // project, which runs through @vitest/browser-playwright.
   "postCreateCommand": "npm ci && npx playwright install --with-deps chromium",
   "customizations": {
     "vscode": {
