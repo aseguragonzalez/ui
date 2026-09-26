@@ -1,0 +1,28 @@
+{
+  "name": "ui",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+  "remoteUser": "node",
+  "appPort": [6006],
+  "portsAttributes": {
+    "6006": {
+      "label": "Storybook",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "npm ci && npx playwright install --with-deps chromium",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "clinyong.vscode-css-modules",
+        "vitest.explorer"
+      ],
+      "settings": {
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        }
+      }
+    }
+  }
+}
