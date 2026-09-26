@@ -2,6 +2,22 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Development environment
+
+**All work happens inside the devcontainer** (`.devcontainer/devcontainer.json`). It pins Node 22, the same major CI uses, and ships the Playwright Chromium browser needed by `test:storybook`. Start it once with:
+
+```bash
+devcontainer up --workspace-folder .
+```
+
+Then run every command below through it:
+
+```bash
+devcontainer exec --workspace-folder . npm run <script>
+```
+
+The host may also have Node/npm installed, but don't rely on it — its version can drift from CI and break `engines` constraints. `gh` is the exception: it always runs on the host, never inside the devcontainer.
+
 ## Commands
 
 ```bash

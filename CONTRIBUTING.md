@@ -8,6 +8,20 @@ Thank you for taking the time to contribute. This document covers the GitHub wor
 - For significant changes (new components, breaking API changes), open an issue first to discuss the approach before writing code.
 - All contributions must target WCAG 2.1 AA and include axe-core tests. See [docs/accessibility.md](docs/accessibility.md).
 
+## Development environment
+
+The repository ships a [devcontainer](https://containers.dev) (`.devcontainer/devcontainer.json`) with the Node version used by CI and the Playwright Chromium browser required by the Storybook tests. It is the supported development environment; you only need Docker on your machine.
+
+- **VS Code**: install the Dev Containers extension, open the repository and run **Dev Containers: Reopen in Container**.
+- **Command line**: install the [devcontainer CLI](https://github.com/devcontainers/cli) (`npm install -g @devcontainers/cli`), then:
+
+  ```bash
+  devcontainer up --workspace-folder .
+  devcontainer exec --workspace-folder . npm run dev   # Storybook → http://localhost:6006
+  ```
+
+Dependencies are installed automatically when the container is created. Run every `npm` command in this guide inside the container.
+
 ## Workflow
 
 1. Fork the repository and create a branch from `main`:

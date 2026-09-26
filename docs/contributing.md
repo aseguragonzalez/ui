@@ -2,11 +2,13 @@
 
 ## Setup
 
+Development happens inside the devcontainer — see [Development environment](../CONTRIBUTING.md#development-environment).
+
 ```bash
-git clone <repo>
-cd design-system
-npm install
-npm run dev   # Storybook → http://localhost:6006
+git clone https://github.com/aseguragonzalez/ui.git
+cd ui
+devcontainer up --workspace-folder .                 # installs dependencies on first run
+devcontainer exec --workspace-folder . npm run dev   # Storybook → http://localhost:6006
 ```
 
 ## Scripts
