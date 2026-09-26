@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  packages: write
   issues: write
   pull-requests: write
 
@@ -27,7 +26,6 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write
-      packages: write
     steps:
       - name: Generate app token
         id: app-token
@@ -56,36 +54,6 @@ jobs:
         run: npm run build
 
       - name: Release
-        id: release
-        run: |
-          set -o pipefail
-          npx semantic-release 2>&1 | tee /tmp/sr-output.txt
-          VERSION=$(grep -oP 'Published release \K\S+' /tmp/sr-output.txt | head -1 || true)
-          if [ -n "$VERSION" ]; then
-            echo "new_release_published=true" >> "$GITHUB_OUTPUT"
-            echo "new_release_version=$VERSION" >> "$GITHUB_OUTPUT"
-          else
-            echo "new_release_published=false" >> "$GITHUB_OUTPUT"
-          fi
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-
-      - name: Set up Node.js for GitHub Packages
-        if: steps.release.outputs.new_release_published == 'true'
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: 22
-          registry-url: https://npm.pkg.github.com
-          scope: '@aseguragonzalez'
-
-      - name: Publish to GitHub Packages
-        if: steps.release.outputs.new_release_published == 'true'
-        run: |
-          VERSION="${{ steps.release.outputs.new_release_version }}"
-          if npm view "@aseguragonzalez/ui@${VERSION}" --registry=https://npm.pkg.github.com > /dev/null 2>&1; then
-            echo "Version ${VERSION} already published to GitHub Packages, skipping."
-          else
-            npm publish
-          fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
