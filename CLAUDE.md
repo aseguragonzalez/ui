@@ -77,7 +77,7 @@ Two layers in `src/tokens/tokens.css`:
 
 Consumers override semantic tokens in `:root` (after importing the stylesheet) to theme the entire library. Overriding primitive scale tokens has no effect on components.
 
-Document-level rules (box-sizing, body typography, the reduced-motion override) live in `src/tokens/base.css`, not `tokens.css`, so the published `./tokens.css` subpath stays custom properties only. Both are imported from `src/index.ts` and bundled into `dist/index.css`.
+Document-level rules (box-sizing, body typography, the reduced-motion override) live in `src/tokens/base.css`, not `tokens.css`, so the published `./tokens.css` subpath stays custom properties only. Both are pulled in by `src/styles.css` (a single import in `src/index.ts`, to work around a Vite bug with consecutive CSS imports in the CJS output) and bundled into `dist/index.css`.
 
 ### CSS Modules
 
@@ -101,11 +101,13 @@ Two Vitest projects defined in `vite.config.ts`:
 ### Build output
 
 ```
-dist/index.js       ESM
-dist/index.cjs      CommonJS
+dist/index.js       ESM entry (re-exports one module per source file)
+dist/index.cjs      CommonJS entry (same layout, *.cjs)
 dist/index.d.ts     TypeScript declarations
 dist/index.css      Tokens + all component styles
 dist/tokens.css     CSS Custom Properties only
 ```
 
 `cssCodeSplit: false` in Vite config — all styles land in a single `index.css`. React and react-dom are externalized (peer dependencies).
+
+`preserveModules: true` emits one JS module per source module, and `package.json` declares `"sideEffects": ["**/*.css"]`, so consumers' bundlers drop components they don't import. A single bundled file can't be tree-shaken: top-level `forwardRef()` calls and `displayName` assignments count as side effects. CI guards this with `scripts/check-tree-shaking.mjs` (run after `npm run build`), and `scripts/verify-package.mjs` loads both entry points.

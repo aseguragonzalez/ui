@@ -144,11 +144,13 @@ Dark mode is available in the Storybook toolbar. The accessibility addon runs in
 
 ```
 dist/
-  index.js      ESM bundle
-  index.cjs     CommonJS bundle
+  index.js      ESM entry, re-exporting one module per component
+  index.cjs     CommonJS entry, same layout (*.cjs)
   index.d.ts    TypeScript declarations
   index.css     Tokens + base styles + all component styles
   tokens.css    CSS Custom Properties only
 ```
 
 Build with `npm run build`. The build runs `types:css` first (CSS Module declarations), then `tsc` (type check), then Vite (bundling), then a declaration-only `tsc` pass that emits `index.d.ts`, and finally copies `tokens.css` into `dist/`. The stages after Vite are what produce the published entry points, so a Vite-only build is not a complete package build.
+
+The JavaScript is emitted one module per source file (`preserveModules`) and `package.json` declares `"sideEffects": ["**/*.css"]`, so consumers only bundle the components they import. After building, `node scripts/verify-package.mjs` checks the packed tarball and that both entry points load, and `node scripts/check-tree-shaking.mjs` bundles a fixture that imports only `Button` and fails if other components end up in it. CI runs both.

@@ -11,7 +11,9 @@
 
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const repoRoot = process.cwd();
 const pkg = JSON.parse(readFileSync(path.join(repoRoot, 'package.json'), 'utf8'));
@@ -88,6 +90,26 @@ if (types && packed.has(types)) {
       `${types} imports a stylesheet (${cssImport[0].trim()}). Consumers compiling with ` +
         'skipLibCheck disabled cannot resolve it — strip CSS imports from the emitted declarations.',
     );
+  }
+}
+
+// The JavaScript entry points must actually load. The build emits one module
+// per source file, and Vite's post-processing of the stylesheet imports in
+// those modules has produced a dist/index.cjs that is not valid JavaScript.
+const expectedExport = 'Button';
+for (const [field, load] of [
+  ['main', (file) => createRequire(import.meta.url)(file)],
+  ['module', (file) => import(pathToFileURL(file).href)],
+]) {
+  const file = pkg[field] && path.join(repoRoot, pkg[field]);
+  if (!file) continue;
+  try {
+    const exports = await load(file);
+    if (typeof exports[expectedExport] !== 'object') {
+      errors.push(`"${field}" (${pkg[field]}) loads but does not export ${expectedExport}`);
+    }
+  } catch (error) {
+    errors.push(`"${field}" (${pkg[field]}) fails to load: ${error.message.split('\n')[0]}`);
   }
 }
 

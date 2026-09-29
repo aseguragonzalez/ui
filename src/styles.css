@@ -1,0 +1,10 @@
+/* Everything dist/index.css needs besides the component styles, as a single
+   import for src/index.ts.
+
+   With preserveModules, Vite rewrites each stylesheet require() in
+   dist/index.cjs into an "empty css" comment, and two consecutive ones leave
+   behind `,;` — a syntax error that breaks every CommonJS consumer. One
+   import keeps the rewrite valid; scripts/verify-package.mjs loads the built
+   entry points to catch a regression. */
+@import './tokens/tokens.css';
+@import './tokens/base.css';

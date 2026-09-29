@@ -12,11 +12,18 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'DesignSystem',
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
+      fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'js' : 'cjs'}`,
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
+        // One output module per source module, so a consumer's bundler can
+        // drop whole components it never imports. In a single bundled file
+        // every top-level forwardRef() call and displayName assignment counts
+        // as a side effect and keeps the whole library alive. Pairs with
+        // "sideEffects" in package.json.
+        preserveModules: true,
+        preserveModulesRoot: 'src',
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
