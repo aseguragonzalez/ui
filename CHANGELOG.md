@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/aseguragonzalez/ui/compare/v1.0.4...v1.0.5) (2026-09-29)
+
+
+### Bug Fixes
+
+* make unused components tree-shakable ([#128](https://github.com/aseguragonzalez/ui/issues/128)) ([efbc1e0](https://github.com/aseguragonzalez/ui/commit/efbc1e00b6acd38444486a5465cadf46ba982de4)), closes [#127](https://github.com/aseguragonzalez/ui/issues/127)
+
 ## [1.0.4](https://github.com/aseguragonzalez/ui/compare/v1.0.3...v1.0.4) (2026-09-15)
 
 
