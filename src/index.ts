@@ -1,9 +1,9 @@
 // Every component rule references --ds-* custom properties, so the token
 // definitions have to be part of the bundled dist/index.css. Without this
 // import nothing outside Storybook — which loads tokens.css on its own — ever
-// defines them, and consumers get unstyled components.
-import './tokens/tokens.css';
-import './tokens/base.css';
+// defines them, and consumers get unstyled components. styles.css pulls in
+// tokens.css and base.css; see there for why it is a single import.
+import './styles.css';
 
 // ─── Primitives ────────────────────────────────────────────────────────────────
 

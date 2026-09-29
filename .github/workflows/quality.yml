@@ -44,6 +44,9 @@ jobs:
       - name: Verify publishable package
         run: node scripts/verify-package.mjs
 
+      - name: Check unused components are tree-shaken
+        run: node scripts/check-tree-shaking.mjs
+
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: dist
