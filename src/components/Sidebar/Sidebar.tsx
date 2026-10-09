@@ -197,7 +197,10 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
                   <ItemLink
                     linkComponent={linkComponent}
                     href={item.href}
-                    onClick={item.onClick}
+                    onClick={() => {
+                      item.onClick?.();
+                      if (mobileOpen) closeMobile();
+                    }}
                     className={[styles.navLink, item.isActive ? styles.navLinkActive : '']
                       .filter(Boolean)
                       .join(' ')}

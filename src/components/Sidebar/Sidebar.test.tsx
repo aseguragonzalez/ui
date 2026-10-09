@@ -187,6 +187,29 @@ describe('Sidebar', () => {
       expect(document.body.style.overflow).toBe('');
     });
 
+    it('closes the uncontrolled drawer when an item is clicked', async () => {
+      mockMobile();
+      render(<Sidebar items={items} defaultMobileOpen={true} linkComponent={RouterLink} />);
+      expect(document.body.style.overflow).toBe('hidden');
+      await userEvent.click(screen.getByRole('link', { name: 'About' }));
+      expect(document.body.querySelector('div[aria-hidden="true"]')).toBeNull();
+      expect(document.body.style.overflow).toBe('');
+    });
+
+    it('calls onMobileOpenChange(false) when an item is clicked in the open drawer', async () => {
+      const onMobileOpenChange = vi.fn();
+      render(<Sidebar items={items} isMobileOpen={true} onMobileOpenChange={onMobileOpenChange} />);
+      await userEvent.click(screen.getByRole('link', { name: 'About' }));
+      expect(onMobileOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('leaves onMobileOpenChange alone when an item is clicked with the drawer closed', async () => {
+      const onMobileOpenChange = vi.fn();
+      render(<Sidebar items={items} onMobileOpenChange={onMobileOpenChange} />);
+      await userEvent.click(screen.getByRole('link', { name: 'About' }));
+      expect(onMobileOpenChange).not.toHaveBeenCalled();
+    });
+
     it('has no axe violations when mobile drawer is open', async () => {
       const { container } = render(
         <Sidebar items={items} isMobileOpen={true} aria-label="Sidebar navigation" />,
