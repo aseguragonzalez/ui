@@ -16,6 +16,11 @@ export interface AppShellProps extends React.HTMLAttributes<HTMLDivElement> {
   navbar?: ReactNode;
   /** Main page content. Rendered inside a `<main>` element. */
   children: ReactNode;
+  /**
+   * Page footer. Rendered in a `<footer>` after `<main>`, not inside it, so it is exposed as the
+   * `contentinfo` landmark. It scrolls with the main content and sits at the bottom when the content is short.
+   */
+  footer?: ReactNode;
 }
 
 const variantClass: Record<AppShellVariant, string> = {
@@ -25,7 +30,7 @@ const variantClass: Record<AppShellVariant, string> = {
 };
 
 const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
-  ({ variant, sidebar, navbar, children, className, ...rest }, ref) => {
+  ({ variant, sidebar, navbar, footer, children, className, ...rest }, ref) => {
     const resolved: AppShellVariant =
       variant ?? (sidebar && navbar ? 'both' : sidebar ? 'sidebar-only' : 'navbar-only');
 
@@ -41,7 +46,14 @@ const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
       <div ref={ref} className={classNames} {...rest}>
         {sidebar && <div className={styles.sidebarSlot}>{sidebar}</div>}
         {navbar  && <div className={styles.navbarSlot}>{navbar}</div>}
-        <main className={styles.mainArea}>{children}</main>
+        {footer ? (
+          <div className={[styles.mainArea, styles.withFooter].join(' ')}>
+            <main className={styles.main}>{children}</main>
+            <footer className={styles.footer}>{footer}</footer>
+          </div>
+        ) : (
+          <main className={styles.mainArea}>{children}</main>
+        )}
       </div>
     );
   },

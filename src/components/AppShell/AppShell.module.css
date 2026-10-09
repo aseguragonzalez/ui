@@ -64,3 +64,18 @@
   min-height: 0;
   min-width: 0;
 }
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+
+.withFooter {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+}

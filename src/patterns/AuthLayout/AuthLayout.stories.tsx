@@ -116,3 +116,17 @@ export const CustomBranding: Story = {
     </AuthLayout>
   ),
 };
+
+export const WithFooter: Story = {
+  render: () => (
+    <AuthLayout
+      footer={
+        <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--ds-color-text-muted)', fontFamily: 'system-ui' }}>
+          Terms · Privacy · Cookies
+        </p>
+      }
+    >
+      <LoginForm />
+    </AuthLayout>
+  ),
+};

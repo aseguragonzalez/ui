@@ -86,6 +86,31 @@ describe('AppShell', () => {
     });
   });
 
+  describe('footer', () => {
+    it('renders the footer as the contentinfo landmark outside <main>', () => {
+      render(
+        <AppShell sidebar={<SidebarStub />} footer={<p>Legal links</p>}>
+          <p>Page content</p>
+        </AppShell>,
+      );
+      const footer = screen.getByRole('contentinfo');
+      expect(footer.tagName).toBe('FOOTER');
+      expect(footer).toHaveTextContent('Legal links');
+      expect(screen.getByRole('main')).not.toContainElement(footer);
+      expect(screen.getByRole('main')).toHaveTextContent('Page content');
+    });
+
+    it('renders <main> as a direct child of the shell when footer is absent', () => {
+      render(
+        <AppShell data-testid="shell" sidebar={<SidebarStub />}>
+          content
+        </AppShell>,
+      );
+      expect(screen.getByRole('main').parentElement).toBe(screen.getByTestId('shell'));
+      expect(screen.queryByRole('contentinfo')).not.toBeInTheDocument();
+    });
+  });
+
   describe('variant auto-detection', () => {
     it('resolves to "both" when sidebar and navbar are provided without explicit variant', () => {
       render(
@@ -137,6 +162,15 @@ describe('AppShell', () => {
     it('has no violations — sidebar-only', async () => {
       const { container } = render(
         <AppShell sidebar={<SidebarStub />}>
+          <p>Main content</p>
+        </AppShell>,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations — with footer', async () => {
+      const { container } = render(
+        <AppShell sidebar={<SidebarStub />} navbar={<NavbarStub />} footer={<p>Footer</p>}>
           <p>Main content</p>
         </AppShell>,
       );

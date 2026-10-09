@@ -65,6 +65,20 @@ const Placeholder = ({ label, height = 80 }: { label: string; height?: number })
   </div>
 );
 
+const FooterStub = () => (
+  <div
+    style={{
+      padding: '1rem 1.5rem',
+      borderTop: '1px solid var(--ds-color-border-default)',
+      fontFamily: 'system-ui',
+      fontSize: '0.875rem',
+      color: 'var(--ds-color-text-muted)',
+    }}
+  >
+    Footer
+  </div>
+);
+
 /* ── Meta ───────────────────────────────────────────────────────────────── */
 
 const meta: Meta<typeof AppShell> = {
@@ -117,6 +131,17 @@ export const SidebarOnly: Story = {
 export const NavbarOnly: Story = {
   render: () => (
     <AppShell navbar={<NavbarStub />}>
+      <PageLayout>
+        <Heading level={1} size="sm">Content</Heading>
+        <Placeholder label="Main area" height={300} />
+      </PageLayout>
+    </AppShell>
+  ),
+};
+
+export const WithFooter: Story = {
+  render: () => (
+    <AppShell sidebar={<SidebarStub />} navbar={<NavbarStub />} footer={<FooterStub />}>
       <PageLayout>
         <Heading level={1} size="sm">Content</Heading>
         <Placeholder label="Main area" height={300} />
