@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/aseguragonzalez/ui/compare/v1.2.0...v1.3.0) (2026-10-09)
+
+
+### Features
+
+* make the built-in labels of Sidebar, Navbar, Toast and AuthLayout overridable ([#151](https://github.com/aseguragonzalez/ui/issues/151)) ([a6c8eda](https://github.com/aseguragonzalez/ui/commit/a6c8edac113a9177bbe114ea6e829a6ae44968b8))
+
 # [1.2.0](https://github.com/aseguragonzalez/ui/compare/v1.1.0...v1.2.0) (2026-10-09)
 
 
