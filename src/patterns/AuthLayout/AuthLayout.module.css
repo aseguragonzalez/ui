@@ -54,6 +54,17 @@
   margin-bottom: var(--ds-space-6);
 }
 
+/* ---- Footer ---- */
+
+.withFooter {
+  grid-template-rows: 1fr auto;
+}
+
+.footer {
+  background-color: var(--ds-color-bg-surface);
+  padding: var(--ds-space-4) var(--ds-space-6);
+}
+
 /* ---- Desktop: two-column layout ---- */
 
 @media (min-width: 768px) {
@@ -67,5 +78,13 @@
 
   .mobileLogo {
     display: none;
+  }
+
+  .withFooter .brandPanel {
+    grid-row: 1 / -1;
+  }
+
+  .withFooter .footer {
+    grid-column: 2;
   }
 }

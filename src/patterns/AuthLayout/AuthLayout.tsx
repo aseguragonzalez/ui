@@ -10,6 +10,11 @@ export interface AuthLayoutProps {
   logo?: ReactNode;
   /** Accessible label for the branding panel (hidden from visual display). */
   brandingLabel?: string;
+  /**
+   * Page footer. Rendered in a `<footer>` after `<main>`, not inside it, so it is exposed as the
+   * `contentinfo` landmark. On desktop it sits below the form panel.
+   */
+  footer?: ReactNode;
 }
 
 const DefaultLogo = () => (
@@ -29,11 +34,12 @@ export function AuthLayout({
   branding,
   logo,
   brandingLabel = 'Product branding',
+  footer,
 }: AuthLayoutProps) {
   const logoEl = logo ?? <DefaultLogo />;
 
   return (
-    <div className={styles.layout}>
+    <div className={[styles.layout, footer ? styles.withFooter : ''].filter(Boolean).join(' ')}>
       {/* Branding panel — hidden on mobile */}
       <aside
         className={styles.brandPanel}
@@ -62,6 +68,8 @@ export function AuthLayout({
           {children}
         </div>
       </main>
+
+      {footer && <footer className={styles.footer}>{footer}</footer>}
     </div>
   );
 }
