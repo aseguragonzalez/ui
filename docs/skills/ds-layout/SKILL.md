@@ -104,4 +104,5 @@ Read asset templates:
 - **`Navbar` `actions` slot** accepts any React node — typically an `Avatar` or a `Button`. It renders on the right side of the bar.
 - **Unique landmark labels:** If both Sidebar and Navbar are on the same page, set different `aria-label` values on each so screen readers can distinguish the two navigation landmarks.
 - **`isActive`** should reflect the current route — derive it from your router (`useLocation`, `usePathname`, etc.) rather than hardcoding it.
+- **Built-in labels are English.** Localize them with `Sidebar`'s `closeLabel`, `collapseLabel` and `expandLabel`, and `Navbar`'s `openMenuLabel`, `closeMenuLabel` and `menuLabel` (the mobile menu landmark, `` `${aria-label} — menu` `` by default), besides each component's `aria-label`.
 - **`sticky` on Navbar** adds `position: sticky; top: 0` via the token-based style. Use it for content layouts where the page scrolls under the bar.

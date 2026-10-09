@@ -37,6 +37,8 @@ createRoot(document.getElementById('root')!).render(
 );
 ```
 
+`ToastProvider` takes `dismissLabel` (each toast's dismiss button, default `"Close notification"`) and `regionLabel` (the live region, default `"Notifications"`) to localize its built-in labels.
+
 ### Usage inside components
 
 ```ts

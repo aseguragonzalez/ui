@@ -60,11 +60,13 @@ const icons: Record<ToastVariant, React.ReactElement> = {
 
 function ToastElement({
   item,
+  dismissLabel,
   onDismiss,
   onPause,
   onResume,
 }: {
   item: ToastItem;
+  dismissLabel: string;
   onDismiss: (id: string) => void;
   onPause: (id: string) => void;
   onResume: (id: string) => void;
@@ -82,7 +84,7 @@ function ToastElement({
       <span className={styles.message}>{item.message}</span>
       <button
         type="button"
-        aria-label="Close notification"
+        aria-label={dismissLabel}
         className={styles.closeButton}
         onClick={() => onDismiss(item.id)}
       >
@@ -98,9 +100,18 @@ export interface ToastProviderProps {
   children: React.ReactNode;
   /** Max toasts visible at once. Default: 5. */
   maxToasts?: number;
+  /** Accessible name of each toast's dismiss button. Default: `'Close notification'`. */
+  dismissLabel?: string;
+  /** Accessible name of the notifications region. Default: `'Notifications'`. */
+  regionLabel?: string;
 }
 
-export function ToastProvider({ children, maxToasts = 5 }: ToastProviderProps) {
+export function ToastProvider({
+  children,
+  maxToasts = 5,
+  dismissLabel = 'Close notification',
+  regionLabel = 'Notifications',
+}: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
   const timersRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
   const pausedAtRef = useRef<Map<string, number>>(new Map());
@@ -178,7 +189,7 @@ export function ToastProvider({ children, maxToasts = 5 }: ToastProviderProps) {
         <div
           role="region"
           className={styles.region}
-          aria-label="Notifications"
+          aria-label={regionLabel}
           aria-live="polite"
           aria-atomic="false"
           aria-relevant="additions text"
@@ -187,6 +198,7 @@ export function ToastProvider({ children, maxToasts = 5 }: ToastProviderProps) {
             <ToastElement
               key={item.id}
               item={item}
+              dismissLabel={dismissLabel}
               onDismiss={dismiss}
               onPause={pause}
               onResume={resume}

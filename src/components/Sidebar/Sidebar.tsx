@@ -60,6 +60,12 @@ export interface SidebarProps {
    * router's link, so navigation happens without a full page load. Defaults to `<a>`.
    */
   linkComponent?: LinkComponent;
+  /** Accessible name of the mobile drawer's close button. Default: `'Close sidebar'`. */
+  closeLabel?: string;
+  /** Accessible name of the collapse button while expanded. Default: `'Collapse sidebar'`. */
+  collapseLabel?: string;
+  /** Accessible name of the collapse button while collapsed. Default: `'Expand sidebar'`. */
+  expandLabel?: string;
   /** Desktop collapse — uncontrolled default */
   defaultCollapsed?: boolean;
   /** Desktop collapse — controlled */
@@ -82,6 +88,9 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
       footer,
       'aria-label': ariaLabel = 'Sidebar navigation',
       linkComponent,
+      closeLabel = 'Close sidebar',
+      collapseLabel = 'Collapse sidebar',
+      expandLabel = 'Expand sidebar',
       defaultCollapsed = false,
       isCollapsed: controlledCollapsed,
       onCollapsedChange,
@@ -169,7 +178,7 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
                 type="button"
                 className={styles.mobileCloseButton}
                 onClick={closeMobile}
-                aria-label="Close sidebar"
+                aria-label={closeLabel}
               >
                 <CloseIcon />
               </button>
@@ -183,7 +192,7 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
                 type="button"
                 className={styles.mobileCloseButton}
                 onClick={closeMobile}
-                aria-label="Close sidebar"
+                aria-label={closeLabel}
               >
                 <CloseIcon />
               </button>
@@ -226,7 +235,7 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
             type="button"
             className={styles.collapseButton}
             onClick={toggleCollapse}
-            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            aria-label={collapsed ? expandLabel : collapseLabel}
             aria-expanded={!collapsed}
           >
             {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}

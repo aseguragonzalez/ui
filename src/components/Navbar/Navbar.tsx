@@ -22,6 +22,12 @@ export interface NavbarProps {
    * router's link, so navigation happens without a full page load. Defaults to `<a>`.
    */
   linkComponent?: LinkComponent;
+  /** Accessible name of the mobile menu button while closed. Default: `'Open menu'`. */
+  openMenuLabel?: string;
+  /** Accessible name of the mobile menu button while open. Default: `'Close menu'`. */
+  closeMenuLabel?: string;
+  /** Accessible name of the mobile menu's navigation landmark. Default: `` `${aria-label} — menu` ``. */
+  menuLabel?: string;
   defaultMobileOpen?: boolean;
   isMobileOpen?: boolean;
   onMobileOpenChange?: (open: boolean) => void;
@@ -53,6 +59,9 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
       sticky = false,
       'aria-label': ariaLabel = 'Main navigation',
       linkComponent,
+      openMenuLabel = 'Open menu',
+      closeMenuLabel = 'Close menu',
+      menuLabel,
       defaultMobileOpen = false,
       isMobileOpen: controlledMobileOpen,
       onMobileOpenChange,
@@ -114,7 +123,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
             onClick={toggleMobile}
             aria-expanded={mobileOpen}
             aria-controls={mobileMenuId}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-label={mobileOpen ? closeMenuLabel : openMenuLabel}
           >
             {mobileOpen ? <CloseIcon /> : <HamburgerIcon />}
           </button>
@@ -129,7 +138,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
             .filter(Boolean)
             .join(' ')}
         >
-          <nav aria-label={`${ariaLabel} — menu`}>
+          <nav aria-label={menuLabel ?? `${ariaLabel} — menu`}>
             <ul className={styles.mobileNavList}>
               {items.map((item) => (
                 <li key={item.key} className={styles.mobileNavItem}>

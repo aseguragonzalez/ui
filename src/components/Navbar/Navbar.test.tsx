@@ -151,6 +151,24 @@ describe('Navbar', () => {
     });
   });
 
+  describe('labels', () => {
+    it('uses the given menu button labels', async () => {
+      render(<Navbar items={items} openMenuLabel="Abrir menú" closeMenuLabel="Cerrar menú" />);
+      await userEvent.click(screen.getByRole('button', { name: 'Abrir menú' }));
+      expect(screen.getByRole('button', { name: 'Cerrar menú' })).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('uses the given mobile menu landmark label', () => {
+      render(<Navbar items={items} aria-label="Navegación principal" menuLabel="Menú de navegación" />);
+      expect(screen.getByRole('navigation', { name: 'Menú de navegación' })).toBeInTheDocument();
+    });
+
+    it('derives the mobile menu landmark label from aria-label by default', () => {
+      render(<Navbar items={items} aria-label="Navegación principal" />);
+      expect(screen.getByRole('navigation', { name: 'Navegación principal — menu' })).toBeInTheDocument();
+    });
+  });
+
   describe('a11y — axe', () => {
     it('has no violations — default', async () => {
       const { container } = render(
