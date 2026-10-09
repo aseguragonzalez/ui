@@ -2,12 +2,15 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Sidebar } from './Sidebar';
+import type { LinkComponentProps } from '../shared/LinkComponent';
 
 const items = [
   { key: 'home', label: 'Home', href: '/', isActive: true },
   { key: 'about', label: 'About', href: '/about' },
   { key: 'settings', label: 'Settings', href: '/settings' },
 ];
+
+const RouterLink = ({ href, ...rest }: LinkComponentProps) => <a data-router-link="" href={`#router${href}`} {...rest} />;
 
 describe('Sidebar', () => {
   describe('rendering', () => {
@@ -188,6 +191,42 @@ describe('Sidebar', () => {
       const { container } = render(
         <Sidebar items={items} isMobileOpen={true} aria-label="Sidebar navigation" />,
       );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('linkComponent', () => {
+    it('renders items with an href through the link component', () => {
+      render(<Sidebar items={items} linkComponent={RouterLink} />);
+      const link = screen.getByRole('link', { name: 'About' });
+      expect(link).toHaveAttribute('data-router-link');
+      expect(link).toHaveAttribute('href', '#router/about');
+    });
+
+    it('passes aria-current and the item styles to the link component', () => {
+      render(<Sidebar items={items} linkComponent={RouterLink} />);
+      const link = screen.getByRole('link', { name: 'Home' });
+      expect(link).toHaveAttribute('aria-current', 'page');
+      expect(link.className).toMatch(/navLink/);
+    });
+
+    it('passes onClick to the link component', async () => {
+      const onClick = vi.fn();
+      render(<Sidebar items={[{ key: 'docs', label: 'Docs', href: '/docs', onClick }]} linkComponent={RouterLink} />);
+      await userEvent.click(screen.getByRole('link', { name: 'Docs' }));
+      expect(onClick).toHaveBeenCalledOnce();
+    });
+
+    it('renders items without an href as a plain anchor', () => {
+      const { container } = render(
+        <Sidebar items={[{ key: 'action', label: 'Action', onClick: () => {} }]} linkComponent={RouterLink} />,
+      );
+      expect(container.querySelector('[data-router-link]')).toBeNull();
+      expect(screen.getByText('Action').closest('a')).not.toBeNull();
+    });
+
+    it('has no violations', async () => {
+      const { container } = render(<Sidebar items={items} linkComponent={RouterLink} />);
       expect(await axe(container)).toHaveNoViolations();
     });
   });

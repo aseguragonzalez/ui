@@ -2,12 +2,15 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Navbar } from './Navbar';
+import type { LinkComponentProps } from '../shared/LinkComponent';
 
 const items = [
   { key: 'home', label: 'Home', href: '/', isActive: true },
   { key: 'about', label: 'About', href: '/about' },
   { key: 'contact', label: 'Contact', href: '/contact' },
 ];
+
+const RouterLink = ({ href, ...rest }: LinkComponentProps) => <a data-router-link="" href={`#router${href}`} {...rest} />;
 
 describe('Navbar', () => {
   describe('rendering', () => {
@@ -106,6 +109,45 @@ describe('Navbar', () => {
       await user.click(within(mobileNav).getByRole('link', { name: 'Home' }));
       expect(itemClick).toHaveBeenCalledTimes(1);
       expect(onMobileOpenChange).toHaveBeenCalledWith(false);
+    });
+  });
+
+  describe('linkComponent', () => {
+    it('renders desktop and mobile items through the link component', () => {
+      render(<Navbar items={items} linkComponent={RouterLink} />);
+      const links = screen.getAllByRole('link', { name: 'About' });
+      expect(links).toHaveLength(2);
+      links.forEach((link) => {
+        expect(link).toHaveAttribute('data-router-link');
+        expect(link).toHaveAttribute('href', '#router/about');
+      });
+    });
+
+    it('passes aria-current to the link component', () => {
+      render(<Navbar items={items} linkComponent={RouterLink} />);
+      screen
+        .getAllByRole('link', { name: 'Home' })
+        .forEach((link) => expect(link).toHaveAttribute('aria-current', 'page'));
+    });
+
+    it('closes the mobile menu when a mobile item rendered by the link component is clicked', async () => {
+      const onClick = vi.fn();
+      render(
+        <Navbar
+          items={[{ key: 'docs', label: 'Docs', href: '/docs', onClick }]}
+          linkComponent={RouterLink}
+          defaultMobileOpen
+        />,
+      );
+      const menuNav = screen.getByRole('navigation', { name: 'Main navigation — menu' });
+      await userEvent.click(within(menuNav).getByRole('link', { name: 'Docs' }));
+      expect(onClick).toHaveBeenCalledOnce();
+      expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('has no violations', async () => {
+      const { container } = render(<Navbar items={items} linkComponent={RouterLink} />);
+      expect(await axe(container)).toHaveNoViolations();
     });
   });
 

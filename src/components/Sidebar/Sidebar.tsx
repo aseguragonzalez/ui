@@ -1,6 +1,8 @@
 import { createPortal } from 'react-dom';
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './Sidebar.module.css';
+import { ItemLink } from '../shared/ItemLink';
+import type { LinkComponent } from '../shared/LinkComponent';
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -53,6 +55,11 @@ export interface SidebarProps {
   /** Pinned to the bottom of the panel, above the collapse button. */
   footer?: React.ReactNode;
   'aria-label'?: string;
+  /**
+   * Component rendered for items with an `href` instead of a plain `<a>`, such as an adapter over the
+   * router's link, so navigation happens without a full page load. Defaults to `<a>`.
+   */
+  linkComponent?: LinkComponent;
   /** Desktop collapse — uncontrolled default */
   defaultCollapsed?: boolean;
   /** Desktop collapse — controlled */
@@ -74,6 +81,7 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
       header,
       footer,
       'aria-label': ariaLabel = 'Sidebar navigation',
+      linkComponent,
       defaultCollapsed = false,
       isCollapsed: controlledCollapsed,
       onCollapsedChange,
@@ -186,7 +194,8 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
             <ul className={styles.navList} tabIndex={0}>
               {items.map((item) => (
                 <li key={item.key} className={styles.navItem}>
-                  <a
+                  <ItemLink
+                    linkComponent={linkComponent}
                     href={item.href}
                     onClick={item.onClick}
                     className={[styles.navLink, item.isActive ? styles.navLinkActive : '']
@@ -202,7 +211,7 @@ const Sidebar = forwardRef<HTMLElement, SidebarProps>(
                       </span>
                     )}
                     <span className={styles.navLinkLabel}>{item.label}</span>
-                  </a>
+                  </ItemLink>
                 </li>
               ))}
             </ul>

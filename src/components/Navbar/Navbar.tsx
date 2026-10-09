@@ -1,5 +1,7 @@
 import { forwardRef, useId, useState } from 'react';
 import styles from './Navbar.module.css';
+import { ItemLink } from '../shared/ItemLink';
+import type { LinkComponent } from '../shared/LinkComponent';
 
 export interface NavItem {
   key: string;
@@ -15,6 +17,11 @@ export interface NavbarProps {
   actions?: React.ReactNode;
   sticky?: boolean;
   'aria-label'?: string;
+  /**
+   * Component rendered for items with an `href` instead of a plain `<a>`, such as an adapter over the
+   * router's link, so navigation happens without a full page load. Defaults to `<a>`.
+   */
+  linkComponent?: LinkComponent;
   defaultMobileOpen?: boolean;
   isMobileOpen?: boolean;
   onMobileOpenChange?: (open: boolean) => void;
@@ -45,6 +52,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
       actions,
       sticky = false,
       'aria-label': ariaLabel = 'Main navigation',
+      linkComponent,
       defaultMobileOpen = false,
       isMobileOpen: controlledMobileOpen,
       onMobileOpenChange,
@@ -81,7 +89,8 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
               <ul className={styles.navList}>
                 {items.map((item) => (
                   <li key={item.key} className={styles.navItem}>
-                    <a
+                    <ItemLink
+                      linkComponent={linkComponent}
                       href={item.href}
                       onClick={item.onClick}
                       className={[styles.navLink, item.isActive ? styles.navLinkActive : '']
@@ -90,7 +99,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
                       aria-current={item.isActive ? 'page' : undefined}
                     >
                       {item.label}
-                    </a>
+                    </ItemLink>
                   </li>
                 ))}
               </ul>
@@ -124,7 +133,8 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
             <ul className={styles.mobileNavList}>
               {items.map((item) => (
                 <li key={item.key} className={styles.mobileNavItem}>
-                  <a
+                  <ItemLink
+                    linkComponent={linkComponent}
                     href={item.href}
                     onClick={() => {
                       item.onClick?.();
@@ -139,7 +149,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
                     aria-current={item.isActive ? 'page' : undefined}
                   >
                     {item.label}
-                  </a>
+                  </ItemLink>
                 </li>
               ))}
             </ul>

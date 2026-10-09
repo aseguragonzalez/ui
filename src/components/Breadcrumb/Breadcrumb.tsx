@@ -1,5 +1,7 @@
 import { forwardRef } from 'react';
 import styles from './Breadcrumb.module.css';
+import { ItemLink } from '../shared/ItemLink';
+import type { LinkComponent } from '../shared/LinkComponent';
 
 export interface BreadcrumbItem {
   label: string;
@@ -9,11 +11,16 @@ export interface BreadcrumbItem {
 export interface BreadcrumbProps {
   items: BreadcrumbItem[];
   'aria-label'?: string;
+  /**
+   * Component rendered for ancestor items with an `href` instead of a plain `<a>`, such as an adapter over the
+   * router's link, so navigation happens without a full page load. Defaults to `<a>`.
+   */
+  linkComponent?: LinkComponent;
   className?: string;
 }
 
 const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
-  ({ items, 'aria-label': ariaLabel = 'Breadcrumb', className }, ref) => (
+  ({ items, 'aria-label': ariaLabel = 'Breadcrumb', linkComponent, className }, ref) => (
     <nav
       ref={ref}
       aria-label={ariaLabel}
@@ -29,9 +36,9 @@ const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
                   {item.label}
                 </span>
               ) : item.href ? (
-                <a href={item.href} className={styles.link}>
+                <ItemLink linkComponent={linkComponent} href={item.href} className={styles.link}>
                   {item.label}
-                </a>
+                </ItemLink>
               ) : (
                 <span className={styles.link}>{item.label}</span>
               )}

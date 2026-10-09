@@ -72,7 +72,25 @@ Place `Breadcrumb` inside the main content area, above the page heading. Each it
 items: BreadcrumbItem[]   // { label: string; href?: string }
 ```
 
-## Step 6 — Write the files
+## Step 6 — Route links through the app's router
+
+`Sidebar`, `Navbar` and `Breadcrumb` render items with an `href` as plain `<a>` elements, which reload the page in
+a single-page application. Pass `linkComponent` to render them through the router's link instead. It receives
+`href`, `className`, `children`, `onClick`, `aria-current`, `aria-label` and `title` (`LinkComponentProps`), so a
+React Router adapter only maps `href` to `to`:
+
+```tsx
+import { Link } from 'react-router';
+import type { LinkComponentProps } from '@aseguragonzalez/ui';
+
+const RouterLink = ({ href, ...rest }: LinkComponentProps) => <Link to={href} {...rest} />;
+
+<Sidebar items={items} linkComponent={RouterLink} />
+```
+
+Items without an `href` keep rendering as `<a>`.
+
+## Step 7 — Write the files
 
 Read asset templates:
 - `assets/layout_sidebar.tsx` — full app shell with Sidebar + main content

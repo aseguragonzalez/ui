@@ -1,12 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { Breadcrumb } from './Breadcrumb';
+import type { LinkComponentProps } from '../shared/LinkComponent';
 
 const items = [
   { label: 'Inicio', href: '/' },
   { label: 'Productos', href: '/productos' },
   { label: 'Detalles' },
 ];
+
+const RouterLink = ({ href, ...rest }: LinkComponentProps) => <a data-router-link="" href={`#router${href}`} {...rest} />;
 
 describe('Breadcrumb', () => {
   describe('rendering', () => {
@@ -74,6 +77,25 @@ describe('Breadcrumb', () => {
         />,
       );
       expect(screen.queryAllByRole('link')).toHaveLength(0);
+    });
+  });
+
+  describe('linkComponent', () => {
+    it('renders ancestor items through the link component', () => {
+      render(<Breadcrumb items={items} linkComponent={RouterLink} />);
+      const link = screen.getByRole('link', { name: 'Productos' });
+      expect(link).toHaveAttribute('data-router-link');
+      expect(link).toHaveAttribute('href', '#router/productos');
+    });
+
+    it('keeps the current item as plain text', () => {
+      render(<Breadcrumb items={items} linkComponent={RouterLink} />);
+      expect(screen.queryByRole('link', { name: 'Detalles' })).not.toBeInTheDocument();
+    });
+
+    it('has no violations', async () => {
+      const { container } = render(<Breadcrumb items={items} linkComponent={RouterLink} />);
+      expect(await axe(container)).toHaveNoViolations();
     });
   });
 
