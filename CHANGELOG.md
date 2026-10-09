@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/aseguragonzalez/ui/compare/v1.1.0...v1.2.0) (2026-10-09)
+
+
+### Features
+
+* render Sidebar, Navbar and Breadcrumb links through a consumer-supplied link component ([#150](https://github.com/aseguragonzalez/ui/issues/150)) ([7565489](https://github.com/aseguragonzalez/ui/commit/75654897e363f92440cc80834f8e491e39cae952))
+
 # [1.1.0](https://github.com/aseguragonzalez/ui/compare/v1.0.5...v1.1.0) (2026-10-09)
 
 
