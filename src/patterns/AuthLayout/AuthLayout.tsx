@@ -4,8 +4,10 @@ import styles from './AuthLayout.module.css';
 export interface AuthLayoutProps {
   /** Form or main content rendered in the right panel. */
   children: ReactNode;
-  /** Custom branding content for the left panel. Replaces the default tagline. */
+  /** Custom branding content for the left panel. Replaces the default logo and tagline. */
   branding?: ReactNode;
+  /** Tagline shown under the logo in the branding panel. Default: `'Build better products, together.'`. */
+  tagline?: ReactNode;
   /** Logo shown at the top of the form panel on mobile, and inside the branding panel on desktop. */
   logo?: ReactNode;
   /** Accessible label for the branding panel (hidden from visual display). */
@@ -32,6 +34,7 @@ const DefaultLogo = () => (
 export function AuthLayout({
   children,
   branding,
+  tagline,
   logo,
   brandingLabel = 'Product branding',
   footer,
@@ -51,7 +54,11 @@ export function AuthLayout({
             <>
               <div className={styles.brandLogo}>{logoEl}</div>
               <p className={styles.brandTagline}>
-                Build better products,<br />together.
+                {tagline ?? (
+                  <>
+                    Build better products,<br />together.
+                  </>
+                )}
               </p>
             </>
           )}

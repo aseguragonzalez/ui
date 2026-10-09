@@ -37,6 +37,27 @@ describe('AuthLayout', () => {
     });
   });
 
+  describe('tagline', () => {
+    it('shows the English tagline by default', () => {
+      const { container } = render(
+        <AuthLayout>
+          <h1>Sign in</h1>
+        </AuthLayout>,
+      );
+      expect(container).toHaveTextContent('Build better products,together.');
+    });
+
+    it('shows the given tagline', () => {
+      const { container } = render(
+        <AuthLayout tagline="Crea mejores productos, juntos.">
+          <h1>Iniciar sesión</h1>
+        </AuthLayout>,
+      );
+      expect(container).toHaveTextContent('Crea mejores productos, juntos.');
+      expect(container).not.toHaveTextContent('Build better products');
+    });
+  });
+
   describe('a11y — axe', () => {
     it('has no violations', async () => {
       const { container } = render(
@@ -51,6 +72,15 @@ describe('AuthLayout', () => {
       const { container } = render(
         <AuthLayout footer={<p>Legal links</p>}>
           <h1>Sign in</h1>
+        </AuthLayout>,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations — custom tagline', async () => {
+      const { container } = render(
+        <AuthLayout tagline="Crea mejores productos, juntos.">
+          <h1>Iniciar sesión</h1>
         </AuthLayout>,
       );
       expect(await axe(container)).toHaveNoViolations();

@@ -254,6 +254,25 @@ describe('Sidebar', () => {
     });
   });
 
+  describe('labels', () => {
+    it('uses the English labels by default', () => {
+      render(<Sidebar items={items} />);
+      expect(screen.getByRole('button', { name: 'Close sidebar' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Collapse sidebar' })).toBeInTheDocument();
+    });
+
+    it('uses the given close and collapse labels', () => {
+      render(<Sidebar items={items} closeLabel="Cerrar menú" collapseLabel="Contraer menú" expandLabel="Expandir menú" />);
+      expect(screen.getByRole('button', { name: 'Cerrar menú' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Contraer menú' })).toBeInTheDocument();
+    });
+
+    it('uses the given expand label while collapsed', () => {
+      render(<Sidebar items={items} defaultCollapsed expandLabel="Expandir menú" />);
+      expect(screen.getByRole('button', { name: 'Expandir menú' })).toBeInTheDocument();
+    });
+  });
+
   describe('a11y — axe', () => {
     it('has no violations — default', async () => {
       const { container } = render(

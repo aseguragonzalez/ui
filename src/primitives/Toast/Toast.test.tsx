@@ -282,6 +282,26 @@ describe('Toast / ToastProvider', () => {
     });
   });
 
+  describe('labels', () => {
+    it('uses the English labels by default', () => {
+      render(<TestHarness />);
+      click('Mostrar toast');
+      expect(screen.getByRole('region', { name: 'Notifications' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Close notification' })).toBeInTheDocument();
+    });
+
+    it('uses the given dismiss and region labels', () => {
+      render(
+        <ToastProvider dismissLabel="Cerrar notificación" regionLabel="Notificaciones">
+          <ShowButton />
+        </ToastProvider>,
+      );
+      click('Mostrar toast');
+      expect(screen.getByRole('region', { name: 'Notificaciones' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Cerrar notificación' })).toBeInTheDocument();
+    });
+  });
+
   describe('a11y — axe', () => {
     it('has no violations with no toasts', async () => {
       const { container } = render(<ToastProvider><button>Test</button></ToastProvider>);
