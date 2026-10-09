@@ -2,10 +2,21 @@
   // $schema provides code completion hints to IDEs.
   "$schema": "https://github.com/IBM/audit-ci/raw/main/docs/schema.json",
   "high": true,
-  // The allowlist is empty on purpose. Every entry it used to carry covered a
-  // copy bundled inside npm's own dependencies, which package.json overrides
-  // cannot reach; npm 11.19.1 ships fixed versions of all of them, so the
-  // entries stopped matching anything. Prefer moving the dependency over
-  // re-adding an entry here.
-  "allowlist": [],
+  // Every entry covers an advisory with no fixed version this repository can
+  // install. Remove an entry as soon as a fix is reachable, preferring an update
+  // or moving the dependency over keeping it here.
+  "allowlist": [
+    // braces <= 3.0.3 has no patched release; it is only reached through
+    // micromatch (semantic-release) and chokidar (typed-css-modules), both
+    // development tooling that never sees untrusted input.
+    "GHSA-vfj7-8cjw-p6xm",
+    // Copies bundled inside npm's own package (semantic-release's
+    // @semantic-release/npm), which package.json overrides cannot reach. No npm
+    // release up to 12.2.0 bundles fixed versions, and http-cache-semantics has
+    // no patched release at all.
+    "GHSA-6j4f-fj2g-mc7p|brace-expansion",
+    "GHSA-qhr7-859c-m2p7|brace-expansion",
+    "GHSA-rfgv-xxqx-mfg5|undici",
+    "GHSA-ch52-4w7c-c8xp|http-cache-semantics",
+  ],
 }
