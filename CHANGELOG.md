@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/aseguragonzalez/ui/compare/v1.0.5...v1.1.0) (2026-10-09)
+
+
+### Bug Fixes
+
+* **deps-dev:** update vulnerable development dependencies and allowlist advisories with no reachable fix ([#148](https://github.com/aseguragonzalez/ui/issues/148)) ([6b88bd2](https://github.com/aseguragonzalez/ui/commit/6b88bd2c2da5d9b79d8bb65024f62dd03ad13f97))
+
+
+### Features
+
+* add a footer slot to AppShell and AuthLayout ([#149](https://github.com/aseguragonzalez/ui/issues/149)) ([0f242fd](https://github.com/aseguragonzalez/ui/commit/0f242fd0a993c870d27277cf4c7b43dc73b7c441))
+
 ## [1.0.5](https://github.com/aseguragonzalez/ui/compare/v1.0.4...v1.0.5) (2026-09-29)
 
 
