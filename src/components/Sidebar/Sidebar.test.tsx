@@ -2,12 +2,15 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Sidebar } from './Sidebar';
+import type { LinkComponentProps } from '../shared/LinkComponent';
 
 const items = [
   { key: 'home', label: 'Home', href: '/', isActive: true },
   { key: 'about', label: 'About', href: '/about' },
   { key: 'settings', label: 'Settings', href: '/settings' },
 ];
+
+const RouterLink = ({ href, ...rest }: LinkComponentProps) => <a data-router-link="" href={`#router${href}`} {...rest} />;
 
 describe('Sidebar', () => {
   describe('rendering', () => {
@@ -184,10 +187,69 @@ describe('Sidebar', () => {
       expect(document.body.style.overflow).toBe('');
     });
 
+    it('closes the uncontrolled drawer when an item is clicked', async () => {
+      mockMobile();
+      render(<Sidebar items={items} defaultMobileOpen={true} linkComponent={RouterLink} />);
+      expect(document.body.style.overflow).toBe('hidden');
+      await userEvent.click(screen.getByRole('link', { name: 'About' }));
+      expect(document.body.querySelector('div[aria-hidden="true"]')).toBeNull();
+      expect(document.body.style.overflow).toBe('');
+    });
+
+    it('calls onMobileOpenChange(false) when an item is clicked in the open drawer', async () => {
+      const onMobileOpenChange = vi.fn();
+      render(<Sidebar items={items} isMobileOpen={true} onMobileOpenChange={onMobileOpenChange} />);
+      await userEvent.click(screen.getByRole('link', { name: 'About' }));
+      expect(onMobileOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('leaves onMobileOpenChange alone when an item is clicked with the drawer closed', async () => {
+      const onMobileOpenChange = vi.fn();
+      render(<Sidebar items={items} onMobileOpenChange={onMobileOpenChange} />);
+      await userEvent.click(screen.getByRole('link', { name: 'About' }));
+      expect(onMobileOpenChange).not.toHaveBeenCalled();
+    });
+
     it('has no axe violations when mobile drawer is open', async () => {
       const { container } = render(
         <Sidebar items={items} isMobileOpen={true} aria-label="Sidebar navigation" />,
       );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('linkComponent', () => {
+    it('renders items with an href through the link component', () => {
+      render(<Sidebar items={items} linkComponent={RouterLink} />);
+      const link = screen.getByRole('link', { name: 'About' });
+      expect(link).toHaveAttribute('data-router-link');
+      expect(link).toHaveAttribute('href', '#router/about');
+    });
+
+    it('passes aria-current and the item styles to the link component', () => {
+      render(<Sidebar items={items} linkComponent={RouterLink} />);
+      const link = screen.getByRole('link', { name: 'Home' });
+      expect(link).toHaveAttribute('aria-current', 'page');
+      expect(link.className).toMatch(/navLink/);
+    });
+
+    it('passes onClick to the link component', async () => {
+      const onClick = vi.fn();
+      render(<Sidebar items={[{ key: 'docs', label: 'Docs', href: '/docs', onClick }]} linkComponent={RouterLink} />);
+      await userEvent.click(screen.getByRole('link', { name: 'Docs' }));
+      expect(onClick).toHaveBeenCalledOnce();
+    });
+
+    it('renders items without an href as a plain anchor', () => {
+      const { container } = render(
+        <Sidebar items={[{ key: 'action', label: 'Action', onClick: () => {} }]} linkComponent={RouterLink} />,
+      );
+      expect(container.querySelector('[data-router-link]')).toBeNull();
+      expect(screen.getByText('Action').closest('a')).not.toBeNull();
+    });
+
+    it('has no violations', async () => {
+      const { container } = render(<Sidebar items={items} linkComponent={RouterLink} />);
       expect(await axe(container)).toHaveNoViolations();
     });
   });

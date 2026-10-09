@@ -166,6 +166,7 @@ export type { NavbarProps, NavItem } from './components/Navbar/Navbar';
 
 export { Sidebar } from './components/Sidebar/Sidebar';
 export type { SidebarProps, SidebarItem } from './components/Sidebar/Sidebar';
+export type { LinkComponent, LinkComponentProps } from './components/shared/LinkComponent';
 
 export { DataTable } from './components/DataTable/DataTable';
 export type { DataTableProps, TableColumn, SortDirection } from './components/DataTable/DataTable';
