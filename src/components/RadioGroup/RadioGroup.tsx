@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { useFieldIds } from '../shared/useFieldIds';
 import { RadioButton, type RadioButtonSize } from '../../primitives/RadioButton/RadioButton';
 import { Hint } from '../../primitives/Hint/Hint';
@@ -6,7 +7,7 @@ import styles from './RadioGroup.module.css';
 
 export interface RadioOption {
   value: string;
-  label: string;
+  label: ReactNode;
   disabled?: boolean;
 }
 

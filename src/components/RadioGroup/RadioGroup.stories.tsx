@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { RadioGroup } from './RadioGroup';
 import { Text } from '../../primitives/Text/Text';
+import { Avatar } from '../../primitives/Avatar/Avatar';
 
 const PLAN_OPTIONS = [
   { value: 'free', label: 'Free — up to 3 projects' },
@@ -14,6 +15,13 @@ const SIZE_OPTIONS = [
   { value: 'M', label: 'M — Medium' },
   { value: 'L', label: 'L — Large' },
   { value: 'XL', label: 'XL — Extra Large', disabled: true },
+];
+
+const AVATAR_OPTIONS = [
+  { value: 'fox', label: <Avatar name="Fox" size="lg" /> },
+  { value: 'owl', label: <Avatar name="Owl" size="lg" /> },
+  { value: 'cat', label: <Avatar name="Cat" size="lg" /> },
+  { value: 'bear', label: <Avatar name="Bear" size="lg" />, disabled: true },
 ];
 
 const meta: Meta<typeof RadioGroup> = {
@@ -69,6 +77,16 @@ export const WithDisabledOption: Story = {
     name: 'size',
     options: SIZE_OPTIONS,
     hint: 'Size XL is out of stock.',
+  },
+};
+
+export const WithNodeLabels: Story = {
+  args: {
+    legend: 'Avatar',
+    name: 'avatar',
+    options: AVATAR_OPTIONS,
+    defaultValue: 'owl',
+    hint: 'Pick one of the predefined avatars.',
   },
 };
 

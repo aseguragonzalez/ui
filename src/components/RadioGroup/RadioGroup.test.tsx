@@ -2,11 +2,25 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { RadioGroup } from './RadioGroup';
+import { Avatar } from '../../primitives/Avatar/Avatar';
 
 const SIZE_OPTIONS = [
   { value: 'S', label: 'Small' },
   { value: 'M', label: 'Medium' },
   { value: 'L', label: 'Large' },
+];
+
+const AVATAR_OPTIONS = [
+  { value: 'fox', label: <Avatar name="Fox" /> },
+  { value: 'owl', label: <Avatar name="Owl" /> },
+  {
+    value: 'cat',
+    label: (
+      <>
+        <Avatar name="Cat" size="sm" /> <strong>Cat</strong> avatar
+      </>
+    ),
+  },
 ];
 
 describe('RadioGroup', () => {
@@ -118,6 +132,45 @@ describe('RadioGroup', () => {
     });
   });
 
+  describe('node labels', () => {
+    it('renders each node label inside its own label associated with its radio', () => {
+      render(<RadioGroup legend="Avatar" name="avatar" options={AVATAR_OPTIONS} />);
+      const fox = screen.getByRole('radio', { name: 'Fox' });
+      const owl = screen.getByRole('radio', { name: 'Owl' });
+      const cat = screen.getByRole('radio', { name: 'Cat Cat avatar' });
+      [fox, owl, cat].forEach((radio) => {
+        const label = document.querySelector(`label[for="${radio.id}"]`);
+        expect(label).not.toBeNull();
+        expect(label!.querySelectorAll('[role="img"]')).toHaveLength(1);
+      });
+      expect(new Set([fox.id, owl.id, cat.id]).size).toBe(3);
+    });
+
+    it('selects an option when its node label is clicked', async () => {
+      const onChange = vi.fn();
+      render(<RadioGroup legend="Avatar" name="avatar" options={AVATAR_OPTIONS} onChange={onChange} />);
+      await userEvent.click(screen.getByRole('img', { name: 'Owl' }));
+      expect(onChange).toHaveBeenCalledWith('owl');
+    });
+
+    it('keeps keyboard navigation between options', async () => {
+      render(<RadioGroup legend="Avatar" name="avatar" options={AVATAR_OPTIONS} defaultValue="fox" />);
+      await userEvent.tab();
+      expect(screen.getByRole('radio', { name: 'Fox' })).toHaveFocus();
+      await userEvent.keyboard('{ArrowDown}');
+      const owl = screen.getByRole('radio', { name: 'Owl' });
+      expect(owl).toHaveFocus();
+      expect(owl).toBeChecked();
+    });
+
+    it('accepts string and node labels in the same group', () => {
+      const options = [{ value: 'none', label: 'No avatar' }, ...AVATAR_OPTIONS];
+      render(<RadioGroup legend="Avatar" name="avatar" options={options} />);
+      expect(screen.getByRole('radio', { name: 'No avatar' })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: 'Fox' })).toBeInTheDocument();
+    });
+  });
+
   describe('a11y — axe', () => {
     it('has no violations — base', async () => {
       const { container } = render(
@@ -136,6 +189,13 @@ describe('RadioGroup', () => {
     it('has no violations — with error', async () => {
       const { container } = render(
         <RadioGroup legend="Talla" name="size" options={SIZE_OPTIONS} error="Selecciona una talla" />,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations — node labels', async () => {
+      const { container } = render(
+        <RadioGroup legend="Avatar" name="avatar" options={AVATAR_OPTIONS} defaultValue="owl" />,
       );
       expect(await axe(container)).toHaveNoViolations();
     });
