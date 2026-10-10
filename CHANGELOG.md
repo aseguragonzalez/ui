@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/aseguragonzalez/ui/compare/v1.4.1...v1.5.0) (2026-10-10)
+
+
+### Features
+
+* decorative mode and image attribute passthrough for Avatar ([#157](https://github.com/aseguragonzalez/ui/issues/157)) ([e6086e2](https://github.com/aseguragonzalez/ui/commit/e6086e278bceb731493eb2c6ae412134f60c1aab))
+
 ## [1.4.1](https://github.com/aseguragonzalez/ui/compare/v1.4.0...v1.4.1) (2026-10-10)
 
 
