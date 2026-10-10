@@ -18,7 +18,7 @@
 | One choice from a long list or with limited space | `SelectField` |
 | Binary opt-in (newsletter, notifications) | `ToggleField` |
 | Binary agreement (terms, filter) | `CheckboxField` |
-| Multiple choices from a list | Multiple `CheckboxField` components |
+| Multiple choices from a list | `CheckboxGroup` |
 
 ### Labels and hints
 

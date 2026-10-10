@@ -50,7 +50,7 @@ function ContactForm() {
 
 **Primitives** — atomic wrappers around HTML5 elements: `Button`, `TextInput`, `Checkbox`, `Select`, `Toggle`, `Heading`, `Text`, `Label`, `Alert`, `Badge`, `Spinner`, `ProgressBar`, `Tabs`, `Tooltip`, `Modal`, `Toast`, and more.
 
-**Composites** — primitives combined with `Label`, `Hint`, and `ErrorMessage` for complete, accessible form fields: `TextField`, `TextAreaField`, `CheckboxField`, `SelectField`, `RadioGroup`, `ToggleField`, `PasswordField`, `DateField`, and more.
+**Composites** — primitives combined with `Label`, `Hint`, and `ErrorMessage` for complete, accessible form fields: `TextField`, `TextAreaField`, `CheckboxField`, `CheckboxGroup`, `SelectField`, `RadioGroup`, `ToggleField`, `PasswordField`, `DateField`, and more.
 
 **Layout** — `Navbar`, `Sidebar`, `Breadcrumb`.
 

@@ -25,7 +25,7 @@ The most impactful decision you can make is using **composite components** inste
 />
 ```
 
-Composites (`TextField`, `EmailField`, `CheckboxField`, `RadioGroup`, `SelectField`, `ToggleField`, `PasswordField`, `DateField`, etc.) automatically:
+Composites (`TextField`, `EmailField`, `CheckboxField`, `CheckboxGroup`, `RadioGroup`, `SelectField`, `ToggleField`, `PasswordField`, `DateField`, etc.) automatically:
 
 - Generate unique `id`, `htmlFor`, `aria-describedby`, `aria-invalid`, and `aria-required`
 - Link hint and error message via `aria-describedby`
