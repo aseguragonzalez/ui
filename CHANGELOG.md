@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/aseguragonzalez/ui/compare/v1.8.0...v1.8.1) (2026-10-10)
+
+
+### Bug Fixes
+
+* keep secondary and ghost Button labels at AA contrast on hover in the dark theme ([#172](https://github.com/aseguragonzalez/ui/issues/172)) ([d90b346](https://github.com/aseguragonzalez/ui/commit/d90b34674d942cc9630bca5e6c338f3f1bddff52)), closes [#164](https://github.com/aseguragonzalez/ui/issues/164)
+
 # [1.8.0](https://github.com/aseguragonzalez/ui/compare/v1.7.0...v1.8.0) (2026-10-10)
 
 
