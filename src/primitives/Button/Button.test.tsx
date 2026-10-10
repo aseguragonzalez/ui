@@ -28,9 +28,35 @@ describe('Button', () => {
       expect(screen.getByRole('button')).toBeDisabled();
     });
 
-    it('is disabled when isLoading is true', () => {
+    it('uses the native disabled attribute when disabled prop is true', () => {
+      render(<Button disabled>Test</Button>);
+      expect(screen.getByRole('button')).toHaveAttribute('disabled');
+      expect(screen.getByRole('button')).not.toHaveAttribute('aria-disabled');
+    });
+
+    it('stays focusable and is announced as unavailable when isLoading is true', () => {
       render(<Button isLoading>Test</Button>);
-      expect(screen.getByRole('button')).toBeDisabled();
+      const button = screen.getByRole('button');
+      expect(button).not.toHaveAttribute('disabled');
+      expect(button).toHaveAttribute('aria-disabled', 'true');
+      button.focus();
+      expect(button).toHaveFocus();
+    });
+
+    it('uses the native disabled attribute without aria-disabled when both disabled and isLoading', () => {
+      render(<Button isLoading disabled>Test</Button>);
+      const button = screen.getByRole('button');
+      expect(button).toHaveAttribute('disabled');
+      expect(button).not.toHaveAttribute('aria-disabled');
+      expect(button).toHaveAttribute('aria-busy', 'true');
+    });
+
+    it('keeps focus when it switches to loading', () => {
+      const { rerender } = render(<Button>Test</Button>);
+      const button = screen.getByRole('button');
+      button.focus();
+      rerender(<Button isLoading>Test</Button>);
+      expect(button).toHaveFocus();
     });
 
     it('sets aria-busy when isLoading is true', () => {
@@ -56,6 +82,34 @@ describe('Button', () => {
       await userEvent.click(screen.getByRole('button'));
       expect(onClick).not.toHaveBeenCalled();
     });
+
+    it('does not fire onClick on keyboard activation when loading', async () => {
+      const user = userEvent.setup();
+      const onClick = vi.fn();
+      render(<Button isLoading onClick={onClick}>Test</Button>);
+      screen.getByRole('button').focus();
+      await user.keyboard('{Enter}');
+      await user.keyboard(' ');
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('does not submit its form when loading', async () => {
+      const onSubmit = vi.fn((e: React.FormEvent) => e.preventDefault());
+      render(
+        <form onSubmit={onSubmit}>
+          <Button type="submit" isLoading>Save</Button>
+        </form>,
+      );
+      await userEvent.click(screen.getByRole('button'));
+      expect(onSubmit).not.toHaveBeenCalled();
+    });
+
+    it('fires onClick when not loading', async () => {
+      const onClick = vi.fn();
+      render(<Button onClick={onClick}>Test</Button>);
+      await userEvent.click(screen.getByRole('button'));
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('accessibility', () => {
@@ -76,6 +130,11 @@ describe('Button', () => {
 
     it('has no axe violations (disabled)', async () => {
       const { container } = render(<Button disabled>Desactivado</Button>);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no axe violations (loading)', async () => {
+      const { container } = render(<Button isLoading loadingText="Guardando...">Guardar</Button>);
       expect(await axe(container)).toHaveNoViolations();
     });
   });
