@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/aseguragonzalez/ui/compare/v1.7.0...v1.8.0) (2026-10-10)
+
+
+### Features
+
+* accept ReactNode option labels in RadioGroup ([#158](https://github.com/aseguragonzalez/ui/issues/158)) ([77ba703](https://github.com/aseguragonzalez/ui/commit/77ba7034c21533424ee477a6a937cf1a69aea9f8)), closes [#142](https://github.com/aseguragonzalez/ui/issues/142)
+
 # [1.7.0](https://github.com/aseguragonzalez/ui/compare/v1.6.0...v1.7.0) (2026-10-10)
 
 
