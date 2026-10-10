@@ -10,6 +10,12 @@ describe('FileField', () => {
       expect(screen.getByLabelText('Adjunto')).toHaveAttribute('type', 'file');
     });
 
+    it('applies className to the wrapper, not the input', () => {
+      const { container } = render(<FileField label="Adjunto" className="custom" />);
+      expect(container.firstElementChild).toHaveClass('custom');
+      expect(screen.getByLabelText('Adjunto')).not.toHaveClass('custom');
+    });
+
     it('uses inputId as the input id when provided', () => {
       render(<FileField label="Adjunto" inputId="attachment" />);
       expect(screen.getByLabelText('Adjunto')).toHaveAttribute('id', 'attachment');

@@ -32,6 +32,11 @@ describe('FileInput', () => {
       render(<FileInput aria-label="Documento" className="custom" />);
       expect(screen.getByLabelText('Documento')).toHaveClass('custom');
     });
+
+    it.each(['sm', 'md', 'lg'] as const)('applies the %s size class', size => {
+      render(<FileInput aria-label="Documento" size={size} />);
+      expect(screen.getByLabelText('Documento').className).toMatch(new RegExp(size));
+    });
   });
 
   describe('interaction', () => {
