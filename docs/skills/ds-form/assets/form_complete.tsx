@@ -8,6 +8,7 @@ import {
   SelectField,
   RadioGroup,
   CheckboxField,
+  CheckboxGroup,
   ToggleField,
   Button,
 } from '@aseguragonzalez/ui';
@@ -24,6 +25,12 @@ const PLAN_OPTIONS = [
   { value: 'free', label: 'Gratuito' },
   { value: 'pro', label: 'Pro' },
   { value: 'enterprise', label: 'Enterprise' },
+];
+
+const INTEREST_OPTIONS = [
+  { value: 'novedades', label: 'Novedades del producto' },
+  { value: 'eventos', label: 'Eventos y webinars' },
+  { value: 'ofertas', label: 'Ofertas' },
 ];
 
 export function RegisterForm() {
@@ -105,6 +112,14 @@ export function RegisterForm() {
         label="Descripción"
         hint="Cuéntanos brevemente quién eres (opcional)."
         rows={4}
+      />
+
+      <CheckboxGroup
+        legend="Intereses"
+        name="intereses"
+        options={INTEREST_OPTIONS}
+        defaultValue={['novedades']}
+        hint="Elige los temas sobre los que quieres recibir correos."
       />
 
       <ToggleField

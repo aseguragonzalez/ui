@@ -162,6 +162,21 @@ describe('CheckboxGroup', () => {
       expect(screen.getByRole('group')).not.toHaveAttribute('aria-describedby');
     });
 
+    it('gives an option whose value has a space a valid, unique id its label targets', () => {
+      const options = [
+        { value: 'a b', label: 'A and B' },
+        { value: 'a', label: 'A' },
+        { value: 'b', label: 'B' },
+      ];
+      render(<CheckboxGroup legend="Letters" name="letters" options={options} />);
+      const ids = screen.getAllByRole('checkbox').map((checkbox) => checkbox.id);
+      ids.forEach((id) => expect(id).not.toMatch(/\s/));
+      expect(new Set(ids).size).toBe(ids.length);
+      const spaced = screen.getByRole('checkbox', { name: 'A and B' });
+      expect(spaced).toHaveAttribute('value', 'a b');
+      expect(document.querySelector(`label[for="${spaced.id}"]`)).toHaveTextContent('A and B');
+    });
+
     it('sets aria-invalid on all checkboxes when error is present', () => {
       render(<CheckboxGroup legend="Topics" name="topics" options={TOPIC_OPTIONS} error="Pick one" />);
       screen.getAllByRole('checkbox').forEach((checkbox) => expect(checkbox).toHaveAttribute('aria-invalid', 'true'));
