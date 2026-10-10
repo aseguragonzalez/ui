@@ -43,6 +43,14 @@ describe('Button', () => {
       expect(button).toHaveFocus();
     });
 
+    it('uses the native disabled attribute without aria-disabled when both disabled and isLoading', () => {
+      render(<Button isLoading disabled>Test</Button>);
+      const button = screen.getByRole('button');
+      expect(button).toHaveAttribute('disabled');
+      expect(button).not.toHaveAttribute('aria-disabled');
+      expect(button).toHaveAttribute('aria-busy', 'true');
+    });
+
     it('keeps focus when it switches to loading', () => {
       const { rerender } = render(<Button>Test</Button>);
       const button = screen.getByRole('button');

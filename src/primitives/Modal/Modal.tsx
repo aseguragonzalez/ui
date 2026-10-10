@@ -86,6 +86,12 @@ const FOCUSABLE = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(', ');
 
+const openModals: HTMLDialogElement[] = [];
+
+function isTopmost(dialog: HTMLDialogElement) {
+  return openModals[openModals.length - 1] === dialog;
+}
+
 export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
   {
     open,
@@ -101,6 +107,11 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
   const titleId = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   const combinedRef = useCallback(
     (el: HTMLDialogElement | null) => {
@@ -112,42 +123,20 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
   );
 
   useEffect(() => {
-    if (open) {
-      previousFocusRef.current = document.activeElement as HTMLElement;
-      document.body.style.overflow = 'hidden';
-      const dialog = dialogRef.current;
-      if (!dialog) return;
-      const focusable = dialog.querySelectorAll<HTMLElement>(FOCUSABLE);
-      (focusable[0] ?? dialog).focus();
-    } else {
-      document.body.style.overflow = '';
-      previousFocusRef.current?.focus();
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
+    const dialog = dialogRef.current;
+    if (!open || !dialog) return;
+    openModals.push(dialog);
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isTopmost(dialog)) return;
       if (e.key === 'Escape') {
         e.preventDefault();
-        onClose();
+        onCloseRef.current();
         return;
       }
       if (e.key !== 'Tab') return;
 
-      const dialog = dialogRef.current;
-      if (!dialog) return;
       const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE));
-      if (focusable.length === 0) {
-        e.preventDefault();
-        dialog.focus();
-        return;
-      }
-
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       const active = document.activeElement;
@@ -165,10 +154,8 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
     };
 
     const handleFocusIn = (e: FocusEvent) => {
-      const dialog = dialogRef.current;
-      if (!dialog || dialog.contains(e.target as Node)) return;
-      const first = dialog.querySelector<HTMLElement>(FOCUSABLE);
-      (first ?? dialog).focus();
+      if (!isTopmost(dialog) || dialog.contains(e.target as Node)) return;
+      dialog.querySelector<HTMLElement>(FOCUSABLE)?.focus();
     };
 
     document.addEventListener('keydown', handleKeyDown);
@@ -176,8 +163,26 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('focusin', handleFocusIn);
+      openModals.splice(openModals.indexOf(dialog), 1);
     };
-  }, [open, onClose]);
+  }, [open]);
+
+  useEffect(() => {
+    if (open) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      document.body.style.overflow = 'hidden';
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+      const focusable = dialog.querySelectorAll<HTMLElement>(FOCUSABLE);
+      (focusable[0] ?? dialog).focus();
+    } else {
+      document.body.style.overflow = '';
+      previousFocusRef.current?.focus();
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
   const handleBackdropClick = useCallback(
     (e: React.MouseEvent<HTMLDialogElement>) => {
