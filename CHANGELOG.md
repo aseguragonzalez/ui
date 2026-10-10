@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/aseguragonzalez/ui/compare/v1.4.0...v1.4.1) (2026-10-10)
+
+
+### Bug Fixes
+
+* expose AuthLayout's branding panel as a labelled landmark ([#155](https://github.com/aseguragonzalez/ui/issues/155)) ([244eed9](https://github.com/aseguragonzalez/ui/commit/244eed98f2b7aef993678feca5a7ae2d0d7ea72e)), closes [#140](https://github.com/aseguragonzalez/ui/issues/140)
+
 # [1.4.0](https://github.com/aseguragonzalez/ui/compare/v1.3.0...v1.4.0) (2026-10-10)
 
 
