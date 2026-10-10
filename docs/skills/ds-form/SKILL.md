@@ -46,10 +46,12 @@ disabled?: boolean
 ```ts
 legend: string
 name: string
-options: RadioOption[]   // { value: string; label: string; disabled?: boolean }
+options: RadioOption[]   // { value: string; label: ReactNode; disabled?: boolean }
 value?: string           // controlled
 onChange?: (value: string) => void
 ```
+
+An option's `label` can be any `ReactNode` (an image, a swatch, an `Avatar`, an icon plus text). A non-text label must still give the radio an accessible name — an `Avatar` (`role="img"` with `aria-label`), an `<img>` with `alt`, or visually hidden text — and should contain only phrasing content, since it renders inside a `<label>`.
 
 `CheckboxGroup` follows the same shape, with an array of selected values:
 

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { useFieldIds } from '../shared/useFieldIds';
 import { RadioButton, type RadioButtonSize } from '../../primitives/RadioButton/RadioButton';
 import { Hint } from '../../primitives/Hint/Hint';
@@ -6,7 +7,7 @@ import styles from './RadioGroup.module.css';
 
 export interface RadioOption {
   value: string;
-  label: string;
+  label: ReactNode;
   disabled?: boolean;
 }
 
@@ -64,9 +65,13 @@ function RadioGroup({
       {options.map((option, index) => {
         const optionId = `${groupId}-${option.value}`;
         const isDisabled = disabled || option.disabled;
+        const isNodeLabel = typeof option.label !== 'string' && typeof option.label !== 'number';
 
         return (
-          <div key={option.value} className={styles.option}>
+          <div
+            key={option.value}
+            className={[styles.option, isNodeLabel ? styles.nodeOption : ''].filter(Boolean).join(' ')}
+          >
             <RadioButton
               id={optionId}
               name={name}
@@ -83,6 +88,7 @@ function RadioGroup({
               htmlFor={optionId}
               className={[
                 styles.optionLabel,
+                isNodeLabel ? styles.nodeLabel : '',
                 isDisabled ? styles.disabled : '',
               ]
                 .filter(Boolean)
