@@ -70,6 +70,81 @@ describe('Avatar', () => {
     });
   });
 
+  describe('decorative', () => {
+    it('is hidden from assistive technology with no accessible name', () => {
+      render(<Avatar name="María García" decorative data-testid="avatar" />);
+      const avatar = screen.getByTestId('avatar');
+      expect(avatar).toHaveAttribute('aria-hidden', 'true');
+      expect(avatar).not.toHaveAttribute('role');
+      expect(avatar).not.toHaveAttribute('aria-label');
+      expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    });
+
+    it('renders the img with alt=""', () => {
+      render(<Avatar name="María García" src="https://example.com/a.jpg" decorative />);
+      expect(document.querySelector('img')).toHaveAttribute('alt', '');
+    });
+
+    it('still shows initials visually', () => {
+      render(<Avatar name="María García" decorative />);
+      expect(screen.getByText('MG')).toBeInTheDocument();
+    });
+  });
+
+  describe('image attributes', () => {
+    it('forwards referrerPolicy to the img', () => {
+      render(
+        <Avatar
+          name="María García"
+          src="https://example.com/a.jpg"
+          imgProps={{ referrerPolicy: 'no-referrer' }}
+        />,
+      );
+      expect(document.querySelector('img')).toHaveAttribute('referrerpolicy', 'no-referrer');
+    });
+
+    it('forwards other image attributes', () => {
+      render(
+        <Avatar
+          name="María García"
+          src="https://example.com/a.jpg"
+          imgProps={{ crossOrigin: 'anonymous', loading: 'lazy' }}
+        />,
+      );
+      const img = document.querySelector('img');
+      expect(img).toHaveAttribute('crossorigin', 'anonymous');
+      expect(img).toHaveAttribute('loading', 'lazy');
+    });
+
+    it('keeps src, alt and the hidden state of the img', () => {
+      render(
+        <Avatar
+          name="María García"
+          src="https://example.com/a.jpg"
+          imgProps={{ 'aria-hidden': false }}
+        />,
+      );
+      const img = document.querySelector('img');
+      expect(img).toHaveAttribute('src', 'https://example.com/a.jpg');
+      expect(img).toHaveAttribute('alt', '');
+      expect(img).toHaveAttribute('aria-hidden', 'true');
+    });
+
+    it('calls the forwarded onError and falls back to initials', async () => {
+      const onError = vi.fn();
+      render(
+        <Avatar
+          name="María García"
+          src="https://broken.example.com/a.jpg"
+          imgProps={{ onError }}
+        />,
+      );
+      document.querySelector('img')!.dispatchEvent(new Event('error'));
+      expect(await screen.findByText('MG')).toBeInTheDocument();
+      expect(onError).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('sizes and shapes', () => {
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
     sizes.forEach((size) => {
@@ -94,6 +169,27 @@ describe('Avatar', () => {
     it('has no violations — with src', async () => {
       const { container } = render(
         <Avatar name="María García" src="https://example.com/a.jpg" />,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations — decorative next to the visible name', async () => {
+      const { container } = render(
+        <p>
+          <Avatar name="María García" src="https://example.com/a.jpg" decorative />
+          <span>María García</span>
+        </p>,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations — with image attributes', async () => {
+      const { container } = render(
+        <Avatar
+          name="María García"
+          src="https://example.com/a.jpg"
+          imgProps={{ referrerPolicy: 'no-referrer' }}
+        />,
       );
       expect(await axe(container)).toHaveNoViolations();
     });
