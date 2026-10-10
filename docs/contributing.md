@@ -41,18 +41,22 @@ Design Tokens (CSS Custom Properties)
 
 **`src/tokens/`** — single `tokens.css` file with the full primitive scale and all semantic tokens for light and dark themes.
 
-**`src/primitives/`** — one folder per primitive. Each folder contains the component, CSS Module, and test file. Primitives wrap a single HTML element, expose all native props via `React.ComponentPropsWithoutRef`, and forward refs where applicable. They accept `hasError` and `disabled` but do not render labels or error messages.
+**`src/primitives/`** — one folder per primitive. Each folder contains the component, its CSS Module, test and stories. Primitives wrap a single HTML element, expose all native props via `React.ComponentPropsWithoutRef`, and forward refs where applicable. They accept `hasError` and `disabled` but do not render labels or error messages.
 
 **`src/components/`** — composite field components and layout/data/chart components. Composites use the `useFieldIds` hook (in `src/components/shared/`) to generate stable, unique IDs for ARIA wiring.
 
-**`src/patterns/`** — full page patterns composed from components. Not exported as individual components.
+**`src/patterns/`** — full page patterns composed from components. A pattern consumers reuse, such as `AuthLayout`, is exported from `src/index.ts` like any component; example compositions that exist only as stories (`RegistrationForm`, `ExampleApp`) are not exported.
 
 ## Adding a new primitive
 
 1. Create `src/primitives/MyWidget/MyWidget.tsx`
-2. Create `src/primitives/MyWidget/MyWidget.module.css`
+2. Create `src/primitives/MyWidget/MyWidget.module.css` and run `npm run types:css` to generate `MyWidget.module.css.d.ts`
 3. Create `src/primitives/MyWidget/MyWidget.test.tsx`
-4. Export from `src/primitives/MyWidget/index.ts` and add to `src/index.ts`
+4. Export the component and its types directly from `src/index.ts` (there is no per-folder `index.ts`):
+   ```ts
+   export { MyWidget } from './primitives/MyWidget/MyWidget';
+   export type { MyWidgetProps } from './primitives/MyWidget/MyWidget';
+   ```
 5. Create `src/primitives/MyWidget/MyWidget.stories.tsx`
 
 ### Primitive checklist
@@ -80,7 +84,16 @@ it('has no axe violations', async () => {
 
 ## Adding a new composite
 
-Composites live in `src/components/<ComponentName>/`. They use `useFieldIds` to generate `id`, `hintId`, and `errorId`:
+Composites live in `src/components/<ComponentName>/`, with the same files as a primitive (`MyField.tsx`, `MyField.module.css` and its generated `.d.ts`, `MyField.test.tsx`, `MyField.stories.tsx`). Export the component and its types directly from `src/index.ts`, in the components section:
+
+```ts
+export { MyField } from './components/MyField/MyField';
+export type { MyFieldProps } from './components/MyField/MyField';
+```
+
+A pattern in `src/patterns/<PatternName>/` follows the same layout and, when consumers reuse it, the same direct export from `src/index.ts`.
+
+Composites use `useFieldIds` to generate `id`, `hintId`, and `errorId`:
 
 ```tsx
 import { useFieldIds } from '../shared/useFieldIds';
