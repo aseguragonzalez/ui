@@ -8,7 +8,12 @@ export interface AuthLayoutProps {
   branding?: ReactNode;
   /** Tagline shown under the logo in the branding panel. Default: `'Build better products, together.'`. */
   tagline?: ReactNode;
-  /** Logo shown at the top of the form panel on mobile, and inside the branding panel on desktop. */
+  /**
+   * Logo shown at the top of the form panel on mobile, and inside the branding panel on desktop
+   * (only on mobile when `branding` is set). Only the copy on screen is exposed to assistive
+   * technology, so a meaningful logo (an image with alternative text, a product name) is announced
+   * once on every viewport. Mark a decorative logo `aria-hidden`, as the default logo is.
+   */
   logo?: ReactNode;
   /** Accessible name of the branding panel's complementary landmark. Default: `'Product branding'`. */
   brandingLabel?: string;
@@ -65,9 +70,7 @@ export function AuthLayout({
       <main className={styles.formPanel}>
         <div className={styles.formContent}>
           {/* Logo visible only on mobile (branding panel is hidden) */}
-          <div className={styles.mobileLogo} aria-hidden="true">
-            {logoEl}
-          </div>
+          <div className={styles.mobileLogo}>{logoEl}</div>
           {children}
         </div>
       </main>
