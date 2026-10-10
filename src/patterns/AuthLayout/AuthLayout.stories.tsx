@@ -130,3 +130,18 @@ export const WithFooter: Story = {
     </AuthLayout>
   ),
 };
+
+export const MeaningfulLogo: Story = {
+  render: () => (
+    <AuthLayout
+      logo={
+        <svg width="36" height="36" viewBox="0 0 36 36" role="img" aria-label="FlowDesk">
+          <rect width="36" height="36" rx="8" fill="var(--ds-color-text-default)" />
+          <path d="M10 12h16M10 18h11M10 24h8" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+        </svg>
+      }
+    >
+      <LoginForm />
+    </AuthLayout>
+  ),
+};
