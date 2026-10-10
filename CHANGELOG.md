@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/aseguragonzalez/ui/compare/v1.6.0...v1.7.0) (2026-10-10)
+
+
+### Features
+
+* add a FileField component ([#159](https://github.com/aseguragonzalez/ui/issues/159)) ([14f35d9](https://github.com/aseguragonzalez/ui/commit/14f35d99de632524ebaa82ace1e2338376364d3c)), closes [#143](https://github.com/aseguragonzalez/ui/issues/143)
+
 # [1.6.0](https://github.com/aseguragonzalez/ui/compare/v1.5.0...v1.6.0) (2026-10-10)
 
 
