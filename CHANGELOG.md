@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/aseguragonzalez/ui/compare/v1.3.0...v1.4.0) (2026-10-10)
+
+
+### Features
+
+* add a Link primitive ([#156](https://github.com/aseguragonzalez/ui/issues/156)) ([be478dc](https://github.com/aseguragonzalez/ui/commit/be478dc9be7fb3a3318a72fe681167ba47d23ba4))
+
 # [1.3.0](https://github.com/aseguragonzalez/ui/compare/v1.2.0...v1.3.0) (2026-10-09)
 
 
