@@ -2,6 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Avatar } from '../../primitives/Avatar/Avatar';
 import { Sidebar } from './Sidebar';
 import { Heading } from '../../primitives/Heading/Heading';
+import type { LinkComponentProps } from '../../primitives/Link/LinkComponent';
+
+const RouterLink = ({ href, ...rest }: LinkComponentProps) => (
+  <a data-router-link="" href={`#${href}`} {...rest} />
+);
 
 const meta: Meta<typeof Sidebar> = {
   title: 'Components/Sidebar',
@@ -138,6 +143,25 @@ export const NoLogoNoHeader: Story = {
   args: {
     items: sidebarItems,
     'aria-label': 'Main navigation',
+  },
+  render: (args) => (
+    <Layout>
+      <Sidebar {...args} />
+    </Layout>
+  ),
+};
+
+export const WithRouterLink: Story = {
+  args: {
+    items: sidebarItems,
+    'aria-label': 'Main navigation',
+    logo: <LogoIcon />,
+    header: (
+      <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--ds-color-text-default)' }}>
+        Acme
+      </span>
+    ),
+    linkComponent: RouterLink,
   },
   render: (args) => (
     <Layout>

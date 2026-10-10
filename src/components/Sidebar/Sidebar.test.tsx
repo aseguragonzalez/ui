@@ -267,6 +267,12 @@ describe('Sidebar', () => {
       expect(screen.getByRole('button', { name: 'Contraer menú' })).toBeInTheDocument();
     });
 
+    it('uses the given close label on the close button rendered with a logo or header', () => {
+      render(<Sidebar items={items} logo={<span>Logo</span>} header="Acme" closeLabel="Cerrar menú" />);
+      expect(screen.getByRole('button', { name: 'Cerrar menú' })).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: 'Close sidebar' })).not.toBeInTheDocument();
+    });
+
     it('uses the given expand label while collapsed', () => {
       render(<Sidebar items={items} defaultCollapsed expandLabel="Expandir menú" />);
       expect(screen.getByRole('button', { name: 'Expandir menú' })).toBeInTheDocument();

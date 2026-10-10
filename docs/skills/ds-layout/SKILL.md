@@ -80,10 +80,10 @@ a single-page application. Pass `linkComponent` to render them through the route
 React Router adapter only maps `href` to `to`:
 
 ```tsx
-import { Link } from 'react-router';
-import type { LinkComponentProps } from '@aseguragonzalez/ui';
+import { Link as ReactRouterLink } from 'react-router';
+import { Link, Sidebar, type LinkComponentProps } from '@aseguragonzalez/ui';
 
-const RouterLink = ({ href, ...rest }: LinkComponentProps) => <Link to={href} {...rest} />;
+const RouterLink = ({ href, ...rest }: LinkComponentProps) => <ReactRouterLink to={href} {...rest} />;
 
 <Sidebar items={items} linkComponent={RouterLink} />
 ```
@@ -110,5 +110,5 @@ Read asset templates:
 - **`Navbar` `actions` slot** accepts any React node — typically an `Avatar` or a `Button`. It renders on the right side of the bar.
 - **Unique landmark labels:** If both Sidebar and Navbar are on the same page, set different `aria-label` values on each so screen readers can distinguish the two navigation landmarks.
 - **`isActive`** should reflect the current route — derive it from your router (`useLocation`, `usePathname`, etc.) rather than hardcoding it.
-- **Built-in labels are English.** Localize them with `Sidebar`'s `closeLabel`, `collapseLabel` and `expandLabel`, and `Navbar`'s `openMenuLabel`, `closeMenuLabel` and `menuLabel` (the mobile menu landmark, `` `${aria-label} — menu` `` by default), besides each component's `aria-label`.
+- **Built-in labels are English.** Localize them with `Sidebar`'s `closeLabel`, `collapseLabel` and `expandLabel`, and `Navbar`'s `openMenuLabel`, `closeMenuLabel` and `menuLabel` (the mobile menu landmark, `` `${aria-label} — menu` `` by default), besides each component's `aria-label`. `AuthLayout`'s `tagline` replaces the branding panel's default English tagline (`'Build better products, together.'`).
 - **`sticky` on Navbar** adds `position: sticky; top: 0` via the token-based style. Use it for content layouts where the page scrolls under the bar.

@@ -1,5 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Breadcrumb } from './Breadcrumb';
+import type { LinkComponentProps } from '../../primitives/Link/LinkComponent';
+
+const RouterLink = ({ href, ...rest }: LinkComponentProps) => (
+  <a data-router-link="" href={`#${href}`} {...rest} />
+);
 
 const meta: Meta<typeof Breadcrumb> = {
   title: 'Components/Breadcrumb',
@@ -57,5 +62,16 @@ export const WithoutLinks: Story = {
       { label: 'Step 2' },
       { label: 'Step 3' },
     ],
+  },
+};
+
+export const WithRouterLink: Story = {
+  args: {
+    items: [
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products' },
+      { label: 'Product details' },
+    ],
+    linkComponent: RouterLink,
   },
 };

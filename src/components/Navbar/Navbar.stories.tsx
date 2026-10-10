@@ -2,6 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../../primitives/Button/Button';
 import { Avatar } from '../../primitives/Avatar/Avatar';
 import { Navbar } from './Navbar';
+import type { LinkComponentProps } from '../../primitives/Link/LinkComponent';
+
+const RouterLink = ({ href, ...rest }: LinkComponentProps) => (
+  <a data-router-link="" href={`#${href}`} {...rest} />
+);
 
 const meta: Meta<typeof Navbar> = {
   title: 'Components/Navbar',
@@ -95,5 +100,18 @@ export const NoBrand: Story = {
     items: navItems,
     actions: <Button variant="primary" size="sm">New report</Button>,
     'aria-label': 'Main navigation',
+  },
+};
+
+export const WithRouterLink: Story = {
+  args: {
+    brand: (
+      <span style={{ fontWeight: 700, fontSize: '1.125rem', color: 'var(--ds-color-text-default)' }}>
+        Acme
+      </span>
+    ),
+    items: navItems,
+    'aria-label': 'Main navigation',
+    linkComponent: RouterLink,
   },
 };
