@@ -65,9 +65,13 @@ function RadioGroup({
       {options.map((option, index) => {
         const optionId = `${groupId}-${option.value}`;
         const isDisabled = disabled || option.disabled;
+        const isNodeLabel = typeof option.label !== 'string' && typeof option.label !== 'number';
 
         return (
-          <div key={option.value} className={styles.option}>
+          <div
+            key={option.value}
+            className={[styles.option, isNodeLabel ? styles.nodeOption : ''].filter(Boolean).join(' ')}
+          >
             <RadioButton
               id={optionId}
               name={name}
@@ -84,6 +88,7 @@ function RadioGroup({
               htmlFor={optionId}
               className={[
                 styles.optionLabel,
+                isNodeLabel ? styles.nodeLabel : '',
                 isDisabled ? styles.disabled : '',
               ]
                 .filter(Boolean)

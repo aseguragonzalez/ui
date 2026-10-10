@@ -133,6 +133,26 @@ describe('RadioGroup', () => {
   });
 
   describe('node labels', () => {
+    it('centres node-labelled options and dims a disabled one, leaving string labels as they are', () => {
+      render(
+        <RadioGroup
+          legend="Avatar"
+          name="avatar"
+          options={[
+            { value: 'fox', label: <Avatar name="Fox" />, disabled: true },
+            { value: 'text', label: 'Text' },
+          ]}
+        />
+      );
+      const foxLabel = screen.getByRole('radio', { name: 'Fox' }).closest('div')!.querySelector('label')!;
+      const textLabel = screen.getByText('Text');
+      expect(foxLabel.className).toMatch(/nodeLabel/);
+      expect(foxLabel.className).toMatch(/disabled/);
+      expect(foxLabel.parentElement!.className).toMatch(/nodeOption/);
+      expect(textLabel.className).not.toMatch(/nodeLabel/);
+      expect(textLabel.parentElement!.className).not.toMatch(/nodeOption/);
+    });
+
     it('renders each node label inside its own label associated with its radio', () => {
       render(<RadioGroup legend="Avatar" name="avatar" options={AVATAR_OPTIONS} />);
       const fox = screen.getByRole('radio', { name: 'Fox' });
