@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { Breadcrumb } from './Breadcrumb';
-import type { LinkComponentProps } from '../shared/LinkComponent';
+import type { LinkComponentProps } from '../../primitives/Link/LinkComponent';
 
 const items = [
   { label: 'Inicio', href: '/' },

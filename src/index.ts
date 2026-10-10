@@ -94,6 +94,9 @@ export type { HintProps } from './primitives/Hint/Hint';
 export { ErrorMessage } from './primitives/ErrorMessage/ErrorMessage';
 export type { ErrorMessageProps } from './primitives/ErrorMessage/ErrorMessage';
 
+export { Link } from './primitives/Link/Link';
+export type { LinkProps } from './primitives/Link/Link';
+
 // ─── Components (composites) ───────────────────────────────────────────────────
 
 export { TextField } from './components/TextField/TextField';
@@ -166,7 +169,7 @@ export type { NavbarProps, NavItem } from './components/Navbar/Navbar';
 
 export { Sidebar } from './components/Sidebar/Sidebar';
 export type { SidebarProps, SidebarItem } from './components/Sidebar/Sidebar';
-export type { LinkComponent, LinkComponentProps } from './components/shared/LinkComponent';
+export type { LinkComponent, LinkComponentProps } from './primitives/Link/LinkComponent';
 
 export { DataTable } from './components/DataTable/DataTable';
 export type { DataTableProps, TableColumn, SortDirection } from './components/DataTable/DataTable';
