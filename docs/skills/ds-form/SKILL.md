@@ -26,7 +26,7 @@ Build a form using the design system's **composite field components**. Composite
 | Boolean toggle | `ToggleField` |
 | Single checkbox with label | `CheckboxField` |
 | Mutually exclusive options | `RadioGroup` |
-| Group of checkboxes | Multiple `CheckboxField` inside a `<fieldset>` + `<legend>` |
+| Group of checkboxes | `CheckboxGroup` |
 
 ## Step 2 — Wire each field
 
@@ -48,6 +48,17 @@ name: string
 options: RadioOption[]   // { value: string; label: string; disabled?: boolean }
 value?: string           // controlled
 onChange?: (value: string) => void
+```
+
+`CheckboxGroup` follows the same shape, with an array of selected values:
+
+```ts
+legend: string
+name: string
+options: CheckboxOption[]   // { value: string; label: React.ReactNode; disabled?: boolean }
+value?: string[]            // controlled
+defaultValue?: string[]     // uncontrolled
+onChange?: (value: string[]) => void   // checked values, in options order
 ```
 
 `SelectField` accepts `options` (structured) or `children` (`<option>` elements), plus an optional `placeholder` string for the empty state.
@@ -81,7 +92,7 @@ Read the asset templates to match the output style:
 - Never import `TextInput`, `Select`, or other primitives for form fields — always use the `*Field` composites.
 - `error` and `hint` are mutually exclusive per field: error takes precedence. Never pass both expecting both to show.
 - `CheckboxField.label` accepts `React.ReactNode` — useful when the label contains a link (e.g. "Acepto los [términos]").
-- For a group of related checkboxes (not a single boolean), wrap multiple `CheckboxField` in `<fieldset><legend>…</legend>…</fieldset>` manually — there is no `CheckboxGroup` composite.
+- For a group of related checkboxes (not a single boolean), use `CheckboxGroup` instead of wrapping several `CheckboxField` in a hand-made `<fieldset>`. Read its values with `FormData.getAll(name)`.
 - Default labels and UI strings are in **Spanish** (`"Nombre completo"`, `"Selecciona una opción"`, etc.).
 - `inputId` is optional on all composites — omit it to let the component auto-generate a stable ID via `useId`.
 - `size` prop is `'sm' | 'md' | 'lg'` and applies to the input, not the wrapper.

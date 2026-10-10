@@ -111,6 +111,9 @@ export type { SelectFieldProps, SelectOption } from './components/SelectField/Se
 export { RadioGroup } from './components/RadioGroup/RadioGroup';
 export type { RadioGroupProps, RadioOption } from './components/RadioGroup/RadioGroup';
 
+export { CheckboxGroup } from './components/CheckboxGroup/CheckboxGroup';
+export type { CheckboxGroupProps, CheckboxOption } from './components/CheckboxGroup/CheckboxGroup';
+
 export { TextAreaField } from './components/TextAreaField/TextAreaField';
 export type { TextAreaFieldProps } from './components/TextAreaField/TextAreaField';
 

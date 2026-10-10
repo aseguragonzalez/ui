@@ -19,9 +19,6 @@ export interface CheckboxFieldProps
  * Composite: Checkbox + inline label + optional hint/error.
  * Layout: [☑] Label text
  *              hint or error below
- *
- * For groups of checkboxes, compose several CheckboxField inside a
- * <fieldset> + <legend> at the page level.
  */
 const CheckboxField = forwardRef<HTMLInputElement, CheckboxFieldProps>(
   (
