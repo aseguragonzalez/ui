@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/aseguragonzalez/ui/compare/v1.8.1...v1.8.2) (2026-10-10)
+
+
+### Bug Fixes
+
+* announce AuthLayout's logo on mobile ([#173](https://github.com/aseguragonzalez/ui/issues/173)) ([2818938](https://github.com/aseguragonzalez/ui/commit/2818938398853a3346a58102f1fa73408c3a67f4)), closes [#165](https://github.com/aseguragonzalez/ui/issues/165)
+
 ## [1.8.1](https://github.com/aseguragonzalez/ui/compare/v1.8.0...v1.8.1) (2026-10-10)
 
 
