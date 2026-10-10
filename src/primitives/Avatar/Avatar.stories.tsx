@@ -8,8 +8,9 @@ const meta: Meta<typeof Avatar> = {
   argTypes: {
     size: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl'] },
     shape: { control: 'select', options: ['circle', 'square'] },
+    decorative: { control: 'boolean' },
   },
-  args: { name: 'Maria Garcia', size: 'md', shape: 'circle' },
+  args: { name: 'Maria Garcia', size: 'md', shape: 'circle', decorative: false },
 };
 
 export default meta;
@@ -47,6 +48,23 @@ export const ImageFallback: Story = {
   args: {
     src: 'https://broken.example.com/avatar.jpg',
     name: 'Maria Garcia',
+  },
+};
+
+export const Decorative: Story = {
+  render: () => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <Avatar name="Maria Garcia" src="https://i.pravatar.cc/150?img=47" size="sm" decorative />
+      <span>Maria Garcia</span>
+    </div>
+  ),
+};
+
+export const WithImageAttributes: Story = {
+  args: {
+    src: 'https://i.pravatar.cc/150?img=47',
+    name: 'Maria Garcia',
+    imgProps: { referrerPolicy: 'no-referrer' },
   },
 };
 

@@ -71,7 +71,7 @@ export { DateInput } from './primitives/DateInput/DateInput';
 export type { DateInputProps, DateInputSize } from './primitives/DateInput/DateInput';
 
 export { Avatar } from './primitives/Avatar/Avatar';
-export type { AvatarProps, AvatarSize, AvatarShape } from './primitives/Avatar/Avatar';
+export type { AvatarProps, AvatarImgProps, AvatarSize, AvatarShape } from './primitives/Avatar/Avatar';
 
 export { Tabs, TabList, Tab, TabPanel } from './primitives/Tabs/Tabs';
 export type { TabsProps, TabListProps, TabProps, TabPanelProps } from './primitives/Tabs/Tabs';
