@@ -90,6 +90,33 @@ export const WithNodeLabels: Story = {
   },
 };
 
+export const WithMixedLabels: Story = {
+  args: {
+    legend: 'Reviewer',
+    name: 'reviewer',
+    options: [
+      {
+        value: 'fox',
+        label: (
+          <>
+            <Avatar name="Fox" size="sm" /> Fox
+          </>
+        ),
+      },
+      {
+        value: 'bear',
+        label: (
+          <>
+            <Avatar name="Bear" size="sm" /> Bear
+          </>
+        ),
+        disabled: true,
+      },
+    ],
+    defaultValue: 'fox',
+  },
+};
+
 export const Controlled: Story = {
   render: () => {
     const [value, setValue] = useState('free');
