@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/aseguragonzalez/ui/compare/v1.5.0...v1.6.0) (2026-10-10)
+
+
+### Features
+
+* add a CheckboxGroup component ([#160](https://github.com/aseguragonzalez/ui/issues/160)) ([6472ecc](https://github.com/aseguragonzalez/ui/commit/6472ecce67b69d40a345a45040b261d8691328c2)), closes [#144](https://github.com/aseguragonzalez/ui/issues/144)
+
 # [1.5.0](https://github.com/aseguragonzalez/ui/compare/v1.4.1...v1.5.0) (2026-10-10)
 
 
