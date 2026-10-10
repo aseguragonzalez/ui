@@ -64,6 +64,46 @@ describe('Link', () => {
       expect(link).toHaveAttribute('aria-current', 'page');
       expect(link).toHaveAttribute('title', 'Ir a ajustes');
     });
+
+    it('forwards every other prop and the merged className, but not linkComponent or ref', () => {
+      const received = vi.fn();
+      const SpyLink = (props: LinkComponentProps) => {
+        received(props);
+        return <a {...props} />;
+      };
+      const ref = createRef<HTMLAnchorElement>();
+      render(
+        <Link
+          ref={ref}
+          href="/ajustes"
+          className="custom"
+          target="_blank"
+          rel="noreferrer"
+          linkComponent={SpyLink}
+        >
+          Ajustes
+        </Link>,
+      );
+      const props = received.mock.calls[0][0];
+      expect(props).toEqual(
+        expect.objectContaining({
+          href: '/ajustes',
+          target: '_blank',
+          rel: 'noreferrer',
+          children: 'Ajustes',
+          className: expect.stringContaining('custom'),
+        }),
+      );
+      expect(props.className).toMatch(/link/);
+      expect(props).not.toHaveProperty('linkComponent');
+      expect(props).not.toHaveProperty('ref');
+    });
+
+    it('does not forward the ref to the consumer-supplied component', () => {
+      const ref = createRef<HTMLAnchorElement>();
+      render(<Link ref={ref} href="/ajustes" linkComponent={RouterLink}>Ajustes</Link>);
+      expect(ref.current).toBeNull();
+    });
   });
 
   describe('a11y — axe', () => {
