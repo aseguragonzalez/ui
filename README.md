@@ -56,7 +56,7 @@ function ContactForm() {
 
 **Charts** — `BarChart`, `LineChart`, `DonutChart`, `ScatterPlot`, `RadarChart`.
 
-**Data** — `DataTable` with generic typing, sorting, and pagination.
+**Data** — `DataTable` with generic typing, sorting, and an empty state.
 
 ## Theming
 

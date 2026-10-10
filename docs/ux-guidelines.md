@@ -189,7 +189,7 @@ Use `Tabs` for content that belongs to the same context and where the user benef
 
 Show a summary or empty state component when there are no rows — never an empty table with just headers. Provide clear column headers; avoid abbreviations unless the full term is in a tooltip.
 
-For large datasets, enable pagination rather than loading all rows at once. Communicate the total count and current page position.
+`DataTable` renders every row it receives and has no built-in pagination. For large datasets, paginate before passing `data` (client- or server-side) rather than loading all rows at once, and communicate the total count and current page position next to the table.
 
 ### Charts
 

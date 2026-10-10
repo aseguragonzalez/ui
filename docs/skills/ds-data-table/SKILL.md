@@ -97,3 +97,4 @@ Read asset templates:
 - **Controlled sort** skips internal sorting entirely. If `sortKey` is passed (even `undefined`-ish, but present in props), the component treats it as controlled — pass both `sortKey` and `sortDirection` together.
 - `emptyMessage` defaults to the English string `"No data available."` — always override with a Spanish string.
 - `align` on a column applies to both the `<th>` and every `<td>` in that column.
+- There is no built-in pagination: the table renders every row in `data`. For large datasets, pass only the current page's rows and render the page controls and total count outside the table.
