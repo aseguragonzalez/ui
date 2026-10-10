@@ -69,6 +69,7 @@ That is all that is required. No build-time configuration, no class overrides.
 | `--ds-color-text-success` | `#15803d` | Success messages |
 | `--ds-color-text-warning` | `#a16207` | Warning messages |
 | `--ds-color-text-info` | `#1d4ed8` | Info messages |
+| `--ds-color-text-action` | `--ds-color-action-primary` | Action-coloured labels on a tinted background (secondary and ghost button hover/active) |
 
 ### Action (primary interactive color)
 
@@ -175,6 +176,8 @@ The dark theme re-maps semantic tokens only. Your brand overrides in `:root` app
   --ds-color-action-primary: #a78bfa;   /* lighter shade for dark backgrounds */
 }
 ```
+
+The light theme maps `--ds-color-text-action` to `--ds-color-action-primary`, so it follows a light brand override. The dark theme sets it to a lighter brand shade so labels keep 4.5:1 on `--ds-color-action-primary-subtle` and `--ds-color-bg-muted`; override it in dark mode together with `--ds-color-action-primary`.
 
 ## What not to override
 

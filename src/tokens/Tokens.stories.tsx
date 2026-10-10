@@ -126,6 +126,7 @@ export const TokensSemanticos: Story = {
         <Swatch token="--ds-color-text-muted" label="Secondary text" />
         <Swatch token="--ds-color-text-disabled" label="Disabled" />
         <Swatch token="--ds-color-text-accent" label="Teal" />
+        <Swatch token="--ds-color-text-action" label="Action on tinted" />
         <Swatch token="--ds-color-text-error" label="Error" />
         <Swatch token="--ds-color-text-success" label="Success" />
         <Swatch token="--ds-color-text-warning" label="Warning" />
