@@ -37,6 +37,39 @@ describe('AuthLayout', () => {
     });
   });
 
+  describe('branding panel', () => {
+    it('exposes the branding panel as a complementary landmark labelled by the default label', () => {
+      render(
+        <AuthLayout>
+          <h1>Sign in</h1>
+        </AuthLayout>,
+      );
+      const aside = screen.getByRole('complementary', { name: 'Product branding' });
+      expect(aside.tagName).toBe('ASIDE');
+      expect(aside).not.toHaveAttribute('aria-hidden');
+    });
+
+    it('labels the branding panel with brandingLabel', () => {
+      render(
+        <AuthLayout brandingLabel="Marca del producto">
+          <h1>Iniciar sesión</h1>
+        </AuthLayout>,
+      );
+      expect(screen.getByRole('complementary', { name: 'Marca del producto' })).toBeInTheDocument();
+    });
+
+    it('exposes custom branding content to assistive technology', () => {
+      render(
+        <AuthLayout branding={<p>Custom branding</p>}>
+          <h1>Sign in</h1>
+        </AuthLayout>,
+      );
+      expect(screen.getByRole('complementary', { name: 'Product branding' })).toHaveTextContent(
+        'Custom branding',
+      );
+    });
+  });
+
   describe('tagline', () => {
     it('shows the English tagline by default', () => {
       const { container } = render(
@@ -72,6 +105,15 @@ describe('AuthLayout', () => {
       const { container } = render(
         <AuthLayout footer={<p>Legal links</p>}>
           <h1>Sign in</h1>
+        </AuthLayout>,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations — custom branding and brandingLabel', async () => {
+      const { container } = render(
+        <AuthLayout branding={<p>Custom branding</p>} brandingLabel="Marca del producto">
+          <h1>Iniciar sesión</h1>
         </AuthLayout>,
       );
       expect(await axe(container)).toHaveNoViolations();
