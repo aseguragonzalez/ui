@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { Sidebar } from './Sidebar';
-import type { LinkComponentProps } from '../shared/LinkComponent';
+import type { LinkComponentProps } from '../../primitives/Link/LinkComponent';
 
 const items = [
   { key: 'home', label: 'Home', href: '/', isActive: true },

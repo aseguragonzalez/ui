@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import styles from './Breadcrumb.module.css';
 import { ItemLink } from '../shared/ItemLink';
-import type { LinkComponent } from '../shared/LinkComponent';
+import type { LinkComponent } from '../../primitives/Link/LinkComponent';
 
 export interface BreadcrumbItem {
   label: string;

@@ -1,0 +1,20 @@
+.link {
+  color: var(--ds-color-action-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  border-radius: var(--ds-radius-sm);
+  transition: color var(--ds-duration-fast) var(--ds-easing-default);
+}
+
+.link:hover {
+  color: var(--ds-color-action-primary-hover);
+}
+
+.link:active {
+  color: var(--ds-color-action-primary-active);
+}
+
+.link:focus-visible {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}

@@ -1,4 +1,4 @@
-import type { LinkComponent, LinkComponentProps } from './LinkComponent';
+import type { LinkComponent, LinkComponentProps } from '../../primitives/Link/LinkComponent';
 
 export interface ItemLinkProps extends Omit<LinkComponentProps, 'href'> {
   href?: string;

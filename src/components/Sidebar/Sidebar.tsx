@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './Sidebar.module.css';
 import { ItemLink } from '../shared/ItemLink';
-import type { LinkComponent } from '../shared/LinkComponent';
+import type { LinkComponent } from '../../primitives/Link/LinkComponent';
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';

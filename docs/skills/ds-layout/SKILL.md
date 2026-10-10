@@ -90,6 +90,12 @@ const RouterLink = ({ href, ...rest }: LinkComponentProps) => <Link to={href} {.
 
 Items without an `href` keep rendering as `<a>`.
 
+The `Link` primitive takes the same `linkComponent` for inline links in page content:
+
+```tsx
+<Link href="/settings" linkComponent={RouterLink}>Settings</Link>
+```
+
 ## Step 7 — Write the files
 
 Read asset templates:

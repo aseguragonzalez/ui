@@ -1,7 +1,7 @@
 import { forwardRef, useId, useState } from 'react';
 import styles from './Navbar.module.css';
 import { ItemLink } from '../shared/ItemLink';
-import type { LinkComponent } from '../shared/LinkComponent';
+import type { LinkComponent } from '../../primitives/Link/LinkComponent';
 
 export interface NavItem {
   key: string;
