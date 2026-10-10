@@ -72,10 +72,12 @@
 }
 
 .secondary:hover:not(:disabled) {
+  color: var(--ds-color-text-action);
   background-color: var(--ds-color-action-primary-subtle);
 }
 
 .secondary:active:not(:disabled) {
+  color: var(--ds-color-text-action);
   background-color: var(--ds-color-action-primary-subtle);
   border-color: var(--ds-color-action-primary-hover);
 }
@@ -87,10 +89,12 @@
 }
 
 .ghost:hover:not(:disabled) {
+  color: var(--ds-color-text-action);
   background-color: var(--ds-color-action-primary-subtle);
 }
 
 .ghost:active:not(:disabled) {
+  color: var(--ds-color-text-action);
   background-color: var(--ds-color-bg-muted);
 }
 

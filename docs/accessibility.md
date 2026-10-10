@@ -122,6 +122,7 @@ Semantic text and background token pairs are designed to meet the 4.5:1 minimum 
 - `--ds-color-text-default` on `--ds-color-bg-page`: 16.2:1
 - `--ds-color-text-muted` on `--ds-color-bg-surface`: 4.6:1
 - `--ds-color-text-on-action` on `--ds-color-action-primary` (default blue): 4.8:1
+- `--ds-color-text-action` on `--ds-color-action-primary-subtle` (secondary and ghost button hover): 6.6:1 light, 6.8:1 dark
 
 If you override brand colors, verify the contrast ratio using a tool like [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/). The minimum for body text is 4.5:1; for large text (18px+ regular or 14px+ bold) it is 3:1.
 
