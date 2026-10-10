@@ -13,6 +13,7 @@
 | Phone number | `PhoneField` |
 | Numeric value | `NumberField` |
 | Date | `DateField` |
+| File upload | `FileField` |
 | Search query | `SearchField` |
 | One choice from a short list (≤5 options, always visible) | `RadioGroup` |
 | One choice from a long list or with limited space | `SelectField` |

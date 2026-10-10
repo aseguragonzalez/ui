@@ -70,6 +70,9 @@ export type { NumberInputProps, NumberInputSize } from './primitives/NumberInput
 export { DateInput } from './primitives/DateInput/DateInput';
 export type { DateInputProps, DateInputSize } from './primitives/DateInput/DateInput';
 
+export { FileInput } from './primitives/FileInput/FileInput';
+export type { FileInputProps, FileInputSize } from './primitives/FileInput/FileInput';
+
 export { Avatar } from './primitives/Avatar/Avatar';
 export type { AvatarProps, AvatarImgProps, AvatarSize, AvatarShape } from './primitives/Avatar/Avatar';
 
@@ -137,6 +140,9 @@ export type { NumberFieldProps } from './components/NumberField/NumberField';
 
 export { DateField } from './components/DateField/DateField';
 export type { DateFieldProps } from './components/DateField/DateField';
+
+export { FileField } from './components/FileField/FileField';
+export type { FileFieldProps } from './components/FileField/FileField';
 
 // ─── ThemeProvider ─────────────────────────────────────────────────────────────
 

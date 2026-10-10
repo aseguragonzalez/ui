@@ -20,6 +20,7 @@ Build a form using the design system's **composite field components**. Composite
 | Phone number | `PhoneField` |
 | Integer / decimal | `NumberField` |
 | Date | `DateField` |
+| File upload | `FileField` |
 | Search | `SearchField` |
 | Multi-line text | `TextAreaField` |
 | Dropdown selection | `SelectField` |
