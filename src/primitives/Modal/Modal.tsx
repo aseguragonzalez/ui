@@ -128,8 +128,10 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
     };
   }, [open]);
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDialogElement>) => {
+  useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
         onClose();
@@ -140,25 +142,42 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
       const dialog = dialogRef.current;
       if (!dialog) return;
       const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE));
-      if (focusable.length === 0) return;
+      if (focusable.length === 0) {
+        e.preventDefault();
+        dialog.focus();
+        return;
+      }
 
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
 
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
+      if (!active || !dialog.contains(active)) {
+        e.preventDefault();
+        (e.shiftKey ? last : first).focus();
+      } else if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
       }
-    },
-    [onClose],
-  );
+    };
+
+    const handleFocusIn = (e: FocusEvent) => {
+      const dialog = dialogRef.current;
+      if (!dialog || dialog.contains(e.target as Node)) return;
+      const first = dialog.querySelector<HTMLElement>(FOCUSABLE);
+      (first ?? dialog).focus();
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('focusin', handleFocusIn);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('focusin', handleFocusIn);
+    };
+  }, [open, onClose]);
 
   const handleBackdropClick = useCallback(
     (e: React.MouseEvent<HTMLDialogElement>) => {
@@ -178,7 +197,6 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
       aria-describedby={ariaDescribedby}
       open
       className={[styles.dialog, styles[size]].join(' ')}
-      onKeyDown={handleKeyDown}
       onClick={handleBackdropClick}
     >
       <div className={styles.panel}>

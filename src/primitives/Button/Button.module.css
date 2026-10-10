@@ -55,12 +55,12 @@
   color: var(--ds-color-text-on-action);
 }
 
-.primary:hover:not(:disabled) {
+.primary:hover:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-action-primary-hover);
   border-color: var(--ds-color-action-primary-hover);
 }
 
-.primary:active:not(:disabled) {
+.primary:active:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-action-primary-active);
   border-color: var(--ds-color-action-primary-active);
 }
@@ -71,11 +71,11 @@
   color: var(--ds-color-action-primary);
 }
 
-.secondary:hover:not(:disabled) {
+.secondary:hover:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-action-primary-subtle);
 }
 
-.secondary:active:not(:disabled) {
+.secondary:active:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-action-primary-subtle);
   border-color: var(--ds-color-action-primary-hover);
 }
@@ -86,11 +86,11 @@
   color: var(--ds-color-action-primary);
 }
 
-.ghost:hover:not(:disabled) {
+.ghost:hover:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-action-primary-subtle);
 }
 
-.ghost:active:not(:disabled) {
+.ghost:active:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-bg-muted);
 }
 
@@ -100,12 +100,12 @@
   color: var(--ds-color-text-on-accent);
 }
 
-.accent:hover:not(:disabled) {
+.accent:hover:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-action-accent-hover);
   border-color: var(--ds-color-action-accent-hover);
 }
 
-.accent:active:not(:disabled) {
+.accent:active:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-action-accent-active);
   border-color: var(--ds-color-action-accent-active);
 }
@@ -116,12 +116,12 @@
   color: var(--ds-color-text-on-action);
 }
 
-.destructive:hover:not(:disabled) {
+.destructive:hover:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-action-danger-hover);
   border-color: var(--ds-color-action-danger-hover);
 }
 
-.destructive:active:not(:disabled) {
+.destructive:active:not(:disabled):not([aria-disabled='true']) {
   background-color: var(--ds-color-action-danger-active);
   border-color: var(--ds-color-action-danger-active);
 }
@@ -130,6 +130,10 @@
 
 .button:disabled {
   cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.button[aria-disabled='true'] {
   opacity: 0.45;
 }
 
