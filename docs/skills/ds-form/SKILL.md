@@ -20,6 +20,7 @@ Build a form using the design system's **composite field components**. Composite
 | Phone number | `PhoneField` |
 | Integer / decimal | `NumberField` |
 | Date | `DateField` |
+| File upload | `FileField` |
 | Search | `SearchField` |
 | Multi-line text | `TextAreaField` |
 | Dropdown selection | `SelectField` |
@@ -89,6 +90,7 @@ Read the asset templates to match the output style:
 
 ## Gotchas
 
+- `FileField` and `FileInput` are uncontrolled: they take no `value`, since a browser only lets the user set a file input. Read the files in `onChange` (`event.target.files`), and reset the field by resetting its form or remounting it.
 - Never import `TextInput`, `Select`, or other primitives for form fields — always use the `*Field` composites.
 - `error` and `hint` are mutually exclusive per field: error takes precedence. Never pass both expecting both to show.
 - `CheckboxField.label` accepts `React.ReactNode` — useful when the label contains a link (e.g. "Acepto los [términos]").

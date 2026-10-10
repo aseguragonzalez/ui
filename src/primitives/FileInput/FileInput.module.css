@@ -1,0 +1,42 @@
+.fileInput {
+  cursor: pointer;
+}
+
+.fileInput::file-selector-button {
+  margin-inline-end: var(--ds-space-3);
+  padding: var(--ds-space-1) var(--ds-space-3);
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: var(--ds-font-weight-medium);
+  color: var(--ds-color-input-text);
+
+  background-color: transparent;
+  border: var(--ds-border-width-sm) solid var(--ds-color-action-primary);
+  border-radius: var(--ds-radius-sm);
+  cursor: pointer;
+
+  transition-property: background-color;
+  transition-duration: var(--ds-duration-fast);
+  transition-timing-function: var(--ds-easing-default);
+}
+
+.fileInput:hover:not(:disabled)::file-selector-button {
+  background-color: var(--ds-color-action-primary-subtle);
+}
+
+.fileInput:disabled {
+  cursor: not-allowed;
+}
+
+.fileInput:disabled::file-selector-button {
+  color: var(--ds-color-text-disabled);
+  border-color: var(--ds-color-border-disabled);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fileInput::file-selector-button {
+    transition: none;
+  }
+}
