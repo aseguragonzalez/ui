@@ -64,7 +64,7 @@ function contrast(foreground: string, background: string): number {
 }
 
 const restBackgrounds = ['var(--ds-color-bg-page)', 'var(--ds-color-bg-surface)'];
-const enabled = ":not(:disabled):not([aria-disabled='true'])";
+const enabled = ':not(:disabled)';
 
 const cases = Object.entries(themes()).flatMap(([themeName, theme]) =>
   ['primary', 'secondary', 'ghost'].flatMap((variant) => {

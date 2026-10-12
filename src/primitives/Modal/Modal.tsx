@@ -141,7 +141,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
       const last = focusable[focusable.length - 1];
       const active = document.activeElement;
 
-      if (!active || !dialog.contains(active)) {
+      if (!active || active === dialog || !dialog.contains(active)) {
         e.preventDefault();
         (e.shiftKey ? last : first).focus();
       } else if (e.shiftKey && active === first) {
@@ -158,9 +158,31 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
       dialog.querySelector<HTMLElement>(FOCUSABLE)?.focus();
     };
 
+    // A focused control that becomes disabled (a Button switching to isLoading) would drop the focus to <body>: the
+    // dialog takes it instead, and gives it back when the control is enabled again.
+    let disabledFocus: HTMLElement | null = null;
+    const observer = new MutationObserver((mutations) => {
+      for (const { target } of mutations) {
+        if (!(target instanceof HTMLElement)) continue;
+        if (target.hasAttribute('disabled') && target === document.activeElement) {
+          disabledFocus = target;
+          dialog.focus({ preventScroll: true });
+        } else if (
+          !target.hasAttribute('disabled') &&
+          target === disabledFocus &&
+          document.activeElement === dialog
+        ) {
+          disabledFocus = null;
+          target.focus();
+        }
+      }
+    });
+    observer.observe(dialog, { subtree: true, attributes: true, attributeFilter: ['disabled'] });
+
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('focusin', handleFocusIn);
     return () => {
+      observer.disconnect();
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('focusin', handleFocusIn);
       openModals.splice(openModals.indexOf(dialog), 1);
@@ -200,6 +222,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
       aria-modal="true"
       aria-labelledby={titleId}
       aria-describedby={ariaDescribedby}
+      tabIndex={-1}
       open
       className={[styles.dialog, styles[size]].join(' ')}
       onClick={handleBackdropClick}

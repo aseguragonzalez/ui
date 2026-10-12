@@ -178,14 +178,15 @@ describe('Modal', () => {
       expect(buttons[buttons.length - 1]).toHaveFocus();
     });
 
-    it('keeps focus on the confirm button when it switches to loading after a click', async () => {
+    it('moves focus to the dialog when the focused confirm button switches to loading', async () => {
       const user = userEvent.setup();
       render(<AsyncConfirmModal />);
       const confirm = screen.getByRole('button', { name: 'Confirmar' });
       confirm.focus();
       await user.keyboard('{Enter}');
+      expect(confirm).toBeDisabled();
       expect(confirm).toHaveAttribute('aria-busy', 'true');
-      expect(confirm).toHaveFocus();
+      await vi.waitFor(() => expect(screen.getByRole('dialog')).toHaveFocus());
     });
 
     it('keeps Tab and Shift+Tab inside the dialog after the confirm button switches to loading', async () => {
@@ -196,7 +197,31 @@ describe('Modal', () => {
       await user.tab();
       expect(screen.getByRole('button', { name: 'Close' })).toHaveFocus();
       await user.tab({ shift: true });
-      expect(confirm).toHaveFocus();
+      expect(screen.getByRole('button', { name: 'Cancelar' })).toHaveFocus();
+      after.remove();
+    });
+
+    it('moves Shift+Tab to the last enabled control while the confirm button is loading', async () => {
+      const user = userEvent.setup();
+      const { after } = withPageControls(<AsyncConfirmModal />);
+      const confirm = screen.getByRole('button', { name: 'Confirmar' });
+      confirm.focus();
+      await user.keyboard('{Enter}');
+      await vi.waitFor(() => expect(screen.getByRole('dialog')).toHaveFocus());
+      await user.tab({ shift: true });
+      expect(screen.getByRole('button', { name: 'Cancelar' })).toHaveFocus();
+      after.remove();
+    });
+
+    it('moves Tab to the first control while the confirm button is loading', async () => {
+      const user = userEvent.setup();
+      const { after } = withPageControls(<AsyncConfirmModal />);
+      const confirm = screen.getByRole('button', { name: 'Confirmar' });
+      confirm.focus();
+      await user.keyboard('{Enter}');
+      await vi.waitFor(() => expect(screen.getByRole('dialog')).toHaveFocus());
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Close' })).toHaveFocus();
       after.remove();
     });
 
