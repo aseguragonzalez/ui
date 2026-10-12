@@ -183,6 +183,27 @@ describe('RadioGroup', () => {
       expect(owl).toBeChecked();
     });
 
+    it('treats a number label like a string label, neither centred nor dimmed as a node', () => {
+      render(
+        <RadioGroup
+          legend="Seats"
+          name="seats"
+          options={[
+            { value: 'one', label: 1, disabled: true },
+            { value: 'two', label: 2 },
+          ]}
+        />
+      );
+      const one = screen.getByRole('radio', { name: '1' });
+      const oneLabel = document.querySelector(`label[for="${one.id}"]`)!;
+      expect(one).toBeDisabled();
+      expect(oneLabel.className).toMatch(/optionLabel/);
+      expect(oneLabel.className).toMatch(/disabled/);
+      expect(oneLabel.className).not.toMatch(/nodeLabel/);
+      expect(oneLabel.parentElement!.className).not.toMatch(/nodeOption/);
+      expect(screen.getByRole('radio', { name: '2' })).toBeEnabled();
+    });
+
     it('accepts string and node labels in the same group', () => {
       const options = [{ value: 'none', label: 'No avatar' }, ...AVATAR_OPTIONS];
       render(<RadioGroup legend="Avatar" name="avatar" options={options} />);

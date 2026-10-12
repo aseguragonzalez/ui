@@ -51,7 +51,7 @@ value?: string           // controlled
 onChange?: (value: string) => void
 ```
 
-An option's `label` can be any `ReactNode` (an image, a swatch, an `Avatar`, an icon plus text). A non-text label must still give the radio an accessible name — an `Avatar` (`role="img"` with `aria-label`), an `<img>` with `alt`, or visually hidden text — and should contain only phrasing content, since it renders inside a `<label>`.
+An option's `label` can be any `ReactNode` (an image, a swatch, an `Avatar`, an icon plus text). A non-text label must still give the radio an accessible name — an `Avatar` (`role="img"` with `aria-label`), an `<img>` with `alt`, or visually hidden text — and should contain only phrasing content, since it renders inside a `<label>`. Options with a non-text label are centred on their radio, and a disabled one is dimmed as a whole (text and images together) instead of taking the disabled text colour.
 
 `CheckboxGroup` follows the same shape, with an array of selected values:
 
