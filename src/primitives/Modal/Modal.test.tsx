@@ -201,6 +201,30 @@ describe('Modal', () => {
       after.remove();
     });
 
+    it('moves Shift+Tab to the last enabled control while the confirm button is loading', async () => {
+      const user = userEvent.setup();
+      const { after } = withPageControls(<AsyncConfirmModal />);
+      const confirm = screen.getByRole('button', { name: 'Confirmar' });
+      confirm.focus();
+      await user.keyboard('{Enter}');
+      await vi.waitFor(() => expect(screen.getByRole('dialog')).toHaveFocus());
+      await user.tab({ shift: true });
+      expect(screen.getByRole('button', { name: 'Cancelar' })).toHaveFocus();
+      after.remove();
+    });
+
+    it('moves Tab to the first control while the confirm button is loading', async () => {
+      const user = userEvent.setup();
+      const { after } = withPageControls(<AsyncConfirmModal />);
+      const confirm = screen.getByRole('button', { name: 'Confirmar' });
+      confirm.focus();
+      await user.keyboard('{Enter}');
+      await vi.waitFor(() => expect(screen.getByRole('dialog')).toHaveFocus());
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Close' })).toHaveFocus();
+      after.remove();
+    });
+
     it('calls onClose on Escape after the confirm button switches to loading', async () => {
       const user = userEvent.setup();
       const onClose = vi.fn();

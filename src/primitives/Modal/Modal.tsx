@@ -141,7 +141,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
       const last = focusable[focusable.length - 1];
       const active = document.activeElement;
 
-      if (!active || !dialog.contains(active)) {
+      if (!active || active === dialog || !dialog.contains(active)) {
         e.preventDefault();
         (e.shiftKey ? last : first).focus();
       } else if (e.shiftKey && active === first) {
