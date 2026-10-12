@@ -1,3 +1,10 @@
+## [1.8.5](https://github.com/aseguragonzalez/ui/compare/v1.8.4...v1.8.5) (2026-10-12)
+
+
+### Bug Fixes
+
+* keep focus inside a Modal when its focused button switches to loading ([#171](https://github.com/aseguragonzalez/ui/issues/171)) ([542bc4d](https://github.com/aseguragonzalez/ui/commit/542bc4da94102b975a1b13410c49ed3bdf819b19)), closes [#170](https://github.com/aseguragonzalez/ui/issues/170)
+
 ## [1.8.4](https://github.com/aseguragonzalez/ui/compare/v1.8.3...v1.8.4) (2026-10-12)
 
 
