@@ -34,29 +34,19 @@ describe('Button', () => {
       expect(screen.getByRole('button')).not.toHaveAttribute('aria-disabled');
     });
 
-    it('stays focusable and is announced as unavailable when isLoading is true', () => {
+    it('uses the native disabled attribute when isLoading is true', () => {
       render(<Button isLoading>Test</Button>);
       const button = screen.getByRole('button');
-      expect(button).not.toHaveAttribute('disabled');
-      expect(button).toHaveAttribute('aria-disabled', 'true');
-      button.focus();
-      expect(button).toHaveFocus();
-    });
-
-    it('uses the native disabled attribute without aria-disabled when both disabled and isLoading', () => {
-      render(<Button isLoading disabled>Test</Button>);
-      const button = screen.getByRole('button');
+      expect(button).toBeDisabled();
       expect(button).toHaveAttribute('disabled');
       expect(button).not.toHaveAttribute('aria-disabled');
-      expect(button).toHaveAttribute('aria-busy', 'true');
     });
 
-    it('keeps focus when it switches to loading', () => {
-      const { rerender } = render(<Button>Test</Button>);
+    it('stays disabled and busy when both disabled and isLoading', () => {
+      render(<Button isLoading disabled>Test</Button>);
       const button = screen.getByRole('button');
-      button.focus();
-      rerender(<Button isLoading>Test</Button>);
-      expect(button).toHaveFocus();
+      expect(button).toBeDisabled();
+      expect(button).toHaveAttribute('aria-busy', 'true');
     });
 
     it('sets aria-busy when isLoading is true', () => {

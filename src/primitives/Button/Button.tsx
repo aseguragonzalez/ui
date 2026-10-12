@@ -25,20 +25,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading = false,
       loadingText,
       disabled,
-      onClick,
       children,
       className,
       ...nativeProps
     },
     ref,
   ) => {
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (isLoading) {
-        e.preventDefault();
-        return;
-      }
-      onClick?.(e);
-    };
+    const isDisabled = disabled || isLoading;
 
     const classNames = [
       styles.button,
@@ -54,12 +47,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        disabled={disabled}
+        disabled={isDisabled}
         aria-busy={isLoading}
-        aria-disabled={isLoading && !disabled ? true : undefined}
         className={classNames}
         {...nativeProps}
-        onClick={handleClick}
       >
         {isLoading && (
           <Spinner size={spinnerSize[size]} label={loadingText ?? 'Loading...'} />

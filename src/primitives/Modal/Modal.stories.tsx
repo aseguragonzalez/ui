@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Modal, ModalBody, ModalFooter } from './Modal';
 import { Button } from '../Button/Button';
 import { TextField } from '../../components/TextField/TextField';
@@ -79,7 +80,7 @@ export const AsyncConfirmation: Story = {
         <Modal open={open} onClose={() => setOpen(false)} title="Confirm action">
           <ModalBody>
             {failed && <Alert variant="error">The request failed. Try again.</Alert>}
-            <p style={{ margin: 0 }}>Confirming keeps focus on the button while the request is in progress.</p>
+            <p style={{ margin: 0 }}>Confirming keeps focus in the dialog while the request is in progress.</p>
           </ModalBody>
           <ModalFooter>
             <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
@@ -90,6 +91,20 @@ export const AsyncConfirmation: Story = {
         </Modal>
       </>
     );
+  },
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Open modal' }));
+    const page = within(document.body);
+    const dialog = page.getByRole('dialog', { name: 'Confirm action' });
+    const confirm = page.getByRole('button', { name: 'Confirm' });
+    await userEvent.click(confirm);
+
+    await waitFor(() => expect(confirm).toBeDisabled());
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    await expect(document.activeElement).toBe(dialog);
+
+    await waitFor(() => expect(confirm).toBeEnabled(), { timeout: 5000 });
+    await expect(confirm).toHaveFocus();
   },
 };
 
