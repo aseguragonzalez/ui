@@ -33,6 +33,23 @@ function withPageControls(ui: React.ReactElement) {
   return { ...result, after };
 }
 
+function NestedModals({ onOuterClose = vi.fn() }: { onOuterClose?: () => void }) {
+  const [innerOpen, setInnerOpen] = useState(false);
+  return (
+    <Modal open onClose={() => onOuterClose()} title="Outer">
+      <ModalFooter>
+        <Button onClick={() => setInnerOpen(true)}>Open inner</Button>
+      </ModalFooter>
+      <Modal open={innerOpen} onClose={() => setInnerOpen(false)} title="Inner" closeLabel="Close inner">
+        <ModalFooter>
+          <Button>Inner cancel</Button>
+          <Button>Inner confirm</Button>
+        </ModalFooter>
+      </Modal>
+    </Modal>
+  );
+}
+
 function BasicModal({ open = true, onClose = vi.fn() } = {}) {
   return (
     <Modal open={open} onClose={onClose} title="Título del modal">
@@ -235,6 +252,34 @@ describe('Modal', () => {
       after.focus();
       after.remove();
       expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement);
+    });
+
+    it('traps Tab only in the topmost of nested Modals', async () => {
+      const user = userEvent.setup();
+      render(<NestedModals />);
+      await user.click(screen.getByRole('button', { name: 'Open inner' }));
+      expect(screen.getByRole('button', { name: 'Close inner' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Inner cancel' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Inner confirm' })).toHaveFocus();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Close inner' })).toHaveFocus();
+      await user.click(screen.getByRole('button', { name: 'Inner confirm' }));
+      expect(screen.getByRole('button', { name: 'Inner confirm' })).toHaveFocus();
+    });
+
+    it('closes only the topmost of nested Modals on Escape', async () => {
+      const user = userEvent.setup();
+      const onOuterClose = vi.fn();
+      render(<NestedModals onOuterClose={onOuterClose} />);
+      await user.click(screen.getByRole('button', { name: 'Open inner' }));
+      await user.keyboard('{Escape}');
+      expect(screen.queryByRole('dialog', { name: 'Inner' })).not.toBeInTheDocument();
+      expect(onOuterClose).not.toHaveBeenCalled();
+      expect(screen.getByRole('button', { name: 'Open inner' })).toHaveFocus();
+      await user.keyboard('{Escape}');
+      expect(onOuterClose).toHaveBeenCalledTimes(1);
     });
 
     it('restores focus to the previously focused element on close', async () => {
