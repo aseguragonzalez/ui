@@ -133,6 +133,17 @@ describe('Modal', () => {
       expect(onClose).toHaveBeenCalledTimes(1);
     });
 
+    it('calls the latest onClose on Escape after a re-render', async () => {
+      const user = userEvent.setup();
+      const first = vi.fn();
+      const latest = vi.fn();
+      const { rerender } = render(<BasicModal onClose={first} />);
+      rerender(<BasicModal onClose={latest} />);
+      await user.keyboard('{Escape}');
+      expect(latest).toHaveBeenCalledTimes(1);
+      expect(first).not.toHaveBeenCalled();
+    });
+
     it('calls onClose when the close button is clicked', async () => {
       const user = userEvent.setup();
       const onClose = vi.fn();
