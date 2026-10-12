@@ -1,3 +1,10 @@
+## [1.8.6](https://github.com/aseguragonzalez/ui/compare/v1.8.5...v1.8.6) (2026-10-12)
+
+
+### Bug Fixes
+
+* keep the destructive action label at AA contrast at rest in the dark theme ([#180](https://github.com/aseguragonzalez/ui/issues/180)) ([33aff6c](https://github.com/aseguragonzalez/ui/commit/33aff6c5f7ca3de0d882993285dc31afdfb88dd9))
+
 ## [1.8.5](https://github.com/aseguragonzalez/ui/compare/v1.8.4...v1.8.5) (2026-10-12)
 
 
