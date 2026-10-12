@@ -1,3 +1,10 @@
+## [1.8.7](https://github.com/aseguragonzalez/ui/compare/v1.8.6...v1.8.7) (2026-10-12)
+
+
+### Bug Fixes
+
+* disable a loading Button natively again and keep the Modal's focus in the dialog ([#183](https://github.com/aseguragonzalez/ui/issues/183)) ([647049d](https://github.com/aseguragonzalez/ui/commit/647049da824e2d18c1e5e248f732a89acedc3c79)), closes [#170](https://github.com/aseguragonzalez/ui/issues/170)
+
 ## [1.8.6](https://github.com/aseguragonzalez/ui/compare/v1.8.5...v1.8.6) (2026-10-12)
 
 

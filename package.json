@@ -1,6 +1,6 @@
 {
   "name": "@aseguragonzalez/ui",
-  "version": "1.8.6",
+  "version": "1.8.7",
   "private": false,
   "type": "module",
   "description": "Accessible, themeable design system for React SPAs",
