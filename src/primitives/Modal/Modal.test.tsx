@@ -5,6 +5,34 @@ import { axe } from 'jest-axe';
 import { Modal, ModalBody, ModalFooter } from './Modal';
 import { Button } from '../Button/Button';
 
+function AsyncConfirmModal({ onClose = vi.fn() }: { onClose?: () => void }) {
+  const [loading, setLoading] = useState(false);
+  return (
+    <Modal open onClose={onClose} title="Confirmar">
+      <ModalBody>¿Seguro?</ModalBody>
+      <ModalFooter>
+        <Button variant="secondary" onClick={onClose}>Cancelar</Button>
+        <Button isLoading={loading} loadingText="Confirmando..." onClick={() => setLoading(true)}>
+          Confirmar
+        </Button>
+      </ModalFooter>
+    </Modal>
+  );
+}
+
+function withPageControls(ui: React.ReactElement) {
+  const result = render(
+    <>
+      <button>Antes</button>
+      {ui}
+    </>,
+  );
+  const after = document.createElement('button');
+  after.textContent = 'Después';
+  document.body.appendChild(after);
+  return { ...result, after };
+}
+
 function BasicModal({ open = true, onClose = vi.fn() } = {}) {
   return (
     <Modal open={open} onClose={onClose} title="Título del modal">
@@ -120,6 +148,93 @@ describe('Modal', () => {
       await user.tab({ shift: true });
       const buttons = screen.getAllByRole('button');
       expect(buttons[buttons.length - 1]).toHaveFocus();
+    });
+
+    it('keeps focus on the confirm button when it switches to loading after a click', async () => {
+      const user = userEvent.setup();
+      render(<AsyncConfirmModal />);
+      const confirm = screen.getByRole('button', { name: 'Confirmar' });
+      confirm.focus();
+      await user.keyboard('{Enter}');
+      expect(confirm).toHaveAttribute('aria-busy', 'true');
+      expect(confirm).toHaveFocus();
+    });
+
+    it('keeps Tab and Shift+Tab inside the dialog after the confirm button switches to loading', async () => {
+      const user = userEvent.setup();
+      const { after } = withPageControls(<AsyncConfirmModal />);
+      const confirm = screen.getByRole('button', { name: 'Confirmar' });
+      await user.click(confirm);
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Close' })).toHaveFocus();
+      await user.tab({ shift: true });
+      expect(confirm).toHaveFocus();
+      after.remove();
+    });
+
+    it('calls onClose on Escape after the confirm button switches to loading', async () => {
+      const user = userEvent.setup();
+      const onClose = vi.fn();
+      render(<AsyncConfirmModal onClose={onClose} />);
+      await user.click(screen.getByRole('button', { name: 'Confirmar' }));
+      await user.keyboard('{Escape}');
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls onClose on Escape when focus has left the dialog', async () => {
+      const user = userEvent.setup();
+      const onClose = vi.fn();
+      render(<BasicModal onClose={onClose} />);
+      (document.activeElement as HTMLElement).blur();
+      expect(document.body).toHaveFocus();
+      await user.keyboard('{Escape}');
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('moves Tab back into the dialog when focus has left it', async () => {
+      const user = userEvent.setup();
+      const { after } = withPageControls(<BasicModal />);
+      (document.activeElement as HTMLElement).blur();
+      await user.tab();
+      expect(screen.getByRole('button', { name: 'Close' })).toHaveFocus();
+      after.remove();
+    });
+
+    it('moves Shift+Tab back into the dialog when focus has left it', async () => {
+      const user = userEvent.setup();
+      const { after } = withPageControls(<BasicModal />);
+      (document.activeElement as HTMLElement).blur();
+      await user.tab({ shift: true });
+      expect(screen.getByRole('button', { name: 'Confirmar' })).toHaveFocus();
+      after.remove();
+    });
+
+    it('keeps the trap when the focused element is removed', async () => {
+      const user = userEvent.setup();
+      function RemovableModal() {
+        const [shown, setShown] = useState(true);
+        return (
+          <Modal open onClose={vi.fn()} title="Test">
+            <ModalFooter>
+              {shown && <Button onClick={() => setShown(false)}>Quitar</Button>}
+              <Button>Otro</Button>
+            </ModalFooter>
+          </Modal>
+        );
+      }
+      const { after } = withPageControls(<RemovableModal />);
+      await user.click(screen.getByRole('button', { name: 'Quitar' }));
+      expect(screen.queryByRole('button', { name: 'Quitar' })).not.toBeInTheDocument();
+      await user.tab();
+      expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement);
+      after.remove();
+    });
+
+    it('moves focus back into the dialog when an element outside it receives focus', () => {
+      const { after } = withPageControls(<BasicModal />);
+      after.focus();
+      after.remove();
+      expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement);
     });
 
     it('restores focus to the previously focused element on close', async () => {
@@ -245,6 +360,13 @@ describe('Modal', () => {
   describe('a11y — axe', () => {
     it('has no violations when open', async () => {
       const { container } = render(<BasicModal />);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations with a loading confirm button', async () => {
+      const user = userEvent.setup();
+      const { container } = render(<AsyncConfirmModal />);
+      await user.click(screen.getByRole('button', { name: 'Confirmar' }));
       expect(await axe(container)).toHaveNoViolations();
     });
   });
