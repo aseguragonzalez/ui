@@ -1,3 +1,10 @@
+## [1.8.4](https://github.com/aseguragonzalez/ui/compare/v1.8.3...v1.8.4) (2026-10-12)
+
+
+### Bug Fixes
+
+* keep primary action text at AA contrast in the dark theme ([#178](https://github.com/aseguragonzalez/ui/issues/178)) ([f663ba0](https://github.com/aseguragonzalez/ui/commit/f663ba0cbb3d2c77388feeed30ea8141b7cb11be))
+
 ## [1.8.3](https://github.com/aseguragonzalez/ui/compare/v1.8.2...v1.8.3) (2026-10-12)
 
 
