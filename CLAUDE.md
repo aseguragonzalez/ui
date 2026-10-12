@@ -42,7 +42,7 @@ Run `types:css` whenever a CSS Module class name is added or removed — TypeScr
 src/tokens/          CSS Custom Properties (primitive scale + semantic tokens)
 src/primitives/      Atomic wrappers around HTML5 elements
 src/components/      Composites (field = primitive + Label + Hint + ErrorMessage) + layout/charts
-src/patterns/        Full-page compositions (not exported individually)
+src/patterns/        Full-page compositions (reusable ones such as AuthLayout are exported; story-only examples are not)
 ```
 
 **Hard rule:** lower layers never import from higher ones. Primitives never import from `components/`. Violating this breaks the dependency graph.
