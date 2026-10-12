@@ -107,10 +107,10 @@ toast.show({ message: 'Settings saved.', variant: 'success' });
 
 ### Loading states
 
-Show a `Spinner` inside the triggering button when an action is in progress. This keeps the user's focus on the action and prevents double-submissions:
+Show a `Spinner` inside the triggering button when an action is in progress. This keeps the user's focus on the action and prevents double-submissions. Set `isLoading` and not `disabled`: a loading button stays focusable and ignores activation, while `disabled` drops the focus to the page:
 
 ```tsx
-<Button variant="primary" loading={isSubmitting} disabled={isSubmitting}>
+<Button variant="primary" isLoading={isSubmitting}>
   {isSubmitting ? 'Saving…' : 'Save changes'}
 </Button>
 ```

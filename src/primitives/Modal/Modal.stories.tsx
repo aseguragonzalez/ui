@@ -60,6 +60,39 @@ export const Destructive: Story = {
   },
 };
 
+export const AsyncConfirmation: Story = {
+  render: () => {
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [failed, setFailed] = useState(false);
+    const confirm = () => {
+      setLoading(true);
+      setFailed(false);
+      setTimeout(() => {
+        setLoading(false);
+        setFailed(true);
+      }, 3000);
+    };
+    return (
+      <>
+        <Button variant="primary" onClick={() => setOpen(true)}>Open modal</Button>
+        <Modal open={open} onClose={() => setOpen(false)} title="Confirm action">
+          <ModalBody>
+            {failed && <Alert variant="error">The request failed. Try again.</Alert>}
+            <p style={{ margin: 0 }}>Confirming keeps focus on the button while the request is in progress.</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button variant="primary" isLoading={loading} loadingText="Confirming..." onClick={confirm}>
+              Confirm
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  },
+};
+
 export const WithForm: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
