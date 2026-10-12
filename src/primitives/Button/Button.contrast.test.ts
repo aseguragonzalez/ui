@@ -66,7 +66,7 @@ function contrast(foreground: string, background: string): number {
 const restBackgrounds = ['var(--ds-color-bg-page)', 'var(--ds-color-bg-surface)'];
 
 const cases = Object.entries(themes()).flatMap(([themeName, theme]) =>
-  ['secondary', 'ghost'].flatMap((variant) => {
+  ['primary', 'secondary', 'ghost'].flatMap((variant) => {
     const rest = rule(`.${variant}`);
     return [
       ['rest', rest],
@@ -84,8 +84,26 @@ const cases = Object.entries(themes()).flatMap(([themeName, theme]) =>
   }),
 );
 
-describe('Button secondary and ghost label contrast', () => {
+describe('Button primary, secondary and ghost label contrast', () => {
   it.each(cases)('$name reaches 4.5:1', ({ foreground, background }) => {
+    expect(contrast(foreground, background)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
+describe('Button destructive label contrast', () => {
+  const destructiveCases = Object.entries(themes()).flatMap(([themeName, theme]) => {
+    const rest = rule('.destructive');
+    return (['hover', 'active'] as const).map((state) => {
+      const { color, 'background-color': background } = { ...rest, ...rule(`.destructive:${state}:not(:disabled)`) };
+      return {
+        name: `${themeName} destructive ${state}: ${color} on ${background}`,
+        foreground: resolve(theme, color),
+        background: resolve(theme, background),
+      };
+    });
+  });
+
+  it.each(destructiveCases)('$name reaches 4.5:1', ({ foreground, background }) => {
     expect(contrast(foreground, background)).toBeGreaterThanOrEqual(4.5);
   });
 });
