@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Link } from './Link';
-import type { LinkComponentProps } from './LinkComponent';
+import { RouterLink } from '../../test/RouterLink';
 import { Text } from '../Text/Text';
-
-const RouterLink = ({ href, ...rest }: LinkComponentProps) => (
-  <a data-router-link="" href={`#${href}`} {...rest} />
-);
 
 const meta: Meta<typeof Link> = {
   title: 'Primitives/Link',

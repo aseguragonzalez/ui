@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Breadcrumb } from './Breadcrumb';
-import type { LinkComponentProps } from '../../primitives/Link/LinkComponent';
-
-const RouterLink = ({ href, ...rest }: LinkComponentProps) => (
-  <a data-router-link="" href={`#${href}`} {...rest} />
-);
+import { RouterLink } from '../../test/RouterLink';
 
 const meta: Meta<typeof Breadcrumb> = {
   title: 'Components/Breadcrumb',

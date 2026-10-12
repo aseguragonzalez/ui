@@ -49,7 +49,7 @@ export function AppNavbar() {
       actions={
         <Avatar
           src="/avatar.jpg"
-          alt="Carlos López"
+          name="Carlos López"
           size="sm"
         />
       }

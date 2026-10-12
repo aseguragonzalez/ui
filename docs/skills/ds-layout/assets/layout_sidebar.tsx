@@ -41,7 +41,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         footer={
           <Avatar
             src="/avatar.jpg"
-            alt="Ana García"
+            name="Ana García"
             size="sm"
           />
         }
