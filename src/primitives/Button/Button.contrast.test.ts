@@ -94,8 +94,9 @@ describe('Button primary, secondary and ghost label contrast', () => {
 describe('Button destructive label contrast', () => {
   const destructiveCases = Object.entries(themes()).flatMap(([themeName, theme]) => {
     const rest = rule('.destructive');
-    return (['hover', 'active'] as const).map((state) => {
-      const { color, 'background-color': background } = { ...rest, ...rule(`.destructive:${state}${enabled}`) };
+    return (['rest', 'hover', 'active'] as const).map((state) => {
+      const { color, 'background-color': background } =
+        state === 'rest' ? rest : { ...rest, ...rule(`.destructive:${state}${enabled}`) };
       return {
         name: `${themeName} destructive ${state}: ${color} on ${background}`,
         foreground: resolve(theme, color),

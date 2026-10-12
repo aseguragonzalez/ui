@@ -295,8 +295,8 @@
     --ds-color-action-accent-subtle:   var(--ds-palette-accent-900);
     --ds-color-text-on-accent:         var(--ds-palette-neutral-900);
 
-    --ds-color-action-danger:          var(--ds-palette-error-500);
-    --ds-color-action-danger-hover:    var(--ds-palette-error-600);
+    --ds-color-action-danger:          var(--ds-palette-error-600);
+    --ds-color-action-danger-hover:    var(--ds-palette-error-700);
     --ds-color-action-danger-active:   var(--ds-palette-error-700);
 
     --ds-color-input-bg:              #1e2438;
@@ -366,8 +366,8 @@
   --ds-color-action-accent-subtle:   var(--ds-palette-accent-900);
   --ds-color-text-on-accent:         var(--ds-palette-neutral-900);
 
-  --ds-color-action-danger:          var(--ds-palette-error-500);
-  --ds-color-action-danger-hover:    var(--ds-palette-error-600);
+  --ds-color-action-danger:          var(--ds-palette-error-600);
+  --ds-color-action-danger-hover:    var(--ds-palette-error-700);
   --ds-color-action-danger-active:   var(--ds-palette-error-700);
 
   --ds-color-input-bg:             #1e2438;
