@@ -95,7 +95,7 @@ export const WithActionColumn: Story = {
               Edit
             </Button>
             <Button
-              variant="danger"
+              variant="destructive"
               size="sm"
               onClick={() => alert(`Delete: ${row.name}`)}
             >

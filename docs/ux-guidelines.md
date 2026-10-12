@@ -143,12 +143,12 @@ Do not use modals for:
   </ModalBody>
   <ModalFooter>
     <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-    <Button variant="danger" onClick={handleDelete}>Delete workspace</Button>
+    <Button variant="destructive" onClick={handleDelete}>Delete workspace</Button>
   </ModalFooter>
 </Modal>
 ```
 
-Always include a cancel path. Always put the primary action on the right. For destructive confirmations, make the confirm button clearly destructive (use `variant="danger"` if your theme includes it, or use wording like "Delete workspace" instead of just "Confirm").
+Always include a cancel path. Always put the primary action on the right. For destructive confirmations, make the confirm button clearly destructive: use `variant="destructive"` and wording like "Delete workspace" instead of just "Confirm".
 
 ---
 
