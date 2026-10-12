@@ -64,7 +64,8 @@ That is all that is required. No build-time configuration, no class overrides.
 | `--ds-color-text-default` | `#111827` | Body copy, labels |
 | `--ds-color-text-muted` | `#6b7280` | Hints, captions, placeholders |
 | `--ds-color-text-disabled` | `#4b5563` | Disabled state text |
-| `--ds-color-text-on-action` | `#ffffff` | Text on primary buttons |
+| `--ds-color-text-on-action` | `#ffffff` | Text and marks on `--ds-color-action-primary` (primary buttons, checked checkboxes and radios, AuthLayout's brand panel); `#111827` in the dark theme |
+| `--ds-color-text-on-danger` | `#ffffff` | Text on destructive buttons |
 | `--ds-color-text-error` | `#b91c1c` | Error messages |
 | `--ds-color-text-success` | `#15803d` | Success messages |
 | `--ds-color-text-warning` | `#a16207` | Warning messages |

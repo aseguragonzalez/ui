@@ -185,6 +185,7 @@
   --ds-color-text-muted:      var(--ds-palette-neutral-500);
   --ds-color-text-disabled:   var(--ds-palette-neutral-500);
   --ds-color-text-on-action:  var(--ds-palette-neutral-0);
+  --ds-color-text-on-danger:  var(--ds-palette-neutral-0);
   --ds-color-text-on-accent:  var(--ds-palette-neutral-0);
   --ds-color-text-inverse:    var(--ds-palette-neutral-0);
   --ds-color-text-error:      var(--ds-palette-error-700);
@@ -264,7 +265,8 @@
     --ds-color-text-default:    var(--ds-palette-neutral-50);
     --ds-color-text-muted:      var(--ds-palette-neutral-400);
     --ds-color-text-disabled:   var(--ds-palette-neutral-400);
-    --ds-color-text-on-action:  var(--ds-palette-neutral-0);
+    --ds-color-text-on-action:  var(--ds-palette-neutral-900);
+    --ds-color-text-on-danger:  var(--ds-palette-neutral-0);
     --ds-color-text-on-accent:  var(--ds-palette-neutral-0);
     --ds-color-text-inverse:    var(--ds-palette-neutral-900);
     --ds-color-text-error:      var(--ds-palette-error-500);
@@ -335,7 +337,8 @@
   --ds-color-text-default:    var(--ds-palette-neutral-50);
   --ds-color-text-muted:      var(--ds-palette-neutral-400);
   --ds-color-text-disabled:   var(--ds-palette-neutral-400);
-  --ds-color-text-on-action:  var(--ds-palette-neutral-0);
+  --ds-color-text-on-action:  var(--ds-palette-neutral-900);
+  --ds-color-text-on-danger:  var(--ds-palette-neutral-0);
   --ds-color-text-on-accent:  var(--ds-palette-neutral-0);
   --ds-color-text-inverse:    var(--ds-palette-neutral-900);
   --ds-color-text-error:      var(--ds-palette-error-500);

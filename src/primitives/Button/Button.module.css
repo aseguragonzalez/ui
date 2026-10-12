@@ -117,7 +117,7 @@
 .destructive {
   background-color: var(--ds-color-action-danger);
   border-color: var(--ds-color-action-danger);
-  color: var(--ds-color-text-on-action);
+  color: var(--ds-color-text-on-danger);
 }
 
 .destructive:hover:not(:disabled) {
