@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/aseguragonzalez/ui/compare/v1.8.2...v1.8.3) (2026-10-12)
+
+
+### Bug Fixes
+
+* dim a disabled mixed RadioGroup label once and test number labels ([#174](https://github.com/aseguragonzalez/ui/issues/174)) ([6a99484](https://github.com/aseguragonzalez/ui/commit/6a994842e4084cf8f983a15075ec32a73064ff8f)), closes [#169](https://github.com/aseguragonzalez/ui/issues/169)
+
 ## [1.8.2](https://github.com/aseguragonzalez/ui/compare/v1.8.1...v1.8.2) (2026-10-10)
 
 
