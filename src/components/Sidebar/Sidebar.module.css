@@ -183,7 +183,7 @@
 
 .navLinkActive {
   background-color: var(--ds-color-action-primary-subtle);
-  color: var(--ds-color-action-primary);
+  color: var(--ds-color-text-action);
 }
 
 .navLinkIcon {
