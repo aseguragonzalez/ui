@@ -1,3 +1,10 @@
+## [1.8.8](https://github.com/aseguragonzalez/ui/compare/v1.8.7...v1.8.8) (2026-10-20)
+
+
+### Bug Fixes
+
+* keep brand-tinted labels at AA contrast on the subtle brand background in the dark theme ([#197](https://github.com/aseguragonzalez/ui/issues/197)) ([5614eb7](https://github.com/aseguragonzalez/ui/commit/5614eb72cfddacd68e168d27385398e4f4f7ea3a)), closes [#196](https://github.com/aseguragonzalez/ui/issues/196)
+
 ## [1.8.7](https://github.com/aseguragonzalez/ui/compare/v1.8.6...v1.8.7) (2026-10-12)
 
 
