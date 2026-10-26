@@ -6,17 +6,14 @@
   // install. Remove an entry as soon as a fix is reachable, preferring an update
   // or moving the dependency over keeping it here.
   "allowlist": [
-    // braces <= 3.0.3 has no patched release; it is only reached through
-    // micromatch (semantic-release) and chokidar (typed-css-modules), both
-    // development tooling that never sees untrusted input.
-    "GHSA-vfj7-8cjw-p6xm",
     // Copies bundled inside npm's own package (semantic-release's
-    // @semantic-release/npm), which package.json overrides cannot reach. No npm
-    // release up to 12.2.0 bundles fixed versions, and http-cache-semantics has
-    // no patched release at all.
+    // @semantic-release/npm), which package.json overrides cannot reach. No npm 11
+    // release (the major it requires, up to 11.21.1) bundles fixed versions, and
+    // http-cache-semantics has no patched release at all.
     "GHSA-6j4f-fj2g-mc7p|brace-expansion",
     "GHSA-qhr7-859c-m2p7|brace-expansion",
     "GHSA-rfgv-xxqx-mfg5|undici",
+    "GHSA-xjj6-f33q-929c|undici",
     "GHSA-ch52-4w7c-c8xp|http-cache-semantics",
   ],
 }
