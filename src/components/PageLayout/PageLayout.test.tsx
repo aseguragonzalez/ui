@@ -34,7 +34,7 @@ describe('PageLayout', () => {
   describe('gap prop', () => {
     it('applies gap as inline style', () => {
       render(<PageLayout data-testid="pl" gap={8}>content</PageLayout>);
-      expect(screen.getByTestId('pl')).toHaveStyle({ gap: 'var(--ds-space-8)' });
+      expect(screen.getByTestId('pl').style.gap).toBe('var(--ds-space-8)');
     });
   });
 
