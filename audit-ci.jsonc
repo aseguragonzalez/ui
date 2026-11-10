@@ -5,15 +5,5 @@
   // Every entry covers an advisory with no fixed version this repository can
   // install. Remove an entry as soon as a fix is reachable, preferring an update
   // or moving the dependency over keeping it here.
-  "allowlist": [
-    // Copies bundled inside npm's own package (semantic-release's
-    // @semantic-release/npm), which package.json overrides cannot reach. No npm 11
-    // release (the major it requires, up to 11.21.1) bundles fixed versions, and
-    // http-cache-semantics has no patched release at all.
-    "GHSA-6j4f-fj2g-mc7p|brace-expansion",
-    "GHSA-qhr7-859c-m2p7|brace-expansion",
-    "GHSA-rfgv-xxqx-mfg5|undici",
-    "GHSA-xjj6-f33q-929c|undici",
-    "GHSA-ch52-4w7c-c8xp|http-cache-semantics",
-  ],
+  "allowlist": [],
 }
