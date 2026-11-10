@@ -56,12 +56,12 @@ describe('Section', () => {
   describe('gap prop', () => {
     it('applies gap as inline style', () => {
       render(<Section data-testid="s" gap={6}>content</Section>);
-      expect(screen.getByTestId('s')).toHaveStyle({ gap: 'var(--ds-space-6)' });
+      expect(screen.getByTestId('s').style.gap).toBe('var(--ds-space-6)');
     });
 
     it('applies zero gap', () => {
       render(<Section data-testid="s" gap={0}>content</Section>);
-      expect(screen.getByTestId('s')).toHaveStyle({ gap: '0' });
+      expect(screen.getByTestId('s').style.gap).toBe('0px');
     });
   });
 
