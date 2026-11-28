@@ -1,6 +1,8 @@
 {
   "name": "ui",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+  "workspaceFolder": "/workspaces/ui",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/ui,type=bind",
   "remoteUser": "node",
   "appPort": [6006],
   "portsAttributes": {

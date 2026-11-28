@@ -1,0 +1,63 @@
+{
+  "$schema": "https://github.com/aseguragonzalez/claude-workspace/schemas/contract.schema.json",
+  "components": [
+    {
+      "gates": {
+        "browser": {
+          "run": "npm run test:storybook"
+        },
+        "build": {
+          "run": "npm run build && node scripts/verify-package.mjs && node scripts/check-tree-shaking.mjs"
+        },
+        "lint": {
+          "run": "npm run lint"
+        },
+        "unit": {
+          "run": "npm test"
+        }
+      },
+      "install": {
+        "run": "npm ci"
+      },
+      "name": "ui",
+      "path": "."
+    }
+  ],
+  "conventions": {
+    "issueReference": "relates",
+    "quirks": [
+      "devcontainer.json sets no workspaceFolder, so the container path defaults to /workspaces/<checkout folder name>, which differs per worktree; declaring it in devcontainer.json makes /workspaces/ui hold everywhere.",
+      "The devcontainer's postCreateCommand already runs npm ci and installs Playwright's Chromium, which the browser gate needs.",
+      "There is no format or separate typecheck script: tsc -b runs inside npm run build, and npm run types:css must run after a CSS Module class is added or removed.",
+      "The required check 'quality / Lint, test and build' also runs npm run audit (audit-ci with audit-ci.jsonc's allowlist) and npm run test:coverage; CI never runs npm run test:storybook.",
+      "main only accepts squash merges with linear history, resolved review threads and a code owner's approval (.github/CODEOWNERS).",
+      "semantic-release publishes to npm on every push to main and commits 'chore: release <version> [skip ci]' there; fix and perf commits scoped deps or deps-dev don't release.",
+      "Never bump the version in package.json in a pull request (CONTRIBUTING.md#versioning)."
+    ],
+    "requiredChecks": [
+      "quality / Lint, test and build",
+      "Conventional Commits"
+    ],
+    "signedCommits": true
+  },
+  "delivery": {
+    "done": "published",
+    "release": "semantic-release"
+  },
+  "invariants": [
+    "CLAUDE.md",
+    "CONTRIBUTING.md",
+    "docs/contributing.md",
+    "docs/accessibility.md"
+  ],
+  "stack": {
+    "basis": "Estimate: a single typescript-node:22 devcontainer with no services; the peak is the Storybook browser suite running headless Chromium beside Vitest workers, plus about 1 GiB of node_modules and the Chromium download per worktree.",
+    "diskMiB": 3072,
+    "memoryMiB": 3072
+  },
+  "toolchain": {
+    "kind": "devcontainer",
+    "workspaceFolder": "/workspaces/ui"
+  },
+  "version": 1
+}
