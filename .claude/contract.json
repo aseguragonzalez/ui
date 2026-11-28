@@ -26,13 +26,15 @@
   "conventions": {
     "issueReference": "relates",
     "quirks": [
-      "devcontainer.json sets no workspaceFolder, so the container path defaults to /workspaces/<checkout folder name>, which differs per worktree; declaring it in devcontainer.json makes /workspaces/ui hold everywhere.",
       "The devcontainer's postCreateCommand already runs npm ci and installs Playwright's Chromium, which the browser gate needs.",
       "There is no format or separate typecheck script: tsc -b runs inside npm run build, and npm run types:css must run after a CSS Module class is added or removed.",
       "The required check 'quality / Lint, test and build' also runs npm run audit (audit-ci with audit-ci.jsonc's allowlist) and npm run test:coverage; CI never runs npm run test:storybook.",
-      "main only accepts squash merges with linear history, resolved review threads and a code owner's approval (.github/CODEOWNERS).",
-      "semantic-release publishes to npm on every push to main and commits 'chore: release <version> [skip ci]' there; fix and perf commits scoped deps or deps-dev don't release.",
-      "Never bump the version in package.json in a pull request (CONTRIBUTING.md#versioning)."
+      "main only accepts squash merges with linear history, resolved review threads and a code owner's approval (.github/CODEOWNERS), and CodeQL code scanning with no security alert of high severity or more and no error or warning alert.",
+      "semantic-release publishes to npm only when the commits pushed to main include a feat, fix, perf or breaking change (fix and perf scoped deps or deps-dev excluded, .releaserc.json), and then commits 'chore: release <version> [skip ci]'; a chore: or docs: merge publishes nothing and its issue waits for the next release.",
+      "Never bump the version in package.json in a pull request (CONTRIBUTING.md#versioning).",
+      "main requires the branch to be up to date with main before merging (strict status checks), and a push dismisses stale approvals, so a pull request behind main is updated and validated again before it merges.",
+      "The repository has auto-merge disabled, so pr-handoff.mjs mark-ready cannot enable it: the maintainer merges by hand until it is enabled.",
+      "The devcontainer publishes host port 6006 (appPort, Storybook), so only one ui stack can run at a time, the maintainer's own ui container included: stop the other before bringing a worktree stack up."
     ],
     "requiredChecks": [
       "quality / Lint, test and build",
